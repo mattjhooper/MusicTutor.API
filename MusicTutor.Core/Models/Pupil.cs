@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace MusicTutorAPI.Core.Models
 {
     public class Pupil
     {
 
+        public const int NameLength = 150;
+        
         public int Id { get; private set; }
 
         public string Name { get; private set; }

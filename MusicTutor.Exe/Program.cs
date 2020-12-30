@@ -73,7 +73,7 @@ namespace MusicTutor.Exe
             builder
                 .Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(150); 
+                .HasMaxLength(Pupil.NameLength); 
 
             builder
                 .Property(p => p.AccountBalance)
@@ -97,7 +97,7 @@ namespace MusicTutor.Exe
     public class PupilsContext : DbContext
     {
         public DbSet<Pupil> Pupils  { get; set; } 
-  //      public DbSet<Lesson> Lessons  { get; set; } 
+        public DbSet<Instrument> Instruments  { get; set; } 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
