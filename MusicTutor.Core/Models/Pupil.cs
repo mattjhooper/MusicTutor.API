@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using MusicTutorAPI.Core.Base;
 
 namespace MusicTutorAPI.Core.Models
 {
-    public class Pupil
+    public class Pupil : ModelBase
     {
 
         public const int NameLength = 150;

@@ -9,5 +9,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Core\MusicTutor.Core.csproj" />
+    <ProjectReference Include="..\MusicTutor.Data\MusicTutor.Data.csproj" />
   </ItemGroup>
 </Project>

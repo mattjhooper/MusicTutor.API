@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
+using MusicTutor.Data.Configuration;
+using MusicTutor.Data;
 using MusicTutorAPI.Core.Models;
 
 namespace MusicTutor.Exe
@@ -64,51 +66,5 @@ namespace MusicTutor.Exe
                 }
             }
         }
-    }
-
-    public class PupilConfiguration : IEntityTypeConfiguration<Pupil>
-    {
-        public void Configure(EntityTypeBuilder<Pupil> builder)
-        {
-            builder
-                .Property(p => p.Name)
-                .IsRequired()
-                .HasMaxLength(Pupil.NameLength); 
-
-            builder
-                .Property(p => p.AccountBalance)
-                .HasColumnType("decimal(6, 2)")
-                .IsRequired();     
-
-            builder
-                .Property(p => p.CurrentLessonRate)
-                .HasColumnType("decimal(6, 2)")
-                .IsRequired();         
-
-            builder
-                .Property(p => p.Timestamp)
-                .IsRowVersion(); 
-
-            builder
-                .OwnsOne(p => p.Contact);                 
-        }
-    }
-
-    public class PupilsContext : DbContext
-    {
-        public DbSet<Pupil> Pupils  { get; set; } 
-        public DbSet<Instrument> Instruments  { get; set; } 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder
-                .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging()
-                .UseSqlServer(@"server=.\SQLEXPRESS; database=MusicTutor2020; Trusted_Connection=True");
-
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            builder
-                .ApplyConfiguration(new PupilConfiguration());            
-        }                
-    }
+    }    
 }
