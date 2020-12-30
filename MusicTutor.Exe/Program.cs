@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
+using MusicTutorAPI.Core.Models;
 
 namespace MusicTutor.Exe
 {
@@ -10,37 +12,35 @@ namespace MusicTutor.Exe
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Matt!");
             using (var context = new PupilsContext())
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
-                context.Add(new Pupil
-                {
-                    Name = "Matt",
-                    Lessons = 
-                    {
-                        new Lesson
+                var pupil = new Pupil("Matt", 15.0M, DateTime.Now, 7, new Contact("Janet", "janet@mailinator.com"));
+                pupil.AddLesson(new Lesson
                         {
                             StartDateTime = DateTime.Now,
                             EndDateTime = DateTime.Now.AddHours(1),
                             Cost = 15M
-                        },
-                        new Lesson
+                        });
+
+                pupil.AddLesson(new Lesson
                         {
                             StartDateTime = DateTime.Now.AddDays(7),
                             EndDateTime = DateTime.Now.AddDays(7).AddHours(1),
                             Cost = 15M
-                        },
-                        new Lesson
+                        });  
+
+                pupil.AddLesson(new Lesson
                         {
                             StartDateTime = DateTime.Now.AddDays(14),
                             EndDateTime = DateTime.Now.AddDays(14).AddHours(1),
                             Cost = 15M
-                        }
-                    }
-                });
+                        });                                             
+
+
+                context.Add(pupil);
 
                 context.SaveChanges();
             }
@@ -66,37 +66,49 @@ namespace MusicTutor.Exe
         }
     }
 
-    public class Pupil
+    public class PupilConfiguration : IEntityTypeConfiguration<Pupil>
     {
-        public int Id { get; set; }
-        
-        public string Name { get; set; }
+        public void Configure(EntityTypeBuilder<Pupil> builder)
+        {
+            builder
+                .Property(p => p.Name)
+                .IsRequired()
+                .HasMaxLength(150); 
 
-        public ICollection<Lesson> Lessons { get; } = new List<Lesson>();
-    }
+            builder
+                .Property(p => p.AccountBalance)
+                .HasColumnType("decimal(6, 2)")
+                .IsRequired();     
 
-    public class Lesson 
-    {
-        public int Id { get; set; }
-        public DateTime StartDateTime { get; set; }
+            builder
+                .Property(p => p.CurrentLessonRate)
+                .HasColumnType("decimal(6, 2)")
+                .IsRequired();         
 
-        public DateTime EndDateTime { get; set; }
+            builder
+                .Property(p => p.Timestamp)
+                .IsRowVersion(); 
 
-        public decimal Cost { get; set; } 
-
-        public Pupil Pupil { get; set; }
-
+            builder
+                .OwnsOne(p => p.Contact);                 
+        }
     }
 
     public class PupilsContext : DbContext
     {
         public DbSet<Pupil> Pupils  { get; set; } 
-        public DbSet<Lesson> Lessons  { get; set; } 
+  //      public DbSet<Lesson> Lessons  { get; set; } 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
-                .UseSqlServer(@"server=.\SQLEXPRESS; database=MusicTutor2020; user id=sa; password=Sql#2020");
+                .UseSqlServer(@"server=.\SQLEXPRESS; database=MusicTutor2020; Trusted_Connection=True");
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder
+                .ApplyConfiguration(new PupilConfiguration());            
+        }                
     }
 }
