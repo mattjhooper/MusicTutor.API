@@ -51,9 +51,15 @@ namespace MusicTutorAPI.Core.Models
             this(name, currentLessonRate, startDate, frequencyInDays, new Contact(contactName, contactEmail, contactPhone))
         {}
 
-        public void AddLesson(Lesson lesson)
+        public void AddCompletedLesson(DateTime startDateTime, int durationInMinutes, decimal cost)
         {
-            _lessons.Add(lesson);
+            _lessons.Add(new Lesson(startDateTime, durationInMinutes, cost, false));
+            AccountBalance -= cost;
+        }
+
+        public void AddPlannedLesson(DateTime startDateTime, int durationInMinutes, decimal cost)
+        {
+            _lessons.Add(new Lesson(startDateTime, durationInMinutes, cost, true));
         }
 
     }

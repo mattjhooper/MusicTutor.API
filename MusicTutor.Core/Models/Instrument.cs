@@ -4,6 +4,8 @@ namespace MusicTutorAPI.Core.Models
 {
     public class Instrument 
     {
+        public const int NameLength = 50;
+
         private Instrument() {}
 
         public Instrument(string name)

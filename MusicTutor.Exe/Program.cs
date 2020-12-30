@@ -20,27 +20,9 @@ namespace MusicTutor.Exe
                 context.Database.EnsureCreated();
 
                 var pupil = new Pupil("Matt", 15.0M, DateTime.Now, 7, new Contact("Janet", "janet@mailinator.com"));
-                pupil.AddLesson(new Lesson
-                        {
-                            StartDateTime = DateTime.Now,
-                            EndDateTime = DateTime.Now.AddHours(1),
-                            Cost = 15M
-                        });
-
-                pupil.AddLesson(new Lesson
-                        {
-                            StartDateTime = DateTime.Now.AddDays(7),
-                            EndDateTime = DateTime.Now.AddDays(7).AddHours(1),
-                            Cost = 15M
-                        });  
-
-                pupil.AddLesson(new Lesson
-                        {
-                            StartDateTime = DateTime.Now.AddDays(14),
-                            EndDateTime = DateTime.Now.AddDays(14).AddHours(1),
-                            Cost = 15M
-                        });                                             
-
+                DateTime completedLessonStart = DateTime.Now.AddHours(-1);
+                pupil.AddCompletedLesson(completedLessonStart, 30, pupil.CurrentLessonRate);
+                pupil.AddPlannedLesson(completedLessonStart.AddDays(pupil.FrequencyInDays), 30, pupil.CurrentLessonRate);                                         
 
                 context.Add(pupil);
 
@@ -58,7 +40,7 @@ namespace MusicTutor.Exe
 
                 foreach (var pupil in pupils)
                 {
-                    Console.WriteLine($"Pupil: {pupil.Name}");
+                    Console.WriteLine($"Pupil: {pupil.Name}. Account Balance: {pupil.AccountBalance}");
                     foreach (var lesson in pupil.Lessons)
                     {
                         Console.WriteLine($"   Lesson: {lesson.StartDateTime}");
