@@ -1,7 +1,7 @@
 using System;
-using MusicTutorAPI.Core.Base;
+using MusicTutor.Core.Base;
 
-namespace MusicTutorAPI.Core.Models
+namespace MusicTutor.Core.Models
 {
     public class Lesson : ModelBase 
     {

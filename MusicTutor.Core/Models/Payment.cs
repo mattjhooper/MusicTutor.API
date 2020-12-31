@@ -1,6 +1,6 @@
 using System;
 
-namespace MusicTutorAPI.Core.Models
+namespace MusicTutor.Core.Models
 {
     public class Payment 
     {

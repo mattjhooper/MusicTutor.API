@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
 using MusicTutor.Data.Configuration;
 using MusicTutor.Data;
-using MusicTutorAPI.Core.Models;
+using MusicTutor.Core.Models;
 
 namespace MusicTutor.Exe
 {
@@ -14,7 +14,7 @@ namespace MusicTutor.Exe
     {
         static void Main(string[] args)
         {
-            using (var context = new PupilsContext())
+            using (var context = new MusicTutorDbContext())
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -45,7 +45,7 @@ namespace MusicTutor.Exe
                 context.SaveChanges();
             }
 
-            using (var context = new PupilsContext())
+            using (var context = new MusicTutorDbContext())
             {
                 var queryable = context.Pupils.Include(x => x.Lessons).Include(p => p.Instruments);
 

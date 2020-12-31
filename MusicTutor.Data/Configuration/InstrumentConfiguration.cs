@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicTutorAPI.Core.Models;
+using MusicTutor.Core.Models;
 
 
 namespace MusicTutor.Data.Configuration

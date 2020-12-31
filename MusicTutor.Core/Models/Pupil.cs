@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using MusicTutorAPI.Core.Base;
+using MusicTutor.Core.Base;
 
-namespace MusicTutorAPI.Core.Models
+namespace MusicTutor.Core.Models
 {
     public class Pupil : ModelBase
     {

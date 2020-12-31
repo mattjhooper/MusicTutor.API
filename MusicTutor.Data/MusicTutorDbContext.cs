@@ -6,14 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
 using MusicTutor.Data.Configuration;
-using MusicTutorAPI.Core.Models;
+using MusicTutor.Core.Models;
 
 namespace MusicTutor.Data
 {    
-    public class PupilsContext : DbContext
+    public class MusicTutorDbContext : DbContext
     {
         public DbSet<Pupil> Pupils  { get; set; } 
         public DbSet<Instrument> Instruments  { get; set; } 
+
+        public MusicTutorDbContext(DbContextOptions<MusicTutorDbContext> options)
+            : base(options)
+        { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder

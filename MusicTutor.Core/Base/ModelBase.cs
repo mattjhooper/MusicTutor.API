@@ -1,4 +1,4 @@
-namespace MusicTutorAPI.Core.Base
+namespace MusicTutor.Core.Base
 {
     public abstract class ModelBase
     {

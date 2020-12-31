@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MusicTutorAPI.Core.Models
+namespace MusicTutor.Core.Models
 {
     public class Instrument 
     {

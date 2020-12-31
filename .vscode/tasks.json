@@ -7,11 +7,16 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/MusicTutor.Exe/MusicTutor.Exe.csproj",
+                "${workspaceFolder}/MusicTutor.Api/MusicTutor.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+             }
+
         },
         {
             "label": "publish",
@@ -19,7 +24,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/MusicTutor.Exe/MusicTutor.Exe.csproj",
+                "${workspaceFolder}/MusicTutor.Api/MusicTutor.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -32,7 +37,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/MusicTutor.Exe/MusicTutor.Exe.csproj",
+                "${workspaceFolder}/MusicTutor.Api/MusicTutor.Api.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

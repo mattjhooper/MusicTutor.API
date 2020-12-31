@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MusicTutorAPI.Core.Models;
+using MusicTutor.Core.Models;
 
-namespace MusicTutorAPI.Data.Configurations
+namespace MusicTutor.Data.Configurations
 {
     // https://docs.microsoft.com/en-us/ef/core/modeling/#use-fluent-api-to-configure-a-model
     public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
