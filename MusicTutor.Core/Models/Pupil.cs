@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using MusicTutorAPI.Core.Base;
 
 namespace MusicTutorAPI.Core.Models
@@ -43,17 +44,25 @@ namespace MusicTutorAPI.Core.Models
             _lessons = new List<Lesson>();
         }
 
-        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, Contact contact) : this()
+        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, Contact contact) : this()
         {
             Name = name;
             CurrentLessonRate = currentLessonRate;
             StartDate = startDate;
             FrequencyInDays = frequencyInDays;  
-            Contact = contact;          
+            Contact = contact;
+            
+            if (instruments is null)
+                throw new ArgumentNullException(nameof(instruments));
+
+            _instruments = new HashSet<Instrument>(instruments);
+
+            if (!instruments.Any())            
+                throw new InvalidOperationException("Pupil must have at least one instrument");
         }
         
-        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail = null, string contactPhone = null) : 
-            this(name, currentLessonRate, startDate, frequencyInDays, new Contact(contactName, contactEmail, contactPhone))
+        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null) : 
+            this(name, currentLessonRate, startDate, frequencyInDays, instruments, new Contact(contactName, contactEmail, contactPhone))
         {}
 
         public void AddCompletedLesson(DateTime startDateTime, int durationInMinutes, decimal cost)
@@ -65,6 +74,19 @@ namespace MusicTutorAPI.Core.Models
         public void AddPlannedLesson(DateTime startDateTime, int durationInMinutes, decimal cost)
         {
             _lessons.Add(new Lesson(startDateTime, durationInMinutes, cost, true));
+        }
+
+        public string InstrumentsToString()
+        {
+            if (_instruments == null)
+                throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+            
+            return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
+        } 
+
+        public static Pupil CreatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null)
+        {
+            return new Pupil(name, currentLessonRate, startDate, frequencyInDays, instruments, new Contact(contactName, contactEmail, contactPhone));
         }
 
     }

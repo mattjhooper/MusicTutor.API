@@ -25,12 +25,14 @@ namespace MusicTutorAPI.Core.Models
 
         public int PupilId { get; private set; }
 
-        public Pupil Pupil { get; private set; }
+        public Pupil Pupil { get; private set; }        
 
         // public int InstrumentId { get; set; }
         // public Instrument Instrument { get; set; }
     
         public bool IsPlanned { get; private set; } = false;
+
+        public string Status => IsPlanned? "Planned" : "Complete";
 
     }
 }
