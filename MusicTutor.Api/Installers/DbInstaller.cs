@@ -7,7 +7,7 @@ using MusicTutor.Data;
 
 namespace MusicTutor.Api.Installers
 {
-    public class DbAndGenericServicesInstaller : IInstaller
+    public class DbInstaller : IInstaller
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {

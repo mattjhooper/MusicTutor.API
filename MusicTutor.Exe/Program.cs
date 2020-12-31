@@ -14,7 +14,9 @@ namespace MusicTutor.Exe
     {
         static void Main(string[] args)
         {
-            using (var context = new MusicTutorDbContext())
+            var options = new DbContextOptions<MusicTutorDbContext>();
+
+            using (var context = new MusicTutorDbContext(options))
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
@@ -45,7 +47,7 @@ namespace MusicTutor.Exe
                 context.SaveChanges();
             }
 
-            using (var context = new MusicTutorDbContext())
+            using (var context = new MusicTutorDbContext(options))
             {
                 var queryable = context.Pupils.Include(x => x.Lessons).Include(p => p.Instruments);
 
