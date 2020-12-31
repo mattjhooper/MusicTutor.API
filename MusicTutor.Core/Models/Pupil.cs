@@ -33,7 +33,10 @@ namespace MusicTutorAPI.Core.Models
         private List<Lesson> _lessons;
         public IEnumerable<Lesson> Lessons => _lessons;
 
-        
+        private HashSet<Instrument> _instruments;
+        public IEnumerable<Instrument> Instruments => _instruments;
+
+
         private Pupil()
         {
             _payments = new List<Payment>();

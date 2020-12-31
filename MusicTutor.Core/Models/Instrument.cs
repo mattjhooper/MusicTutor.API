@@ -15,6 +15,9 @@ namespace MusicTutorAPI.Core.Models
         public int Id { get; private set; }
         
         public string Name { get; private set; }
+
+        private HashSet<Pupil> _pupils;
+        public IEnumerable<Pupil> Pupils => _pupils;
         
     }
 }
