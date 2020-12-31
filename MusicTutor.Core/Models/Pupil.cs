@@ -32,6 +32,8 @@ namespace MusicTutorAPI.Core.Models
 
         private List<Lesson> _lessons;
         public IEnumerable<Lesson> Lessons => _lessons;
+
+        
         private Pupil()
         {
             _payments = new List<Payment>();

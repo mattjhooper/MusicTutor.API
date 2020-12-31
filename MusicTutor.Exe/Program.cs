@@ -26,6 +26,9 @@ namespace MusicTutor.Exe
 
                 context.Add(pupil);
 
+                Instrument[] instruments = { new Instrument("Piano"), new Instrument("Flute")}; 
+                context.Instruments.AddRange(instruments);
+
                 context.SaveChanges();
             }
 
