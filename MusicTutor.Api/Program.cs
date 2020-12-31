@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MusicTutor.Api.Helpers;
 
 namespace MusicTutor.Api
 {
@@ -13,7 +14,7 @@ namespace MusicTutor.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().SetupDevelopmentDatabase().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
