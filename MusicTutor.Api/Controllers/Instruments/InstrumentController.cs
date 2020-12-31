@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Controllers.Instruments.Dtos;
+using MusicTutor.Api.Queries.Instruments;
 using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
     public class InstrumentController : BaseApiController
     {
-
-        public InstrumentController() : base()
-        {            
+        public InstrumentController(IMediator mediator) : base(mediator)
+        {                       
         }
 
         /// <summary>
@@ -32,7 +33,8 @@ namespace MusicTutor.Api.Controllers.Instruments
         [HttpGet("{id}", Name = "GetSingleInstrument")]
         public async Task<ActionResult<Instrument>> GetSingleAsync(int id)
         {
-            return Ok(new Instrument("Piano"));
+            var instrument = await mediator.Send(new GetSingleInstrumentRequest(id));
+            return Ok(instrument);
         }
 
         // /// <summary>

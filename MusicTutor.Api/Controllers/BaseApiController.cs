@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MusicTutor.Api.Controllers
@@ -6,8 +7,10 @@ namespace MusicTutor.Api.Controllers
     [Route("[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
-        public BaseApiController()
+        protected readonly IMediator mediator;
+        public BaseApiController(IMediator mediator)
         {
+            this.mediator = mediator;
         }        
     }
 }
