@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MusicTutor.Api.Installers;
+using MusicTutor.Api.Settings;
 
 namespace MusicTutor.Api
 {
@@ -33,16 +34,20 @@ namespace MusicTutor.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => 
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MusicTutor.Api v1");
-                    c.RoutePrefix = string.Empty;
-                });
             }
+            
+            var swaggerSettings = Configuration.GetSection(nameof(SwaggerSettings)).Get<SwaggerSettings>();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint(swaggerSettings.Url, swaggerSettings.Name);
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseHttpsRedirection();
 
