@@ -3,15 +3,16 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Api.Controllers.Instruments.Dtos;
 using MusicTutor.Api.Queries.Instruments;
 using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
-    public class InstrumentController : BaseApiController
+    public class InstrumentsController : BaseApiController
     {
-        public InstrumentController(IMediator mediator) : base(mediator)
+        public InstrumentsController(IMediator mediator) : base(mediator)
         {                       
         }
 
@@ -20,9 +21,11 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<List<Instrument>>> GetManyAsync()
+        public async Task<ActionResult<IEnumerable<InstrumentResponseDto>>> GetManyAsync()
         {
-            return Ok(new List<Instrument>() { new Instrument("Piano")});
+            var instruments = await mediator.Send(new GetAllInstruments());
+            
+            return Ok(instruments);
         }
 
         /// <summary>
@@ -31,42 +34,45 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingleInstrument")]
-        public async Task<ActionResult<Instrument>> GetSingleAsync(int id)
+        public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync(int id)
         {
-            var instrument = await mediator.Send(new GetSingleInstrumentRequest(id));
+            var instrument = await mediator.Send(new GetByInstrumentId(id));
+
+            if (instrument is null)
+                return NotFound();
+
             return Ok(instrument);
         }
 
-        // /// <summary>
-        // /// Creates a new Instrument and returns the created entity, with the Id value provided by the database
-        // /// </summary>
-        // /// <remarks>
-        // /// Section to add any remarks
-        // /// </remarks>
-        // /// <param name="item"></param>
-        // /// <returns>If successful it returns a CreatedAtRoute response - see
-        // /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
-        // /// </returns>
-        // [ProducesResponseType(typeof(CreateInstrumentDto), 201)] //You need this, otherwise Swagger says the success status is 200, not 201
-        // [ProducesResponseType(typeof(string), 400)]
-        // [HttpPost]
-        // public async Task<ActionResult<CreateInstrumentDto>> PostAsync(CreateInstrumentDto item)
-        // {
-
-        //     try
-        //     {
-        //         var result = await _service.CreateAndSaveAsync(item);
-        //         //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSingleTodo")],
-        //         //on the Get you want to call, then then use the Name value in the Response.
-        //         //Otherwise you get a "No route matches the supplied values" error.
-        //         //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-        //         return _service.Response(this, "GetSingleInstrument", new { id = result.Id }, result);
-        //     }
-        //     catch (DbUpdateException ex)
-        //     {
-        //         return BadRequest(ex.InnerException.Message);
-        //     }
-        // }
+        /// <summary>
+        /// Creates a new Instrument and returns the created entity, with the Id value provided by the database
+        /// </summary>
+        /// <remarks>
+        /// Section to add any remarks
+        /// </remarks>
+        /// <param name="item"></param>
+        /// <returns>If successful it returns a CreatedAtRoute response - see
+        /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
+        /// </returns>
+        [ProducesResponseType(typeof(InstrumentResponseDto), 201)] //You need this, otherwise Swagger says the success status is 200, not 201
+        [ProducesResponseType(typeof(string), 400)]
+        [HttpPost]
+        public async Task<ActionResult<InstrumentResponseDto>> PostAsync([FromBody] CreateInstrumentDto item)
+        {
+            try
+            {
+                var result = await mediator.Send(new CreateInstrument(item));
+                //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSingleInstrument")],
+                //on the Get you want to call, then then use the Name value in the Response.
+                //Otherwise you get a "No route matches the supplied values" error.
+                //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
+                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id } , result);
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
 
         // /// <summary>
         // /// Updates the Name. 

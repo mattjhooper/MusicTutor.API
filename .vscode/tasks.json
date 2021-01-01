@@ -36,10 +36,9 @@
             "type": "process",
             "args": [
                 "watch",
-                "run",
+                "--project",
                 "${workspaceFolder}/MusicTutor.Api/MusicTutor.Api.csproj",
-                "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "run"
             ],
             "problemMatcher": "$msCompile"
         }
