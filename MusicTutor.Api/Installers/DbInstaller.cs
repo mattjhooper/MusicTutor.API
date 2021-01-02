@@ -1,9 +1,9 @@
-using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MusicTutor.Api.Controllers.Instruments.Dtos;
-using MusicTutor.Data;
+using MusicTutor.Core.Services;
+using MusicTutor.Data.EFCore;
+using MusicTutor.Data.EFCore.Services;
 
 namespace MusicTutor.Api.Installers
 {
@@ -17,6 +17,8 @@ namespace MusicTutor.Api.Installers
             //    opt.UseInMemoryDatabase("MusicTutorFull"));            
 
             services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
+
+            services.AddScoped<IDataService, DataServiceEFCore>();
         }
     }
 }

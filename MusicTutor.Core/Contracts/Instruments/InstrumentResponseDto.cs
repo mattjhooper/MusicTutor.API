@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Api.Controllers.Instruments.Dtos
+namespace MusicTutor.Core.Contracts.Instruments
 {
     public record InstrumentResponseDto(int Id, string Name)
     {

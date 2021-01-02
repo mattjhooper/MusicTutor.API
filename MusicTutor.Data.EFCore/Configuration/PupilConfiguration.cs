@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MusicTutor.Core.Models;
 
 
-namespace MusicTutor.Data.Configuration
+namespace MusicTutor.Data.EFCore.Configuration
 {
     public class PupilConfiguration : IEntityTypeConfiguration<Pupil>
     {

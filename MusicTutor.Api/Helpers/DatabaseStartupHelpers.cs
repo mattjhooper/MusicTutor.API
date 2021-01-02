@@ -1,11 +1,6 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using MusicTutor.Api;
-using MusicTutor.Data;
-using MusicTutor.Data.Services;
+using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.Helpers
 {
@@ -17,23 +12,9 @@ namespace MusicTutor.Api.Helpers
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                using (var context = services.GetRequiredService<MusicTutorDbContext>())
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();                        
-                    try
-                    {
-                        logger.LogInformation("****** Call DevelopmentEnsureDeleted **********");
-                        context.DevelopmentEnsureDeleted();
-                        logger.LogInformation("****** Call DevelopmentEnsureCreated **********");
-                        context.DevelopmentEnsureCreated();
-                        logger.LogInformation("****** Call SeedDatabase **********");
-                        context.SeedDatabase(Directory.GetCurrentDirectory());
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.LogError(ex, "An error occurred while setting up or seeding the development database.");
-                    }
-                }
+
+                var dataService = services.GetRequiredService<IDataService>();
+                dataService.SetupDataStore();
             }
 
             return host;

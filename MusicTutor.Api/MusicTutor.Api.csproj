@@ -21,6 +21,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Core\MusicTutor.Core.csproj"/>
-    <ProjectReference Include="..\MusicTutor.Data\MusicTutor.Data.csproj"/>
+    <ProjectReference Include="..\MusicTutor.Cqs\MusicTutor.Cqs.csproj" />
+    <ProjectReference Include="..\MusicTutor.Data.EFCore\MusicTutor.Data.EFCore.csproj"/>
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
-using MusicTutor.Data.Configuration;
+using MusicTutor.Data.EFCore.Configuration;
 using MusicTutor.Data;
 using MusicTutor.Core.Models;
 

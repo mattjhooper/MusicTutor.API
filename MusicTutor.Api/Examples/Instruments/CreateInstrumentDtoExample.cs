@@ -1,7 +1,7 @@
-using MusicTutor.Api.Controllers.Instruments.Dtos;
+using MusicTutor.Core.Contracts.Instruments;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace MusicTutor.Api.Controllers.Instruments.Dtos
+namespace MusicTutor.Api.Examples.Instruments
 {
     public class CreateInstrumentDtoExample : IExamplesProvider<CreateInstrumentDto>
     {

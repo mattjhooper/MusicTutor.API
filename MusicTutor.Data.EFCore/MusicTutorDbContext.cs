@@ -5,10 +5,10 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
-using MusicTutor.Data.Configuration;
+using MusicTutor.Data.EFCore.Configuration;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Data
+namespace MusicTutor.Data.EFCore
 {    
     public class MusicTutorDbContext : DbContext
     {

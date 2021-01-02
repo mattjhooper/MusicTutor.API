@@ -1,13 +1,11 @@
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MusicTutor.Api.Commands.Instruments;
-using MusicTutor.Api.Controllers.Instruments.Dtos;
+using MusicTutor.Core.Contracts.Instruments;
 using MusicTutor.Core.Models;
-using MusicTutor.Data;
+using MusicTutor.Cqs.Commands.Instruments;
 
-namespace MusicTutor.Api.Handlers.Instruments
+namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
     public record CreateInstrumentHandler(MusicTutorDbContext DbContext) : IRequestHandler<CreateInstrument, InstrumentResponseDto>
     {        

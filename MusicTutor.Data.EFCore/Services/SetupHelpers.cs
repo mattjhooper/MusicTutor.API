@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using MusicTutor.Core.Models;
 using MusicTutor.Data;
 
-namespace MusicTutor.Data.Services
+namespace MusicTutor.Data.EFCore.Services
 {
     public static class SetupHelpers
     {

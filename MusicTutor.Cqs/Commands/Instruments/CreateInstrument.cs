@@ -1,7 +1,7 @@
 using MediatR;
-using MusicTutor.Api.Controllers.Instruments.Dtos;
+using MusicTutor.Core.Contracts.Instruments;
 
-namespace MusicTutor.Api.Commands.Instruments
+namespace MusicTutor.Cqs.Commands.Instruments
 {
     public record CreateInstrument(CreateInstrumentDto InstrumentToCreate) : IRequest<InstrumentResponseDto> {}     
 

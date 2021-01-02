@@ -2,11 +2,10 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MusicTutor.Api.Controllers.Instruments.Dtos;
-using MusicTutor.Api.Queries.Instruments;
-using MusicTutor.Data;
+using MusicTutor.Core.Contracts.Instruments;
+using MusicTutor.Cqs.Queries.Instruments;
 
-namespace MusicTutor.Api.Handlers.Instruments
+namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
     public record GetByInstrumentIdHandler(MusicTutorDbContext DbContext) : IRequestHandler<GetByInstrumentId, InstrumentResponseDto>
     {        

@@ -2,11 +2,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Core\MusicTutor.Core.csproj" />
+    <ProjectReference Include="..\MusicTutor.Cqs\MusicTutor.Cqs.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
 
   <PropertyGroup>

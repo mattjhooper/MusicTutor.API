@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Api.Controllers.Instruments.Dtos
+namespace MusicTutor.Core.Contracts.Instruments
 {
     public class CreateInstrumentDto
     {
