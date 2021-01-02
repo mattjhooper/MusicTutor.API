@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicTutor.Core.Services;
 using MusicTutor.Data.EFCore;
 using MusicTutor.Data.EFCore.Services;
+using MusicTutor.Data.InMemory.Services;
 
 namespace MusicTutor.Api.Installers
 {
@@ -18,7 +19,9 @@ namespace MusicTutor.Api.Installers
 
             services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
 
-            services.AddScoped<IDataService, DataServiceEFCore>();
+            //services.AddScoped<IDataService, DataServiceEFCore>();
+            services.AddSingleton<IDataService, DataServiceInMemory>();
+            services.AddSingleton<DataServiceInMemory, DataServiceInMemory>();
         }
     }
 }
