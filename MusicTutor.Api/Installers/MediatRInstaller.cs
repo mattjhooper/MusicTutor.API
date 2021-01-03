@@ -2,8 +2,8 @@ using System.Reflection;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MusicTutor.Data.InMemory.Handlers.Instruments;
-//using MusicTutor.Data.EFCore.Handlers.Instruments;
+//using MusicTutor.Data.InMemory.Handlers.Instruments;
+using MusicTutor.Data.EFCore.Handlers.Instruments;
 
 namespace MusicTutor.Api.Installers
 {
