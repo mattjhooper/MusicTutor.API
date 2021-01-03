@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using MusicTutor.Core.Contracts.Instruments;
 using MusicTutor.Cqs.Queries.Instruments;
 
@@ -10,11 +11,11 @@ namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
     public record GetAllInstrumentsHandler(MusicTutorDbContext DbContext) : IRequestHandler<GetAllInstruments, IEnumerable<InstrumentResponseDto>>
     {        
-        public Task<IEnumerable<InstrumentResponseDto>> Handle(GetAllInstruments request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<InstrumentResponseDto>> Handle(GetAllInstruments request, CancellationToken cancellationToken)
         {
-            IEnumerable<InstrumentResponseDto> response = DbContext.Instruments.AsQueryable().Select(i => InstrumentResponseDto.MapFromInstrument(i)).ToList();
+            IEnumerable<InstrumentResponseDto> response = await DbContext.Instruments.Select(i => InstrumentResponseDto.MapFromInstrument(i)).ToListAsync();
 
-            return Task.FromResult(response);
+            return response;
         }
     }
 }

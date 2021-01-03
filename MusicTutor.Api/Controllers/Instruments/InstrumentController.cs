@@ -37,7 +37,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         [HttpGet("{id}", Name = "GetSingleInstrument")]
         [ProducesResponseType(typeof(InstrumentResponseDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync(Guid id)
+        public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync([FromRoute] Guid id)
         {
             var instrument = await mediator.Send(new GetByInstrumentId(id));
 
@@ -96,7 +96,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         // DELETE api/<type>/5
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteItemAsync(Guid id)
+        public async Task<ActionResult> DeleteItemAsync([FromRoute] Guid id)
         {
             var instrument = await mediator.Send(new DeleteInstrument(id));
 
