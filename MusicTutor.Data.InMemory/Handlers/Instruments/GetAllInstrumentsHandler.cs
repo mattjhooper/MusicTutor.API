@@ -16,16 +16,8 @@ namespace MusicTutor.Data.InMemory.Handlers.Instruments
 
         public Task<IEnumerable<InstrumentResponseDto>> Handle(GetAllInstruments request, CancellationToken cancellationToken)
         {
-            //IEnumerable<InstrumentResponseDto> response = dataService.Instruments.AsQueryable().Select<InstrumentResponseDto>(i => InstrumentResponseDto.MapFromInstrument(i)).ToList();            
+            var response = DataService.Instruments.Select(i => InstrumentResponseDto.MapFromInstrument(i));
             
-            var instruments = new List<InstrumentResponseDto>();
-            foreach(var i in DataService.Instruments)
-            {
-                instruments.Add(InstrumentResponseDto.MapFromInstrument(i));
-            }
-
-            IEnumerable<InstrumentResponseDto> response = instruments;
-
             return Task.FromResult(response);
         }
     }

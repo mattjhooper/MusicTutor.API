@@ -7,6 +7,7 @@ using MusicTutor.Core.Contracts.Instruments;
 using MusicTutor.Cqs.Queries.Instruments;
 using MusicTutor.Cqs.Commands.Instruments;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
@@ -34,6 +35,8 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingleInstrument")]
+        [ProducesResponseType(typeof(InstrumentResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync(Guid id)
         {
             var instrument = await mediator.Send(new GetByInstrumentId(id));
@@ -54,8 +57,8 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// <returns>If successful it returns a CreatedAtRoute response - see
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
-        [ProducesResponseType(typeof(InstrumentResponseDto), 201)] //You need this, otherwise Swagger says the success status is 200, not 201
-        [ProducesResponseType(typeof(string), 400)]
+        [ProducesResponseType(typeof(InstrumentResponseDto), StatusCodes.Status201Created)] //You need this, otherwise Swagger says the success status is 200, not 201
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<ActionResult<InstrumentResponseDto>> PostAsync([FromBody] CreateInstrumentDto item)
         {
@@ -86,16 +89,21 @@ namespace MusicTutor.Api.Controllers.Instruments
         //     return _service.Response();
         // }
 
-        // /// <summary>
-        // /// Delete the Instrument
-        // /// </summary>
-        // /// <returns></returns>
-        // // DELETE api/<type>/5
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult<WebApiMessageOnly>> DeleteItemAsync(int id)
-        // {
-        //     await _service.DeleteAndSaveAsync<Instrument>(id);
-        //     return _service.Response();
-        // }
+        /// <summary>
+        /// Delete the Instrument
+        /// </summary>
+        /// <returns></returns>
+        // DELETE api/<type>/5
+        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteItemAsync(Guid id)
+        {
+            var instrument = await mediator.Send(new DeleteInstrument(id));
+
+            if (instrument == 0)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }
