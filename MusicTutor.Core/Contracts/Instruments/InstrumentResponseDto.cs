@@ -1,10 +1,11 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 using Ardalis.GuardClauses;
 using MusicTutor.Core.Models;
 
 namespace MusicTutor.Core.Contracts.Instruments
 {
-    public record InstrumentResponseDto(int Id, string Name)
+    public record InstrumentResponseDto(Guid Id, string Name)
     {
         public static InstrumentResponseDto MapFromInstrument(Instrument instrument)
         {

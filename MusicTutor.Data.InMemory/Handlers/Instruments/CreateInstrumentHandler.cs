@@ -15,7 +15,7 @@ namespace MusicTutor.Data.InMemory.Handlers.Instruments
         
         public Task<InstrumentResponseDto> Handle(CreateInstrument request, CancellationToken cancellationToken)
         {
-            var instrument = request.InstrumentToCreate.MapToInstrument();
+            var instrument = Instrument.CreateInstrument(request.InstrumentToCreate.Name);
             DataService.Instruments.Add(instrument);
 
             var dto = InstrumentResponseDto.MapFromInstrument(instrument);

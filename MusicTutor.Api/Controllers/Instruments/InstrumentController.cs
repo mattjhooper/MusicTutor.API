@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicTutor.Core.Contracts.Instruments;
 using MusicTutor.Cqs.Queries.Instruments;
 using MusicTutor.Cqs.Commands.Instruments;
+using System;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
@@ -33,7 +34,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "GetSingleInstrument")]
-        public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync(int id)
+        public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync(Guid id)
         {
             var instrument = await mediator.Send(new GetByInstrumentId(id));
 

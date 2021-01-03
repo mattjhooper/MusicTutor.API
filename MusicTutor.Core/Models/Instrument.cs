@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MusicTutor.Core.Models
@@ -12,12 +13,23 @@ namespace MusicTutor.Core.Models
         {
             Name = name;
         }
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
         
         public string Name { get; private set; }
 
         private HashSet<Pupil> _pupils;
         public IEnumerable<Pupil> Pupils => _pupils;
+
+        public static Instrument CreateInstrument(string name)
+        {
+            var instrument = new Instrument
+            {
+                Id = Guid.NewGuid(),
+                Name = name
+            };
+
+            return instrument;
+        }
         
     }
 }

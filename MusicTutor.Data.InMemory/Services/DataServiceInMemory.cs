@@ -17,8 +17,8 @@ namespace MusicTutor.Data.InMemory.Services
         public void SetupDataStore()
         {
             Console.WriteLine("****** SeedDatabase **********");                        
-            Instruments.Add(new Instrument("Local1"));
-            Instruments.Add(new Instrument("Local2"));
+            Instruments.Add(Instrument.CreateInstrument("Local1"));
+            Instruments.Add(Instrument.CreateInstrument("Local2"));
         }
     }
 }

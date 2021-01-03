@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MusicTutor.Core.Contracts.Instruments;
 using Swashbuckle.AspNetCore.Filters;
@@ -8,7 +9,7 @@ namespace MusicTutor.Api.Examples.Instruments
     {
         public InstrumentResponseDto GetExamples()
         {
-            return new InstrumentResponseDto(101, "Triangle");            
+            return new InstrumentResponseDto(Guid.NewGuid(), "Triangle");            
         }
     }
 
@@ -16,7 +17,7 @@ namespace MusicTutor.Api.Examples.Instruments
     {
         public IEnumerable<InstrumentResponseDto> GetExamples()
         {
-           return new InstrumentResponseDto[] { new InstrumentResponseDto(101, "Triangle"), new InstrumentResponseDto(102, "Bagpipes") } ;
+           return new InstrumentResponseDto[] { new InstrumentResponseDto(Guid.NewGuid(), "Triangle"), new InstrumentResponseDto(Guid.NewGuid(), "Bagpipes") } ;
         }
     }
 }
