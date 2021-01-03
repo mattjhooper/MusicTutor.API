@@ -11,7 +11,7 @@ namespace MusicTutor.Api.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
-            var dataAssembly = Assembly.GetAssembly(typeof(CreateInstrumentHandler));
+            var dataAssembly = Assembly.GetAssembly(typeof(GetAllInstrumentsHandler));
             services.AddMediatR(Assembly.GetExecutingAssembly(), dataAssembly );
         }
     }

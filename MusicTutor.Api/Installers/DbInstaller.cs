@@ -19,9 +19,8 @@ namespace MusicTutor.Api.Installers
 
             services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
 
-            //services.AddScoped<IDataService, DataServiceEFCore>();
-            services.AddSingleton<IDataService, DataServiceInMemory>();
-            services.AddSingleton<DataServiceInMemory, DataServiceInMemory>();
+            services.AddScoped<IDataService, DataServiceEFCore>();
+            services.AddSingleton<IDataService, DataServiceInMemory>();            
         }
     }
 }
