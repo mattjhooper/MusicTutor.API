@@ -9,15 +9,15 @@ namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
     public record CreateInstrumentHandler(MusicTutorDbContext DbContext) : IRequestHandler<CreateInstrument, InstrumentResponseDto>
     {        
-        public Task<InstrumentResponseDto> Handle(CreateInstrument request, CancellationToken cancellationToken)
+        public async Task<InstrumentResponseDto> Handle(CreateInstrument request, CancellationToken cancellationToken)
         {
             var instrument = request.InstrumentToCreate.MapToInstrument();
-            DbContext.Add<Instrument>(instrument);
-            DbContext.SaveChanges();
+            await DbContext.AddAsync<Instrument>(instrument);
+            await DbContext.SaveChangesAsync();
 
             var dto = InstrumentResponseDto.MapFromInstrument(instrument);
             
-            return Task.FromResult(dto);
+            return dto;
         }
     }
 }

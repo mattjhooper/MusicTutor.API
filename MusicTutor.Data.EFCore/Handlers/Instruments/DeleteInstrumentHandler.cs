@@ -10,7 +10,7 @@ namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
     public record DeleteInstrumentHandler(MusicTutorDbContext DbContext) : IRequestHandler<DeleteInstrument, int>
     {        
-        public Task<int> Handle(DeleteInstrument request, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeleteInstrument request, CancellationToken cancellationToken)
         {
             int deletedCount = 0;
             var instrument = DbContext.Instruments.SingleOrDefault(i => i.Id == request.Id);
@@ -18,11 +18,10 @@ namespace MusicTutor.Data.EFCore.Handlers.Instruments
             if (instrument is not null)
             {
                 DbContext.Remove(instrument);
-                deletedCount++;
-                DbContext.SaveChanges();
+                deletedCount = await DbContext.SaveChangesAsync();
             }
 
-            return Task.FromResult(deletedCount);
+            return deletedCount;
         }
     }
 }
