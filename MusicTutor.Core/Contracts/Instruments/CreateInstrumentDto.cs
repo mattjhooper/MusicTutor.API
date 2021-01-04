@@ -3,11 +3,8 @@ using MusicTutor.Core.Models;
 
 namespace MusicTutor.Core.Contracts.Instruments
 {
-    public class CreateInstrumentDto
+    public record CreateInstrumentDto(string Name)
     {
-        [Required(AllowEmptyStrings = false)]
-        public string Name { get; set; }
-
         public Instrument MapToInstrument()
         {
            return new Instrument(Name);

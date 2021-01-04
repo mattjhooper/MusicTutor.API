@@ -8,6 +8,7 @@ using MusicTutor.Cqs.Queries.Instruments;
 using MusicTutor.Cqs.Commands.Instruments;
 using System;
 using Microsoft.AspNetCore.Http;
+using MusicTutor.Core.Contracts.Errors;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
@@ -58,7 +59,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
         [ProducesResponseType(typeof(InstrumentResponseDto), StatusCodes.Status201Created)] //You need this, otherwise Swagger says the success status is 200, not 201
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [HttpPost]
         public async Task<ActionResult<InstrumentResponseDto>> PostAsync([FromBody] CreateInstrumentDto item)
         {
