@@ -10,28 +10,28 @@ namespace MusicTutor.Api.Filters
     {
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (!context.ModelState.IsValid)
-            {
-                var errorsInModelState = context.ModelState
-                    .Where(x => x.Value.Errors.Count > 0)
-                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage)).ToArray();
+            // if (!context.ModelState.IsValid)
+            // {
+            //     var errorsInModelState = context.ModelState
+            //         .Where(x => x.Value.Errors.Count > 0)
+            //         .ToDictionary(kvp => kvp.Key, kvp => kvp.Value.Errors.Select(x => x.ErrorMessage)).ToArray();
                 
-                var errorResponse = new ErrorResponse();
+            //     var errorResponse = new ErrorResponse();
 
-                foreach (var error in errorsInModelState)
-                {
-                    foreach (var suberror in error.Value)
-                    {
-                        var errormodel = new ErrorModel(error.Key, suberror);
+            //     foreach (var error in errorsInModelState)
+            //     {
+            //         foreach (var suberror in error.Value)
+            //         {
+            //             var errormodel = new ErrorModel(error.Key, suberror);
 
-                        errorResponse.Errors.Add(errormodel);
-                    }
+            //             errorResponse.Errors.Add(errormodel);
+            //         }
 
-                }
+            //     }
                 
-                context.Result = new BadRequestObjectResult(errorResponse);
-                return;
-            }
+            //     context.Result = new BadRequestObjectResult(errorResponse);
+            //     return;
+            // }
 
             await next();
         }

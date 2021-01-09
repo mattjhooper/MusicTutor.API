@@ -11,6 +11,8 @@ namespace MusicTutor.Api.Validators.Instuments
             RuleFor(x => x.Name)
             .NotEmpty()
             .MaximumLength(Instrument.NameLength);
+
+            RuleFor(x => x.InstrumentType).IsEnumName(typeof(InstrumentType), caseSensitive: false);
         }
     }
 }

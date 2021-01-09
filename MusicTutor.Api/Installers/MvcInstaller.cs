@@ -11,11 +11,11 @@ namespace MusicTutor.Api.Installers
         {
             services.AddControllers();
 
-            services.AddMvc( options =>
-            {
-                options.Filters.Add<ValidationFilter>();
-            }
-            ).AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
+            // services.AddMvc( options =>
+            // {
+            //     options.Filters.Add<ValidationFilter>();
+            // }
+            // ).AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
     }
 }
