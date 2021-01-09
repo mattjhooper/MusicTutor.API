@@ -3,13 +3,7 @@ using MusicTutor.Core.Models;
 
 namespace MusicTutor.Core.Contracts.Instruments
 {
-    public enum InstrumentType
-    {
-        Wind,
-        Percussion,
-        String
-    }
-    public record CreateInstrumentDto(string Name, string InstrumentType)
+    public record CreateInstrumentDto(string Name)
     {
         public Instrument MapToInstrument()
         {

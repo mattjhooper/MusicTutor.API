@@ -7,7 +7,7 @@ namespace MusicTutor.Api.Examples.Instruments
     {
         public CreateInstrumentDto GetExamples()
         {
-            return new CreateInstrumentDto("Triangle", "Percussion");
+            return new CreateInstrumentDto("Triangle");
         }
     }
 }
