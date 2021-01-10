@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Ardalis.GuardClauses;
 
 namespace MusicTutor.Core.Models
 {
@@ -11,6 +12,7 @@ namespace MusicTutor.Core.Models
 
         public Instrument(string name)
         {
+            Guard.Against.NullOrWhiteSpace(name, nameof(name));
             Name = name;
         }
         public Guid Id { get; private set; }

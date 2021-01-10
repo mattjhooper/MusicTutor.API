@@ -8,6 +8,8 @@ using System;
 using Microsoft.AspNetCore.Http;
 using MusicTutor.Core.Contracts.Errors;
 using MusicTutor.Core.Contracts.Pupils;
+using MusicTutor.Cqs.Queries.Pupils;
+using MusicTutor.Cqs.Commands.Pupils;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
@@ -27,10 +29,8 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PupilResponseDto>> GetSingleAsync([FromRoute] Guid id)
         {
-            //var instrument = await mediator.Send(new GetByInstrumentId(id));
+            var pupil = await mediator.Send(new GetPupilById(id));
 
-            var pupil = new PupilResponseDto(id, "Name", 15.0M, DateTime.Now, 7, 0);
-            
             if (pupil is null)
                 return NotFound();
 
@@ -52,22 +52,22 @@ namespace MusicTutor.Api.Controllers.Pupils
         [HttpPost]
         public async Task<ActionResult<PupilResponseDto>> PostAsync([FromBody] CreatePupilDto item)
         {
-            var result = new PupilResponseDto(Guid.NewGuid(), item.Name, item.LessonRate, item.StartDate, item.FrequencyInDays, 0);
-            return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
+            //var result = new PupilResponseDto(Guid.NewGuid(), item.Name, item.LessonRate, item.StartDate, item.FrequencyInDays, 0);
+            //return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
             
-            // try
-            // {
-            //     var result = await mediator.Send(new CreateInstrument(item));
-            //     //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSinglePupil")],
-            //     //on the Get you want to call, then then use the Name value in the Response.
-            //     //Otherwise you get a "No route matches the supplied values" error.
-            //     //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-            //     return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
-            // }
-            // catch (DbUpdateException ex)
-            // {
-            //     return BadRequest(ex.InnerException.Message);
-            // }
+            try
+            {
+                var result = await mediator.Send(new CreatePupil(item));
+                //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSinglePupil")],
+                //on the Get you want to call, then then use the Name value in the Response.
+                //Otherwise you get a "No route matches the supplied values" error.
+                //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
+                return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
         }        
     }
 }

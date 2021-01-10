@@ -12,7 +12,7 @@ namespace MusicTutor.Core.Models
 
         public const int NameLength = 150;
         
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
 
         public string Name { get; private set; }
 
