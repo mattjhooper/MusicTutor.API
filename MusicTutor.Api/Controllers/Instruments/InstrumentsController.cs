@@ -40,7 +40,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<InstrumentResponseDto>> GetSingleAsync([FromRoute] Guid id)
         {
-            var instrument = await mediator.Send(new GetByInstrumentId(id));
+            var instrument = await mediator.Send(new GetInstrumentById(id));
 
             if (instrument is null)
                 return NotFound();

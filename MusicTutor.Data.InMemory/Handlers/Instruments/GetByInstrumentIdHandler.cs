@@ -9,11 +9,11 @@ using MusicTutor.Data.InMemory.Services;
 
 namespace MusicTutor.Data.InMemory.Handlers.Instruments
 {
-    public record GetByInstrumentIdHandler: BaseHandler, IRequestHandler<GetByInstrumentId, InstrumentResponseDto>
+    public record GetInstrumentByIdHandler: BaseHandler, IRequestHandler<GetInstrumentById, InstrumentResponseDto>
     {        
-        public GetByInstrumentIdHandler(IDataService dataService) : base(dataService) {}
+        public GetInstrumentByIdHandler(IDataService dataService) : base(dataService) {}
 
-        public Task<InstrumentResponseDto> Handle(GetByInstrumentId request, CancellationToken cancellationToken)
+        public Task<InstrumentResponseDto> Handle(GetInstrumentById request, CancellationToken cancellationToken)
         {
             var instrument = DataService.Instruments.AsQueryable().FirstOrDefault(i => i.Id == request.Id);
 

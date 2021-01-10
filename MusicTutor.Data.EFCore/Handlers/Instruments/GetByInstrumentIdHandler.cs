@@ -8,9 +8,9 @@ using MusicTutor.Cqs.Queries.Instruments;
 
 namespace MusicTutor.Data.EFCore.Handlers.Instruments
 {
-    public record GetByInstrumentIdHandler(MusicTutorDbContext DbContext) : IRequestHandler<GetByInstrumentId, InstrumentResponseDto>
+    public record GetInstrumentByIdHandler(MusicTutorDbContext DbContext) : IRequestHandler<GetInstrumentById, InstrumentResponseDto>
     {        
-        public async Task<InstrumentResponseDto> Handle(GetByInstrumentId request, CancellationToken cancellationToken)
+        public async Task<InstrumentResponseDto> Handle(GetInstrumentById request, CancellationToken cancellationToken)
         {
             var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == request.Id);
 
