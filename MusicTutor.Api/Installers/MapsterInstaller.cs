@@ -13,7 +13,7 @@ namespace MusicTutor.Api.Installers
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
             TypeAdapterConfig.GlobalSettings.RequireExplicitMapping = true;
-            //TypeAdapterConfig.GlobalSettings.RequireDestinationMemberSource = true;
+            TypeAdapterConfig.GlobalSettings.RequireDestinationMemberSource = true;
 
             var config = TypeAdapterConfig.GlobalSettings;
             config.Scan(Assembly.GetAssembly(typeof(PupilMapping)));
