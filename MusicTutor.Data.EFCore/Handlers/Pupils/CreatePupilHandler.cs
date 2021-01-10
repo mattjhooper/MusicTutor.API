@@ -21,7 +21,7 @@ namespace MusicTutor.Data.EFCore.Handlers.Instruments
             if (instrument is null)
                 throw new InvalidOperationException("Instrument cannot be found");
 
-            Pupil pupil = new Pupil(p.Name, p.LessonRate, p.StartDate, p.FrequencyInDays, new Instrument[] {instrument}, null);
+            Pupil pupil = new Pupil(p.Name, p.LessonRate, p.StartDate, p.FrequencyInDays, new Instrument[] {instrument}, p.ContactName, p.ContactEmail, p.ContactPhoneNumber);
             
             await DbContext.AddAsync<Pupil>(pupil);
             await DbContext.SaveChangesAsync();
