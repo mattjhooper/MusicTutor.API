@@ -50,14 +50,14 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(PupilResponseDto), StatusCodes.Status201Created)] //You need this, otherwise Swagger says the success status is 200, not 201
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [HttpPost]
-        public async Task<ActionResult<PupilResponseDto>> PostAsync([FromBody] CreatePupilDto item)
+        public async Task<ActionResult<PupilResponseDto>> PostAsync([FromBody] CreatePupil item)
         {
             //var result = new PupilResponseDto(Guid.NewGuid(), item.Name, item.LessonRate, item.StartDate, item.FrequencyInDays, 0);
             //return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
             
             try
             {
-                var result = await mediator.Send(new CreatePupil(item));
+                var result = await mediator.Send(item);
                 //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSinglePupil")],
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.

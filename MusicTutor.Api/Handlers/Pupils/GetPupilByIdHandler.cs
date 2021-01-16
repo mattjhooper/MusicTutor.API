@@ -7,10 +7,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Core.Services;
 
 namespace MusicTutor.Data.EFCore.Handlers.Pupils
 {
-    public record GetPupilByIdHandle(MusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilById, PupilResponseDto>
+    public record GetPupilByIdHandle(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilById, PupilResponseDto>
     {        
         public async Task<PupilResponseDto> Handle(GetPupilById request, CancellationToken cancellationToken)
         {
