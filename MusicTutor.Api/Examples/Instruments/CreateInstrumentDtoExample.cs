@@ -1,4 +1,4 @@
-using MusicTutor.Core.Contracts.Instruments;
+using MusicTutor.Api.Contracts.Instruments;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace MusicTutor.Api.Examples.Instruments

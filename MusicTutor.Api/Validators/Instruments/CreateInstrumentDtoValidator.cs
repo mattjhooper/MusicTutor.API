@@ -1,5 +1,5 @@
 using FluentValidation;
-using MusicTutor.Core.Contracts.Instruments;
+using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.Validators.Instuments

@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using MusicTutor.Core.Services;
 using MusicTutor.Data.EFCore;
 using MusicTutor.Data.EFCore.Services;
-using MusicTutor.Data.InMemory.Services;
 
 namespace MusicTutor.Api.Installers
 {
@@ -15,12 +14,13 @@ namespace MusicTutor.Api.Installers
             services.AddDbContext<MusicTutorDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"), x => x.MigrationsAssembly("MusicTutor.Data")));
 
             //services.AddDbContext<MusicTutorDbContext>(opt =>
-            //    opt.UseInMemoryDatabase("MusicTutorFull"));            
+            //    opt.UseInMemoryDatabase("MusicTutorFull")); 
+
+            services.AddScoped<IMusicTutorDbContext>(provider => provider.GetService<MusicTutorDbContext>());           
 
             services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
 
             services.AddScoped<IDataService, DataServiceEFCore>();
-            //services.AddSingleton<IDataService, DataServiceInMemory>();            
         }
     }
 }

@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.Extensions.Logging;
 using MusicTutor.Data.EFCore.Configuration;
 using MusicTutor.Core.Models;
+using MusicTutor.Core.Services;
 
 namespace MusicTutor.Data.EFCore
 {    
-    public class MusicTutorDbContext : DbContext
+    public class MusicTutorDbContext : DbContext, IMusicTutorDbContext
     {
         public DbSet<Pupil> Pupils  { get; set; } 
         public DbSet<Instrument> Instruments  { get; set; } 

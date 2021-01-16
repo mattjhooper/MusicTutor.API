@@ -1,10 +1,10 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using MusicTutor.Core.Contracts.Instruments;
+using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Core.Models;
 using MusicTutor.Core.Services;
-using MusicTutor.Cqs.Commands.Instruments;
+using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Data.InMemory.Services;
 
 namespace MusicTutor.Data.InMemory.Handlers

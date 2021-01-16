@@ -2,14 +2,14 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicTutor.Cqs.Queries.Instruments;
-using MusicTutor.Cqs.Commands.Instruments;
+using MusicTutor.Api.Queries.Instruments;
+using MusicTutor.Api.Commands.Instruments;
 using System;
 using Microsoft.AspNetCore.Http;
-using MusicTutor.Core.Contracts.Errors;
-using MusicTutor.Core.Contracts.Pupils;
-using MusicTutor.Cqs.Queries.Pupils;
-using MusicTutor.Cqs.Commands.Pupils;
+using MusicTutor.Api.Contracts.Errors;
+using MusicTutor.Api.Contracts.Pupils;
+using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Api.Commands.Pupils;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {

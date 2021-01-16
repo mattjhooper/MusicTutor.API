@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicTutor.Core.Contracts.Instruments;
-using MusicTutor.Cqs.Queries.Instruments;
-using MusicTutor.Cqs.Commands.Instruments;
+using MusicTutor.Api.Contracts.Instruments;
+using MusicTutor.Api.Queries.Instruments;
+using MusicTutor.Api.Commands.Instruments;
 using System;
 using Microsoft.AspNetCore.Http;
-using MusicTutor.Core.Contracts.Errors;
+using MusicTutor.Api.Contracts.Errors;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
