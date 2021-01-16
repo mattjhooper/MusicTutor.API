@@ -1,7 +1,4 @@
 using System;
-using Mapster;
-using MusicTutor.Core.Models;
-using MusicTutor.Data.Mappings;
 
 namespace MusicTutor.Api.Contracts.Pupils
 {

@@ -2,7 +2,7 @@ using Mapster;
 using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Data.Mappings
+namespace MusicTutor.Api.Contracts.Pupils.Mappings
 {
     public class PupilMapping : IRegister
     {        

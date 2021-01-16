@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Core.Services;
 using MusicTutor.Api.Queries.Instruments;
+using Mapster;
 
 namespace MusicTutor.Api.EFCore.Handlers.Instruments
 {
@@ -14,7 +15,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Instruments
     {        
         public async Task<IEnumerable<InstrumentResponseDto>> Handle(GetAllInstruments request, CancellationToken cancellationToken)
         {
-            IEnumerable<InstrumentResponseDto> response = await DbContext.Instruments.Select(i => InstrumentResponseDto.MapFromInstrument(i)).ToListAsync();
+            IEnumerable<InstrumentResponseDto> response = await DbContext.Instruments.ProjectToType<InstrumentResponseDto>().ToListAsync();
 
             return response;
         }
