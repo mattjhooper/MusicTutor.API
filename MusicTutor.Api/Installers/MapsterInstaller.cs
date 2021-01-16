@@ -16,7 +16,7 @@ namespace MusicTutor.Api.Installers
             TypeAdapterConfig.GlobalSettings.RequireDestinationMemberSource = true;
 
             var config = TypeAdapterConfig.GlobalSettings;
-            config.Scan(Assembly.GetAssembly(typeof(PupilMapping)));
+            config.Scan(Assembly.GetExecutingAssembly());
 
             TypeAdapterConfig.GlobalSettings.Compile();
 
