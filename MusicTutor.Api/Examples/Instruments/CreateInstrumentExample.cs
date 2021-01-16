@@ -3,7 +3,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace MusicTutor.Api.Examples.Instruments
 {
-    public class CreateInstrumentDtoExample : IExamplesProvider<CreateInstrument>
+    public class CreateInstrumentExample : IExamplesProvider<CreateInstrument>
     {
         public CreateInstrument GetExamples()
         {

@@ -2,11 +2,11 @@ using FluentValidation;
 using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Api.Validators.Instuments
+namespace MusicTutor.Api.Validators.Instruments
 {
-    public class CreateInstrumentDtoValidator : AbstractValidator<CreateInstrument>
+    public class CreateInstrumentValidator : AbstractValidator<CreateInstrument>
     {
-        public CreateInstrumentDtoValidator()
+        public CreateInstrumentValidator()
         {
             RuleFor(x => x.Name)
             .NotEmpty()

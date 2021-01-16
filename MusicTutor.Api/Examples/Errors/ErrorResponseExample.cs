@@ -1,7 +1,7 @@
 using MusicTutor.Api.Contracts.Errors;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace MusicTutor.Api.Examples.Instruments
+namespace MusicTutor.Api.Examples.Errors
 {
     public class ErrorResponseExample : IExamplesProvider<ErrorResponse>
     {
