@@ -1,13 +1,13 @@
-using MusicTutor.Api.Contracts.Instruments;
+using MusicTutor.Api.Commands.Instruments;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace MusicTutor.Api.Examples.Instruments
 {
-    public class CreateInstrumentDtoExample : IExamplesProvider<CreateInstrumentDto>
+    public class CreateInstrumentDtoExample : IExamplesProvider<CreateInstrument>
     {
-        public CreateInstrumentDto GetExamples()
+        public CreateInstrument GetExamples()
         {
-            return new CreateInstrumentDto("Triangle");
+            return new CreateInstrument("Triangle");
         }
     }
 }

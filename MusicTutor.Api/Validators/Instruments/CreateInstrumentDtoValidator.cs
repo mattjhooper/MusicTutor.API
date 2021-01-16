@@ -1,10 +1,10 @@
 using FluentValidation;
-using MusicTutor.Api.Contracts.Instruments;
+using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.Validators.Instuments
 {
-    public class CreateInstrumentDtoValidator : AbstractValidator<CreateInstrumentDto>
+    public class CreateInstrumentDtoValidator : AbstractValidator<CreateInstrument>
     {
         public CreateInstrumentDtoValidator()
         {

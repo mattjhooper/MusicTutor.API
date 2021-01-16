@@ -13,7 +13,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Instruments
     {        
         public async Task<InstrumentResponseDto> Handle(CreateInstrument request, CancellationToken cancellationToken)
         {
-            var instrument = new Instrument(request.InstrumentToCreate.Name);
+            var instrument = new Instrument(request.Name);
             await DbContext.Instruments.AddAsync(instrument, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
 
