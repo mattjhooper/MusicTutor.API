@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\MusicTutor.Core\MusicTutor.Core.csproj"/>    
+    <ProjectReference Include="..\..\MusicTutor.Core\MusicTutor.Core.csproj"/>
     <ProjectReference Include="..\..\MusicTutor.Api\MusicTutor.Api.csproj"/>
   </ItemGroup>
   <ItemGroup>
@@ -20,5 +20,7 @@
     </PackageReference>
     <PackageReference Include="Mapster" Version="7.0.1"/>
     <PackageReference Include="FluentAssertions" Version="5.10.3"/>
+    <PackageReference Include="NSubstitute" Version="4.2.2"/>
+    <PackageReference Include="MockQueryable.NSubstitute" Version="5.0.0"/>
   </ItemGroup>
 </Project>
