@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using FluentValidation.TestHelper;
-using MockQueryable.NSubstitute;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Validators.Pupils;
-using MusicTutor.Core.Models;
-using MusicTutor.Core.Services;
 using NSubstitute;
 using Xunit;
 
@@ -15,21 +10,13 @@ namespace MusicTutor.Api.UnitTests.Validators.Pupils
     public class CreatePupilValidatorUnitTests
     {
         private readonly CreatePupilValidator validator;
-        private readonly IMusicTutorDbContext dbContext;
+        private readonly IDbValidator dbValidator;
         public CreatePupilValidatorUnitTests()
         {
-            var instruments = new List<Instrument>()
-            {
-                new Instrument("Piano"),
-                new Instrument("Flute")
-            };
+            dbValidator = Substitute.For<IDbValidator>();
+            dbValidator.InstrumentAlreadyExistsAsync(Arg.Any<Guid>(), default).Returns(true);
             
-            var mock = instruments.AsQueryable().BuildMockDbSet();   
-
-            dbContext = Substitute.For<IMusicTutorDbContext>();
-            dbContext.Instruments.Returns(mock);
-            
-            validator = new CreatePupilValidator(dbContext);
+            validator = new CreatePupilValidator(dbValidator);
 
         }
 

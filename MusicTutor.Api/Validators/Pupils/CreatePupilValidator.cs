@@ -11,10 +11,10 @@ namespace MusicTutor.Api.Validators.Pupils
 {
     public class CreatePupilValidator : AbstractValidator<CreatePupil>
     {
-        private readonly IMusicTutorDbContext _dbContext;
-        public CreatePupilValidator(IMusicTutorDbContext dbContext)
+        private readonly IDbValidator check;
+        public CreatePupilValidator(IDbValidator dbValidator)
         {
-            _dbContext = dbContext;
+            check = dbValidator;
 
             RuleFor(x => x.Name)
             .NotEmpty()
@@ -22,12 +22,7 @@ namespace MusicTutor.Api.Validators.Pupils
 
             RuleFor(x => x.DefaultInstrumentId)
              .NotNull()
-             .MustAsync(AlreadyExist).WithMessage("Instrument must exist. No matching instrument for supplied DefaultInstrumentId.");
-        }
-
-        public async Task<bool> AlreadyExist(Guid instrumentId, CancellationToken cancellationToken)
-        {
-            return await _dbContext.Instruments.AnyAsync(i => i.Id == instrumentId);
+             .MustAsync(check.InstrumentAlreadyExistsAsync).WithMessage("Instrument must exist. No matching instrument for supplied DefaultInstrumentId.");
         }
     }
 }
