@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MusicTutor.Api.Validators.Pupils;
 using MusicTutor.Core.Services;
 using MusicTutor.Data.EFCore;
 using MusicTutor.Data.EFCore.Services;
@@ -21,6 +22,8 @@ namespace MusicTutor.Api.Installers
             services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
 
             services.AddScoped<IDataService, DataServiceEFCore>();
+
+            services.AddScoped<IDbValidator, DbValidator>();
         }
     }
 }
