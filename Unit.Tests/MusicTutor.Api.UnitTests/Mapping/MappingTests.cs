@@ -5,8 +5,6 @@ using MusicTutor.Api.Contracts.Instruments;
 using FluentAssertions;
 using System;
 using MusicTutor.Api.Contracts.Pupils;
-using Mapster;
-using MusicTutor.Api.Contracts.Pupils.Mappings;
 
 namespace MusicTutor.Api.UnitTests.Mapping
 {
@@ -15,11 +13,7 @@ namespace MusicTutor.Api.UnitTests.Mapping
         private readonly IMapper _mapper;
         public MappingTests()
         {   
-            var config = new TypeAdapterConfig();
-            var pupilMapping = new PupilMapping();
-            pupilMapping.Register(config);
-
-            _mapper = new Mapper(config);
+            _mapper = MappingBuilder.Init().Build();
         }
 
         [Fact]
