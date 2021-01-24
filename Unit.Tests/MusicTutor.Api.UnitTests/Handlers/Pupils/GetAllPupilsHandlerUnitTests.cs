@@ -13,19 +13,20 @@ using MusicTutor.Core.Models;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using MusicTutor.Api.Contracts.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class GetPupilByIdHandlerUnitTests
+    public class GetAllPupilsHandlerUnitTests
     {
-        private readonly GetPupilByIdHandler _handler;
+        private readonly GetAllPupilsHandler _handler;
         private readonly IMusicTutorDbContext _dbContext;
 
         private readonly Instrument _instrument;
 
         private readonly Pupil _pupil;
 
-        public GetPupilByIdHandlerUnitTests()
+        public GetAllPupilsHandlerUnitTests()
         {
             _instrument = Instrument.CreateInstrument("TEST");
             var instruments = new List<Instrument>();
@@ -33,20 +34,22 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             _pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
             _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_pupil).Build();
             IMapper mapper = MappingBuilder.Init().Build();
-            _handler = new GetPupilByIdHandler(_dbContext, mapper);
+            _handler = new GetAllPupilsHandler(_dbContext, mapper);
         }
 
         [Fact]
-        public async Task GetPupilByIdHandler_ReturnsPupilAsync()
+        public async Task GetPupilByIdHandler_ReturnsAllPupilsAsync()
         {
             //Given
-            var getPupil = new GetPupilById(_pupil.Id);
+            var getPupils = new GetAllPupils();
             
             //When
-            var response = await _handler.Handle(getPupil, new CancellationToken());
+            var response = await _handler.Handle(getPupils, new CancellationToken());
             
             //Then    
-            response.Name.Should().Be("PupilName");
+            response.Count().Should().Be(1);
+            var pupils = new List<PupilResponseDto>(response);
+            pupils[0].Name.Should().Be("PupilName");      
         }
     }
 }

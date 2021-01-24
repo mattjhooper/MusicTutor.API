@@ -35,22 +35,22 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             
         }
 
-        // [Fact]
-        // public async Task GetManyAsync_ReturnsOkObjectResultAsync()
-        // {            
-        //     // Arrange
-        //     _mediator.Send(Arg.Any<GetAllPupils>()).Returns(new PupilResponseDto[] { _pupilDto });
-        //     var PupilsController = new PupilsController(_mediator);
+        [Fact]
+        public async Task GetManyAsync_ReturnsOkObjectResultAsync()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<GetAllPupils>()).Returns(new PupilResponseDto[] { _pupilDto });
+            var PupilsController = new PupilsController(_mediator);
             
-        //     // Act
-        //     var response = await PupilsController.GetManyAsync();
+            // Act
+            var response = await PupilsController.GetManyAsync();
 
-        //     // Assert
-        //     response.Should().BeOfType<ActionResult<IEnumerable<PupilResponseDto>>>();
-        //     response.Result.Should().BeOfType<OkObjectResult>();
-        //     OkObjectResult result = (OkObjectResult)response.Result;
-        //     result.StatusCode.Should().Be(StatusCodes.Status200OK);
-        // }
+            // Assert
+            response.Should().BeOfType<ActionResult<IEnumerable<PupilResponseDto>>>();
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        }
 
         [Fact]
         public async Task GetSingleAsync_ReturnsOkObjectResultAsync()
@@ -129,32 +129,32 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             result.Value.Should().Be("An invalid operation occurred");
         }
 
-        // [Fact]
-        // public async Task DeleteItemAsync_ReturnsNoContentAsync()
-        // {            
-        //     // Arrange
-        //     _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(1);
-        //     var PupilsController = new PupilsController(_mediator);
+        [Fact]
+        public async Task DeleteItemAsync_ReturnsNoContentAsync()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(1);
+            var PupilsController = new PupilsController(_mediator);
             
-        //     // Act
-        //     var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
+            // Act
+            var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
 
-        //     // Assert
-        //     response.Should().BeOfType<NoContentResult>();
-        // }
+            // Assert
+            response.Should().BeOfType<NoContentResult>();
+        }
 
-        // [Fact]
-        // public async Task DeleteItemAsync_ReturnsNotFoundAsync()
-        // {            
-        //     // Arrange
-        //     _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(0);
-        //     var PupilsController = new PupilsController(_mediator);
+        [Fact]
+        public async Task DeleteItemAsync_ReturnsNotFoundAsync()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(0);
+            var PupilsController = new PupilsController(_mediator);
             
-        //     // Act
-        //     var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
+            // Act
+            var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
 
-        //     // Assert
-        //     response.Should().BeOfType<NotFoundResult>();
-        // }          
+            // Assert
+            response.Should().BeOfType<NotFoundResult>();
+        }          
     }
 }

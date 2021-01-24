@@ -10,6 +10,7 @@ using MusicTutor.Api.Contracts.Errors;
 using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Api.Commands.Pupils;
+using System.Collections.Generic;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
@@ -18,6 +19,20 @@ namespace MusicTutor.Api.Controllers.Pupils
         public PupilsController(IMediator mediator) : base(mediator)
         {                       
         }
+
+
+        /// <summary>
+        /// Gets all Pupils
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PupilResponseDto>>> GetManyAsync()
+        {
+            var pupils = await mediator.Send(new GetAllPupils());
+            
+            return Ok(pupils);
+        }
+
 
         /// <summary>
         /// Gets the Pupil with the given id
@@ -68,6 +83,23 @@ namespace MusicTutor.Api.Controllers.Pupils
             {
                 return BadRequest(ex.InnerException.Message);
             }
+        }
+
+        /// <summary>
+        /// Delete the Pupil
+        /// </summary>
+        /// <returns></returns>
+        // DELETE api/<type>/5
+        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteItemAsync([FromRoute] Guid id)
+        {
+            var deleteCount = await mediator.Send(new DeletePupil(id));
+
+            if (deleteCount == 0)
+                return NotFound();
+
+            return NoContent();
         }        
     }
 }
