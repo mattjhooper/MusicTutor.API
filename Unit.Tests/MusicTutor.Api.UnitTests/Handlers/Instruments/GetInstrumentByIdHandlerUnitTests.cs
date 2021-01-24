@@ -16,13 +16,13 @@ using System;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Instruments
 {
-    public class GetInstrumentByIdUnitTests
+    public class GetInstrumentByIdHandlerUnitTests
     {
         private readonly GetInstrumentByIdHandler _handler;
         private readonly IMusicTutorDbContext _dbContext;
         private readonly Instrument _instrument;
 
-        public GetInstrumentByIdUnitTests()
+        public GetInstrumentByIdHandlerUnitTests()
         {
             _instrument = Instrument.CreateInstrument("TEST");
             _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).Build();
