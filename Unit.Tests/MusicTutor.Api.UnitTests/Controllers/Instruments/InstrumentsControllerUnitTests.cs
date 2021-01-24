@@ -38,11 +38,14 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task GetManyAsync_ReturnsOkObjectResultAsync()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<GetAllInstruments>()).Returns(new InstrumentResponseDto[] { _instrumentDto });
             var instrumentsController = new InstrumentsController(_mediator);
             
+            // Act
             var response = await instrumentsController.GetManyAsync();
 
+            // Assert
             response.Should().BeOfType<ActionResult<IEnumerable<InstrumentResponseDto>>>();
             response.Result.Should().BeOfType<OkObjectResult>();
             OkObjectResult result = (OkObjectResult)response.Result;
@@ -52,11 +55,14 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task GetSingleAsync_ReturnsOkObjectResultAsync()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<GetInstrumentById>()).Returns(_instrumentDto);
             var instrumentsController = new InstrumentsController(_mediator);
             
+            // Act
             var response = await instrumentsController.GetSingleAsync(_instrumentDto.Id);
 
+            // Assert
             response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
             response.Result.Should().BeOfType<OkObjectResult>();
             OkObjectResult result = (OkObjectResult)response.Result;
@@ -66,11 +72,14 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task GetSingleAsync_ReturnsNotFoundAsync()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<GetInstrumentById>()).Returns<InstrumentResponseDto>(x => (InstrumentResponseDto)null);
             var instrumentsController = new InstrumentsController(_mediator);
             
+            // Act
             var response = await instrumentsController.GetSingleAsync(_instrumentDto.Id);
 
+            // Assert
             response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
             response.Result.Should().BeOfType<NotFoundResult>();
             NotFoundResult result = (NotFoundResult)response.Result;
@@ -80,12 +89,16 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task PostAsync_ReturnsActionResultInstrumentResponseDto()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<CreateInstrument>()).Returns(_instrumentDto);
             var instrumentsController = new InstrumentsController(_mediator);
             
             var createInstrument = new CreateInstrument("TEST");
+
+            // Act
             var response = await instrumentsController.PostAsync(createInstrument);
 
+            // Assert
             response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
             response.Result.Should().BeOfType<CreatedAtRouteResult>();
             CreatedAtRouteResult result = (CreatedAtRouteResult)response.Result;
@@ -98,14 +111,17 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task PostAsync_DbErrorReturnsBadRequest()
         {            
+            // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
             _mediator.Send(Arg.Any<CreateInstrument>()).Returns<InstrumentResponseDto>(x => { throw dbException; });
             var instrumentsController = new InstrumentsController(_mediator);
             
             var createInstrument = new CreateInstrument("TEST");
             
+            // Act
             var response = await instrumentsController.PostAsync(createInstrument);
 
+            // Assert
             response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
             response.Result.Should().BeOfType<BadRequestObjectResult>();
             BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
@@ -116,22 +132,28 @@ namespace MusicTutor.Api.UnitTests.Controllers.Instruments
         [Fact]
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<DeleteInstrument>()).Returns<int>(1);
             var instrumentsController = new InstrumentsController(_mediator);
             
+            // Act
             var response = await instrumentsController.DeleteItemAsync(_instrumentDto.Id);
 
+            // Assert
             response.Should().BeOfType<NoContentResult>();
         }
 
         [Fact]
         public async Task DeleteItemAsync_ReturnsNotFoundAsync()
         {            
+            // Arrange
             _mediator.Send(Arg.Any<DeleteInstrument>()).Returns<int>(0);
             var instrumentsController = new InstrumentsController(_mediator);
             
+            // Act
             var response = await instrumentsController.DeleteItemAsync(_instrumentDto.Id);
 
+            // Assert
             response.Should().BeOfType<NotFoundResult>();
         }          
     }
