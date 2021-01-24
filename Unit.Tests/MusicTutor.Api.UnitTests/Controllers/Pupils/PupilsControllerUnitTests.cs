@@ -130,6 +130,49 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
+        public async Task PutAsync_ReturnsOk()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
+            var PupilsController = new PupilsController(_mediator);
+            
+            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+
+            // Act
+            var response = await PupilsController.PutAsync(updatePupil);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PupilResponseDto>>();
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+            result.Value.Should().BeOfType<PupilResponseDto>();
+            var val = (PupilResponseDto)result.Value;
+            val.Name.Should().Be(_pupilDto.Name);
+        }
+
+        [Fact]
+        public async Task PutAsync_DbErrorReturnsBadRequest()
+        {            
+            // Arrange
+            var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw dbException; });
+            var PupilsController = new PupilsController(_mediator);
+            
+            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+
+            // Act
+            var response = await PupilsController.PutAsync(updatePupil);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PupilResponseDto>>();
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            result.Value.Should().Be("An invalid operation occurred");
+        }
+
+        [Fact]
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {            
             // Arrange

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Ardalis.GuardClauses;
 using MusicTutor.Core.Base;
 
 namespace MusicTutor.Core.Models
@@ -82,7 +83,23 @@ namespace MusicTutor.Core.Models
                 throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
             
             return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
-        } 
+        }
+
+        public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)
+        {
+            Guard.Against.NullOrWhiteSpace(name, nameof(name));
+            Guard.Against.NullOrWhiteSpace(contactName, nameof(contactName));
+            Name = name;
+            CurrentLessonRate = currentLessonRate;
+            StartDate = startDate;
+            FrequencyInDays = frequencyInDays;
+
+            Contact newContact = new (contactName, contactEmail, contactPhone);
+            if (newContact != Contact)            
+                Contact = newContact;
+            
+
+        }
 
         public static Pupil CreatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null)
         {
