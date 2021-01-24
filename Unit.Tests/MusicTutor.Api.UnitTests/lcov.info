@@ -178,7 +178,7 @@ FN:10,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServices
 FNDA:1,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServicesInAssemblyOf(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 DA:11,1
 DA:12,1
-DA:13,43
+DA:13,42
 DA:14,1
 DA:16,6
 DA:17,1
@@ -186,8 +186,8 @@ BRDA:12,47,0,1
 BRDA:12,47,1,1
 BRDA:13,16,0,6
 BRDA:13,24,0,5
-BRDA:13,16,1,38
-BRDA:13,24,1,38
+BRDA:13,16,1,37
+BRDA:13,24,1,37
 LF:6
 LH:6
 BRF:6
@@ -228,18 +228,14 @@ FNF:1
 FNH:1
 end_of_record
 SF:c:\dev\MusicTutor.API\MusicTutor.Api\Installers\MvcInstaller.cs
-FN:10,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+FN:9,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 FNDA:1,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+DA:10,1
 DA:11,1
-DA:12,1
+DA:13,2
 DA:14,1
-DA:15,0
-DA:16,0
-DA:17,0
-DA:18,1
-DA:19,1
-LF:8
-LH:5
+LF:4
+LH:4
 BRF:0
 BRH:0
 FNF:1
@@ -427,45 +423,6 @@ BRF:0
 BRH:0
 FNF:2
 FNH:2
-end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Api\Filters\ValidationFilter.cs
-FN:15,System.Boolean MusicTutor.Api.Filters.ValidationFilter/<>c::<OnActionExecutionAsync>b__0_0(System.Collections.Generic.KeyValuePair`2<System.String,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry>)
-FNDA:0,System.Boolean MusicTutor.Api.Filters.ValidationFilter/<>c::<OnActionExecutionAsync>b__0_0(System.Collections.Generic.KeyValuePair`2<System.String,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry>)
-DA:16,0
-FN:16,System.String MusicTutor.Api.Filters.ValidationFilter/<>c::<OnActionExecutionAsync>b__0_1(System.Collections.Generic.KeyValuePair`2<System.String,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry>)
-FNDA:0,System.String MusicTutor.Api.Filters.ValidationFilter/<>c::<OnActionExecutionAsync>b__0_1(System.Collections.Generic.KeyValuePair`2<System.String,Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateEntry>)
-DA:17,0
-FN:11,System.Void MusicTutor.Api.Filters.ValidationFilter/<OnActionExecutionAsync>d__0::MoveNext()
-FNDA:0,System.Void MusicTutor.Api.Filters.ValidationFilter/<OnActionExecutionAsync>d__0::MoveNext()
-DA:12,0
-DA:13,0
-DA:14,0
-DA:15,0
-DA:19,0
-DA:21,0
-DA:22,0
-DA:23,0
-DA:24,0
-DA:25,0
-DA:27,0
-DA:28,0
-DA:30,0
-DA:32,0
-DA:33,0
-DA:36,0
-DA:37,0
-BRDA:13,39,0,0
-BRDA:21,427,1,0
-BRDA:23,350,1,0
-BRDA:23,350,0,0
-BRDA:21,427,0,0
-BRDA:13,39,1,0
-LF:19
-LH:0
-BRF:6
-BRH:0
-FNF:3
-FNH:0
 end_of_record
 SF:c:\dev\MusicTutor.API\MusicTutor.Api\Examples\Pupils\CreatePupilExample.cs
 FN:9,MusicTutor.Api.Commands.Pupils.CreatePupil MusicTutor.Api.Examples.Pupils.CreatePupilExample::GetExamples()
