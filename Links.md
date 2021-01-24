@@ -5,3 +5,6 @@ https://www.edgesidesolutions.com/cqrs-with-entity-framework-core/
 
 
 https://ardalis.com/moving-from-controllers-and-actions-to-endpoints-with-mediatr/
+
+# Watch Command
+dotnet watch --project .\Unit.Tests\MusicTutor.Api.UnitTests test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info

@@ -18,6 +18,7 @@ namespace MusicTutor.Api.UnitTests.Utils
         private IMusicTutorDbContext _dbContext = Substitute.For<IMusicTutorDbContext>();
 
         private List<Instrument> _instruments;
+        private List<Pupil> _pupils;
 
         public MockDbContextBuilder()
         {
@@ -26,6 +27,8 @@ namespace MusicTutor.Api.UnitTests.Utils
                 Instrument.CreateInstrument("Piano"),
                 Instrument.CreateInstrument("Flute")
             };
+
+            _pupils = new List<Pupil>();
         }
         
         public static MockDbContextBuilder Init() => new MockDbContextBuilder();
@@ -44,6 +47,20 @@ namespace MusicTutor.Api.UnitTests.Utils
         {            
             _instruments.Add(instrument);
             return WithInstruments();
+        }
+
+        public MockDbContextBuilder WithPupils()
+        {            
+            var mock = _pupils.AsQueryable().BuildMockDbSet();
+            _dbContext.Pupils.Returns(mock);
+
+            return this;
+        }
+
+        public MockDbContextBuilder WithPupils(Pupil pupil)
+        {            
+            _pupils.Add(pupil);            
+            return WithPupils();
         }
     }
 }

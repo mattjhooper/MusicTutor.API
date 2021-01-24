@@ -20,9 +20,12 @@ namespace MusicTutor.Api.UnitTests.Handlers.Instruments
         private readonly DeleteInstrumentHandler _handler;
         private readonly IMusicTutorDbContext _dbContext;
 
+        private readonly Instrument _instrument;
+
         public DeleteInstrumentHandlerUnitTests()
         {
-            _dbContext = MockDbContextBuilder.Init().WithInstruments().Build();
+            _instrument = Instrument.CreateInstrument("TEST");
+            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).Build();
             _handler = new DeleteInstrumentHandler(_dbContext);
         }
 
@@ -30,14 +33,13 @@ namespace MusicTutor.Api.UnitTests.Handlers.Instruments
         public async Task DeleteInstrumentHandler_DeletesInstrumentAsync()
         {
             //Given
-            var guid = _dbContext.Instruments.ToList()[0].Id;
-            var deleteInstrument = new DeleteInstrument(guid);
+            var deleteInstrument = new DeleteInstrument(_instrument.Id);
             
             //When
             var response = await _handler.Handle(deleteInstrument, new CancellationToken());
             
             //Then    
-            _dbContext.Instruments.Received().Remove(Arg.Any<Instrument>());            
+            _dbContext.Instruments.Received().Remove(Arg.Is<Instrument>(_instrument));            
             _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 

@@ -9,7 +9,7 @@ using MusicTutor.Core.Models;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Core.Services;
 
-namespace MusicTutor.Data.EFCore.Handlers.Instruments
+namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record CreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupil, PupilResponseDto>
     {        

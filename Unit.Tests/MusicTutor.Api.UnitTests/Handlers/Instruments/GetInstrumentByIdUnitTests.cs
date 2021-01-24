@@ -20,10 +20,12 @@ namespace MusicTutor.Api.UnitTests.Handlers.Instruments
     {
         private readonly GetInstrumentByIdHandler _handler;
         private readonly IMusicTutorDbContext _dbContext;
+        private readonly Instrument _instrument;
 
         public GetInstrumentByIdUnitTests()
         {
-            _dbContext = MockDbContextBuilder.Init().WithInstruments().Build();
+            _instrument = Instrument.CreateInstrument("TEST");
+            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).Build();
             _handler = new GetInstrumentByIdHandler(_dbContext);
         }
 
@@ -31,14 +33,13 @@ namespace MusicTutor.Api.UnitTests.Handlers.Instruments
         public async Task GetInstrumentByIdHandler_ReturnsInstrumentAsync()
         {
             //Given
-            var instrument = _dbContext.Instruments.ToList()[0];
-            var getInstrumentById = new GetInstrumentById(instrument.Id);
+            var getInstrumentById = new GetInstrumentById(_instrument.Id);
             
             //When
             var response = await _handler.Handle(getInstrumentById, new CancellationToken());
             
             //Then    
-            response.Name.Should().Be(instrument.Name);
+            response.Name.Should().Be(_instrument.Name);
         }
 
         [Fact]

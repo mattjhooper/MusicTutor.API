@@ -1,5 +1,6 @@
 using Mapster;
 using MapsterMapper;
+using MusicTutor.Api.Contracts.Instruments.Mappings;
 using MusicTutor.Api.Contracts.Pupils.Mappings;
 
 namespace MusicTutor.Api.UnitTests.Mapping
@@ -12,6 +13,8 @@ namespace MusicTutor.Api.UnitTests.Mapping
             var config = new TypeAdapterConfig();
             var pupilMapping = new PupilMapping();
             pupilMapping.Register(config);
+            var instrumentMapping = new InstrumentMapping();
+            instrumentMapping.Register(config);
 
             _mapper = new Mapper(config);
         }
