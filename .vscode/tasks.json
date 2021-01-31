@@ -51,7 +51,7 @@
                 "/p:CollectCoverage=true",
                 "/p:CoverletOutputFormat=lcov",
                 "/p:CoverletOutput=./lcov.info",
-                "${workspaceFolder}/Unit.Tests/MusicTutor.Api.UnitTests/MusicTutor.Api.UnitTests.csproj"
+                "${workspaceFolder}"
             ],
             "problemMatcher": "$msCompile",
             "group": {
