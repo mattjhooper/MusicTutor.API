@@ -7,16 +7,16 @@ using Xunit;
 
 namespace MusicTutor.Api.UnitTests.Validators.Pupils
 {
-    public class CreatePupilValidatorUnitTests
+    public class UpdatePupilValidatorUnitTests
     {
-        private readonly CreatePupilValidator validator;
+        private readonly UpdatePupilValidator validator;
         private readonly IDbValidator dbValidator;
-        public CreatePupilValidatorUnitTests()
+        public UpdatePupilValidatorUnitTests()
         {
             dbValidator = Substitute.For<IDbValidator>();
-            dbValidator.InstrumentAlreadyExistsAsync(Arg.Any<Guid>(), default).Returns(true);
+            dbValidator.PupilAlreadyExistsAsync(Arg.Any<Guid>(), default).Returns(true);
             
-            validator = new CreatePupilValidator(dbValidator);
+            validator = new UpdatePupilValidator(dbValidator);
 
         }
 
@@ -26,10 +26,10 @@ namespace MusicTutor.Api.UnitTests.Validators.Pupils
         public void EmptyName_Invalid(string name)
         {
             //Given
-            var createPupil = new CreatePupil(name, 0M, DateTime.Today, 0, Guid.NewGuid(), null, null, null);
+            var updatePupil = new UpdatePupil(Guid.NewGuid(), name, 0M, DateTime.Today, 0, null, null, null);
             
             //When
-            var result = validator.TestValidate(createPupil);
+            var result = validator.TestValidate(updatePupil);
             
             //Then
             result.ShouldHaveValidationErrorFor(i => i.Name);
@@ -39,10 +39,10 @@ namespace MusicTutor.Api.UnitTests.Validators.Pupils
         public void Name_Valid()
         {
             //Given
-            var createPupil = new CreatePupil("John", 0M, DateTime.Today, 0, Guid.NewGuid(), null, null, null);
+            var updatePupil = new UpdatePupil(Guid.NewGuid(), "John", 0M, DateTime.Today, 0, null, null, null);
             
             //When
-            var result = validator.TestValidate(createPupil);
+            var result = validator.TestValidate(updatePupil);
             
             //Then
             result.ShouldNotHaveValidationErrorFor(i => i.Name);

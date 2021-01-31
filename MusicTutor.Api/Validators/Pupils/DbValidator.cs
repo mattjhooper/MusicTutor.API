@@ -17,6 +17,11 @@ namespace MusicTutor.Api.Validators.Pupils
         public async Task<bool> InstrumentAlreadyExistsAsync(Guid instrumentId, CancellationToken cancellationToken)
         {
             return await _dbContext.Instruments.AnyAsync(i => i.Id == instrumentId);
+        }
+
+        public async Task<bool> PupilAlreadyExistsAsync(Guid pupilId, CancellationToken cancellationToken)
+        {
+            return await _dbContext.Pupils.AnyAsync(i => i.Id == pupilId);
         }        
     }
 }

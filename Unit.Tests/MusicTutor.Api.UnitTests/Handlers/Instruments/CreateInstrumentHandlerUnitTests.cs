@@ -37,8 +37,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Instruments
             
             //Then    
             response.Name.Should().Be("Bongos");
-            _dbContext.Instruments.Received().AddAsync(Arg.Is<Instrument>(x => x.Name == "Bongos"));
-            _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.Instruments.Received().AddAsync(Arg.Is<Instrument>(x => x.Name == "Bongos"));
+            await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
     }
 }

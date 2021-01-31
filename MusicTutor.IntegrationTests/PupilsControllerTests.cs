@@ -44,7 +44,7 @@ namespace MusicTutor.IntegrationTests
             pupilResponse.ContactPhoneNumber.Should().Be(createPupil.ContactPhoneNumber);
 
             var updatePupil = new UpdatePupil(pupilResponse.Id, "New Name", pupilResponse.LessonRate + 1, pupilResponse.StartDate.AddDays(-1), 7, "New Contact Name", "New Contact Email", "New PhoneNo" );
-            response = await _client.PutAsJsonAsync<UpdatePupil>($"{PupilsUri}", updatePupil);
+            response = await _client.PutAsJsonAsync<UpdatePupil>($"{PupilsUri}/{updatePupil.Id}", updatePupil);
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
             pupilResponse = await response.Content.ReadAsAsync<PupilResponseDto>();
             pupilResponse.Name.Should().Be(updatePupil.Name);

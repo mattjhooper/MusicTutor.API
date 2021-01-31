@@ -91,15 +91,19 @@ namespace MusicTutor.Api.Controllers.Pupils
         /// <remarks>
         /// Section to add any remarks
         /// </remarks>
+        /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns>If successful it returns a CreatedAtRoute response - see
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
         [ProducesResponseType(typeof(PupilResponseDto), StatusCodes.Status200OK)] 
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        [HttpPut]
-        public async Task<ActionResult<PupilResponseDto>> PutAsync([FromBody] UpdatePupil item)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PupilResponseDto>> PutSingleAsync([FromRoute] Guid id, [FromBody] UpdatePupil item)
         {
+            if (id != item.Id)
+                return BadRequest($"Route Id [{id}] must match message Body Id [{item.Id}].");
+            
             try
             {
                 var pupil = await mediator.Send(item);

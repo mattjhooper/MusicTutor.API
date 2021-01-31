@@ -52,7 +52,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             response.ContactName.Should().Be(updatePupil.ContactName);
             response.ContactEmail.Should().Be(updatePupil.ContactEmail);
             response.ContactPhoneNumber.Should().Be(updatePupil.ContactPhoneNumber);
-            _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
         [Fact]
@@ -66,7 +66,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             await act.Should().ThrowAsync<InvalidOperationException>();
             
             //Then    
-            _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
     }
 }

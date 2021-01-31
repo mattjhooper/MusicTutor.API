@@ -7,5 +7,7 @@ namespace MusicTutor.Api.Validators.Pupils
     public interface IDbValidator
     {
         Task<bool> InstrumentAlreadyExistsAsync(Guid instrumentId, CancellationToken cancellationToken);        
+
+        Task<bool> PupilAlreadyExistsAsync(Guid pupilId, CancellationToken cancellationToken);
     }
 }

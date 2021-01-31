@@ -41,8 +41,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             
             //Then    
             response.Name.Should().Be("PupilName");
-            _dbContext.Pupils.Received().AddAsync(Arg.Is<Pupil>(x => x.Name == "PupilName" && x.Contact.Name == "ContactName" && x.Instruments.Contains(_instrument)));
-            _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.Pupils.Received().AddAsync(Arg.Is<Pupil>(x => x.Name == "PupilName" && x.Contact.Name == "ContactName" && x.Instruments.Contains(_instrument)));
+            await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
         [Fact]
@@ -56,8 +56,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             await act.Should().ThrowAsync<InvalidOperationException>();
             
             //Then    
-            _dbContext.Pupils.DidNotReceive().AddAsync(Arg.Any<Pupil>());
-            _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.Pupils.DidNotReceive().AddAsync(Arg.Any<Pupil>());
+            await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
     }
 }

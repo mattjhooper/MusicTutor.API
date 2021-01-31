@@ -45,7 +45,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             
             //Then    
             _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_Pupil));            
-            _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
         [Fact]
@@ -61,7 +61,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Then    
            // response.Should().Be(1);
             _dbContext.Pupils.DidNotReceive().Remove(Arg.Any<Pupil>());
-            _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
+            await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
     }
 }

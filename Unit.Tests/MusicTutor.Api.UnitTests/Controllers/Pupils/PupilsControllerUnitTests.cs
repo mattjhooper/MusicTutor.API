@@ -130,7 +130,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
-        public async Task PutAsync_ReturnsOk()
+        public async Task PutSingleAsync_ReturnsOk()
         {            
             // Arrange
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
@@ -139,7 +139,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
 
             // Act
-            var response = await PupilsController.PutAsync(updatePupil);
+            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -152,7 +152,27 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
-        public async Task PutAsync_DbErrorReturnsBadRequest()
+        public async Task PutSingleAsync_ReturnsBadRequestIfIdsDoNotMatch()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
+            var PupilsController = new PupilsController(_mediator);
+            
+            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+
+            // Act
+            var response = await PupilsController.PutSingleAsync(Guid.NewGuid(), updatePupil);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PupilResponseDto>>();
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            ((string)result.Value).Should().Match("Route Id * must match message Body Id *.");
+        }
+
+        [Fact]
+        public async Task PutSingleAsync_DbErrorReturnsBadRequest()
         {            
             // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
@@ -162,7 +182,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
 
             // Act
-            var response = await PupilsController.PutAsync(updatePupil);
+            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
