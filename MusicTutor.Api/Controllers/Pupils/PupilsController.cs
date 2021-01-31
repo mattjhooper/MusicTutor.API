@@ -114,6 +114,10 @@ namespace MusicTutor.Api.Controllers.Pupils
             {
                 return BadRequest(ex.InnerException.Message);
             }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>

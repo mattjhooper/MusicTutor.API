@@ -193,6 +193,27 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
+        public async Task PutSingleAsync_InvalidOperationReturnsBadRequest()
+        {            
+            // Arrange
+            var invalidOperationException = new InvalidOperationException("An invalid operation occurred");
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw invalidOperationException; });
+            var PupilsController = new PupilsController(_mediator);
+            
+            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+
+            // Act
+            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PupilResponseDto>>();
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            result.Value.Should().Be("An invalid operation occurred");
+        }
+
+        [Fact]
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {            
             // Arrange
