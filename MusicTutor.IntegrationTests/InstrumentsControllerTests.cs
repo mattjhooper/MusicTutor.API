@@ -15,13 +15,13 @@ using MusicTutor.Api.Contracts.Instruments;
 
 namespace MusicTutor.IntegrationTests
 {
-    public class InstrumentControllerTests: IntegrationBase
+    public class InstrumentsControllerTests: IntegrationBase
     {        
         [Fact]
         public async Task GetAllInstruments()
         {
 
-            var response = await _client.GetAsync("/Instruments");
+            var response = await _client.GetAsync(InstrumentsUri);
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
             var content = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
@@ -34,7 +34,7 @@ namespace MusicTutor.IntegrationTests
         {
 
             var createInstrument = new CreateInstrument("Triangle");
-            var response = await _client.PostAsJsonAsync<CreateInstrument>("/Instruments", createInstrument);
+            var response = await _client.PostAsJsonAsync<CreateInstrument>(InstrumentsUri, createInstrument);
             response.StatusCode.Should().Be(StatusCodes.Status201Created);
 
             var content = await response.Content.ReadAsAsync<InstrumentResponseDto>();
@@ -43,12 +43,12 @@ namespace MusicTutor.IntegrationTests
             var id = content.Id;
             id.Should().NotBeEmpty();
 
-            response = await _client.GetAsync($"/Instruments/{id}");
+            response = await _client.GetAsync($"{InstrumentsUri}/{id}");
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
             content = await response.Content.ReadAsAsync<InstrumentResponseDto>();
             content.Name.Should().Be("Triangle");
 
-            response = await _client.DeleteAsync($"/Instruments/{id}");
+            response = await _client.DeleteAsync($"{InstrumentsUri}/{id}");
             response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
 
         }

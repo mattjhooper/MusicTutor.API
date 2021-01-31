@@ -13,6 +13,8 @@ namespace MusicTutor.IntegrationTests
 {
     public abstract class IntegrationBase
     {
+        protected const string InstrumentsUri = "/Instruments";
+        protected const string PupilsUri = "/Pupils";
         protected HttpClient _client;
         public IntegrationBase()
         {

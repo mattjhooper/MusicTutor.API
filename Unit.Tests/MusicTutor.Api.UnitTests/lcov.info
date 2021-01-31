@@ -962,8 +962,8 @@ FN:19,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:35,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:20,35
 FN:20,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:15,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:21,15
+FNDA:13,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:21,13
 FN:21,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:13,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:22,13
