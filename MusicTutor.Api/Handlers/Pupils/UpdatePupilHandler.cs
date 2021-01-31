@@ -18,7 +18,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
             var pupil = await DbContext.Pupils.SingleOrDefaultAsync(i => i.Id == updatePupil.Id);
 
             if (pupil is null)
-                throw new InvalidOperationException("Pupil cannot be found");
+                return null;
 
             pupil.UpdatePupil(updatePupil.Name, updatePupil.LessonRate, updatePupil.StartDate, updatePupil.FrequencyInDays, updatePupil.ContactName, updatePupil.ContactEmail, updatePupil.ContactPhoneNumber);
 

@@ -56,14 +56,14 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         }
 
         [Fact]
-        public async Task CreatePupilHandler_ThrowsExceptionForUnknownInstrumentAsync()
+        public async Task CreatePupilHandler_ReturnsNullForUnknownInstrumentAsync()
         {
             //Given
             var updatePupil = new UpdatePupil(Guid.NewGuid(), "NewName", 15M, _Pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber" );
             
             //When
-            Func<Task> act = async () => { await _handler.Handle(updatePupil, new CancellationToken()); };
-            await act.Should().ThrowAsync<InvalidOperationException>();
+            var response = await _handler.Handle(updatePupil, new CancellationToken());
+            response.Should().BeNull();
             
             //Then    
             await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());

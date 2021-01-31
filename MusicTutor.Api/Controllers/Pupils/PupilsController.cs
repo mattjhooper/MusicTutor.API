@@ -96,7 +96,8 @@ namespace MusicTutor.Api.Controllers.Pupils
         /// <returns>If successful it returns a CreatedAtRoute response - see
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
-        [ProducesResponseType(typeof(PupilResponseDto), StatusCodes.Status200OK)] 
+        [ProducesResponseType(typeof(PupilResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)] 
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{id}")]
         public async Task<ActionResult<PupilResponseDto>> PutSingleAsync([FromRoute] Guid id, [FromBody] UpdatePupil item)
@@ -107,6 +108,9 @@ namespace MusicTutor.Api.Controllers.Pupils
             try
             {
                 var pupil = await mediator.Send(item);
+
+                if (pupil is null)
+                    return NotFound();
                 
                 return  Ok(pupil);
             }
@@ -125,6 +129,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         /// </summary>
         /// <returns></returns>
         // DELETE api/<type>/5
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteItemAsync([FromRoute] Guid id)

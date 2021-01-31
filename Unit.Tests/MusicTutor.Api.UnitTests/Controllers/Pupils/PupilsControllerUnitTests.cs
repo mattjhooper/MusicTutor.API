@@ -214,6 +214,23 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
+        public async Task PutSingleAsync_ReturnsNotFoundAsync()
+        {            
+            // Arrange
+            PupilResponseDto nullDto = null;
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(nullDto);
+            var PupilsController = new PupilsController(_mediator);
+            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+            
+            // Act
+            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PupilResponseDto>>();
+            response.Result.Should().BeOfType<NotFoundResult>();
+        }
+
+        [Fact]
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {            
             // Arrange

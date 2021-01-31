@@ -16,14 +16,9 @@ namespace MusicTutor.Api.Validators.Pupils
         {
             check = dbValidator;
 
-            RuleFor(x => x.Id)
-             .NotNull()
-             .MustAsync(check.PupilAlreadyExistsAsync).WithMessage("Pupil must exist. No matching Pupil for supplied Id.");
-
             RuleFor(x => x.Name)
             .NotEmpty()
             .MaximumLength(Pupil.NameLength);
-
             
         }
     }

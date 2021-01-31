@@ -115,10 +115,10 @@ FNDA:1,System.Void MusicTutor.Api.Validators.Pupils.UpdatePupilValidator::.ctor(
 DA:15,1
 DA:16,1
 DA:17,1
+DA:19,1
+DA:20,1
+DA:21,1
 DA:23,1
-DA:24,1
-DA:25,1
-DA:28,1
 LF:7
 LH:7
 BRF:0
@@ -652,37 +652,41 @@ DA:82,0
 DA:83,0
 DA:84,0
 DA:86,1
-FN:102,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
+FN:103,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
-DA:103,1
 DA:104,1
-DA:105,0
-DA:108,1
+DA:105,1
+DA:106,0
 DA:109,1
-DA:111,1
+DA:110,1
+DA:112,1
 DA:113,0
-DA:114,0
-DA:115,0
+DA:115,1
 DA:117,0
 DA:118,0
 DA:119,0
-DA:121,1
-BRDA:104,39,0,0
-BRDA:104,39,1,2
-FN:130,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
+DA:121,0
+DA:122,0
+DA:123,0
+DA:125,1
+BRDA:105,39,0,0
+BRDA:105,39,1,2
+BRDA:112,269,0,0
+BRDA:112,269,1,1
+FN:135,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
-DA:131,1
-DA:132,1
-DA:134,1
-DA:135,0
+DA:136,1
 DA:137,1
-DA:138,1
-BRDA:134,172,0,0
-BRDA:134,172,1,1
-LF:40
-LH:19
-BRF:6
-BRH:2
+DA:139,1
+DA:140,0
+DA:142,1
+DA:143,1
+BRDA:139,172,0,0
+BRDA:139,172,1,1
+LF:42
+LH:20
+BRF:8
+BRH:3
 FNF:6
 FNH:4
 end_of_record
