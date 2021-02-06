@@ -18,6 +18,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.6.3"/>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7"/>
     <PackageReference Include="FluentAssertions" Version="5.10.3"/>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Api\MusicTutor.Api.csproj"/>

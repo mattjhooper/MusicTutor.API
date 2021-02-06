@@ -23,8 +23,7 @@ namespace MusicTutor.Data.EFCore
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
                 .LogTo(Console.WriteLine, LogLevel.Information)
-                .EnableSensitiveDataLogging()
-                .UseSqlServer(@"server=.\SQLEXPRESS; database=MusicTutor2020; Trusted_Connection=True");
+                .EnableSensitiveDataLogging();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

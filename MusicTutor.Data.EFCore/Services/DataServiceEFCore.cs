@@ -16,12 +16,23 @@ namespace MusicTutor.Data.EFCore.Services
             this.logger = logger;
         }
 
-        public void SetupDataStore()
+        public void RemoveDataStore()
         {
             try
             {
                 logger.LogInformation("****** Call DevelopmentEnsureDeleted **********");
-                context.DevelopmentEnsureDeleted();
+                context.DevelopmentEnsureDeleted();                
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while removing development database.");
+            }
+        }
+
+        public void SetupDataStore()
+        {
+            try
+            {
                 logger.LogInformation("****** Call DevelopmentEnsureCreated **********");
                 context.DevelopmentEnsureCreated();
                 logger.LogInformation("****** Call SeedDatabase **********");

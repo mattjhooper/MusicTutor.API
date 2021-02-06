@@ -870,7 +870,7 @@ BRH:0
 FNF:1
 FNH:1
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Core\Models\Contact.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Contact.cs
 FN:4,System.String MusicTutor.Core.Models.Contact::get_Name()
 FNDA:46,System.String MusicTutor.Core.Models.Contact::get_Name()
 DA:5,46
@@ -888,7 +888,7 @@ BRH:0
 FNF:2
 FNH:2
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Core\Models\Instrument.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Instrument.cs
 FN:17,System.Guid MusicTutor.Core.Models.Instrument::get_Id()
 FNDA:84,System.Guid MusicTutor.Core.Models.Instrument::get_Id()
 DA:18,84
@@ -925,7 +925,7 @@ BRH:0
 FNF:6
 FNH:5
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Core\Models\Lesson.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Lesson.cs
 FN:18,System.Int32 MusicTutor.Core.Models.Lesson::get_Id()
 FNDA:0,System.Int32 MusicTutor.Core.Models.Lesson::get_Id()
 DA:19,0
@@ -971,7 +971,7 @@ BRH:0
 FNF:10
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Core\Models\Payment.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Payment.cs
 FN:14,System.Int32 MusicTutor.Core.Models.Payment::get_Id()
 FNDA:0,System.Int32 MusicTutor.Core.Models.Payment::get_Id()
 DA:15,0
@@ -997,7 +997,7 @@ BRH:0
 FNF:6
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Core\Models\Pupil.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Pupil.cs
 FN:15,System.Guid MusicTutor.Core.Models.Pupil::get_Id()
 FNDA:15,System.Guid MusicTutor.Core.Models.Pupil::get_Id()
 DA:16,15
@@ -1111,7 +1111,7 @@ BRH:4
 FNF:20
 FNH:14
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\MusicTutorDbContext.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\MusicTutorDbContext.cs
 FN:15,Microsoft.EntityFrameworkCore.DbSet`1<MusicTutor.Core.Models.Pupil> MusicTutor.Data.EFCore.MusicTutorDbContext::get_Pupils()
 FNDA:0,Microsoft.EntityFrameworkCore.DbSet`1<MusicTutor.Core.Models.Pupil> MusicTutor.Data.EFCore.MusicTutorDbContext::get_Pupils()
 DA:16,0
@@ -1123,26 +1123,25 @@ FNDA:0,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::OnConfiguring(Mic
 DA:24,0
 DA:25,0
 DA:26,0
-DA:27,0
-FN:29,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+FN:28,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
 FNDA:0,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)
+DA:29,0
 DA:30,0
 DA:31,0
-DA:32,0
 FN:19,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<MusicTutor.Data.EFCore.MusicTutorDbContext>)
 FNDA:0,System.Void MusicTutor.Data.EFCore.MusicTutorDbContext::.ctor(Microsoft.EntityFrameworkCore.DbContextOptions`1<MusicTutor.Data.EFCore.MusicTutorDbContext>)
 DA:20,0
 DA:21,0
-LF:11
+LF:10
 LH:0
 BRF:0
 BRH:0
 FNF:5
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Services\DataServiceEFCore.cs
-FN:19,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::SetupDataStore()
-FNDA:0,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::SetupDataStore()
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Services\DataServiceEFCore.cs
+FN:19,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::RemoveDataStore()
+FNDA:0,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::RemoveDataStore()
 DA:20,0
 DA:22,0
 DA:23,0
@@ -1153,10 +1152,20 @@ DA:27,0
 DA:28,0
 DA:29,0
 DA:30,0
-DA:31,0
-DA:32,0
+FN:32,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::SetupDataStore()
+FNDA:0,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::SetupDataStore()
 DA:33,0
-DA:34,0
+DA:35,0
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:44,0
+DA:45,0
 FN:12,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::.ctor(Microsoft.Extensions.Logging.ILogger`1<MusicTutor.Data.EFCore.Services.DataServiceEFCore>,MusicTutor.Data.EFCore.MusicTutorDbContext)
 FNDA:0,System.Void MusicTutor.Data.EFCore.Services.DataServiceEFCore::.ctor(Microsoft.Extensions.Logging.ILogger`1<MusicTutor.Data.EFCore.Services.DataServiceEFCore>,MusicTutor.Data.EFCore.MusicTutorDbContext)
 DA:13,0
@@ -1164,14 +1173,14 @@ DA:14,0
 DA:15,0
 DA:16,0
 DA:17,0
-LF:19
+LF:27
 LH:0
 BRF:0
 BRH:0
-FNF:2
+FNF:3
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Services\SetupHelpers.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Services\SetupHelpers.cs
 FN:17,System.Void MusicTutor.Data.EFCore.Services.SetupHelpers::DevelopmentEnsureDeleted(MusicTutor.Data.EFCore.MusicTutorDbContext)
 FNDA:0,System.Void MusicTutor.Data.EFCore.Services.SetupHelpers::DevelopmentEnsureDeleted(MusicTutor.Data.EFCore.MusicTutorDbContext)
 DA:18,0
@@ -1210,7 +1219,7 @@ BRH:0
 FNF:4
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\LessonConfiguration.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\LessonConfiguration.cs
 FN:10,System.Void MusicTutor.Data.EFCore.Configurations.LessonConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Lesson>)
 FNDA:0,System.Void MusicTutor.Data.EFCore.Configurations.LessonConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Lesson>)
 DA:11,0
@@ -1226,7 +1235,7 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\InstrumentConfiguration.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\InstrumentConfiguration.cs
 FN:10,System.Void MusicTutor.Data.EFCore.Configuration.InstrumentConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Instrument>)
 FNDA:0,System.Void MusicTutor.Data.EFCore.Configuration.InstrumentConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Instrument>)
 DA:11,0
@@ -1245,7 +1254,7 @@ BRH:0
 FNF:1
 FNH:0
 end_of_record
-SF:c:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\PupilConfiguration.cs
+SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\Configuration\PupilConfiguration.cs
 FN:10,System.Void MusicTutor.Data.EFCore.Configuration.PupilConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Pupil>)
 FNDA:0,System.Void MusicTutor.Data.EFCore.Configuration.PupilConfiguration::Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder`1<MusicTutor.Core.Models.Pupil>)
 DA:11,0

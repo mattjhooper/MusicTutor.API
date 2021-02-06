@@ -1,13 +1,7 @@
-using System;
-using System.Net;
 using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using MusicTutor.Api;
-using MusicTutor.Core.Models;
 using Xunit;
-using Microsoft.AspNetCore.TestHost;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using MusicTutor.Api.Commands.Instruments;
@@ -15,12 +9,14 @@ using MusicTutor.Api.Contracts.Instruments;
 
 namespace MusicTutor.IntegrationTests
 {
-    public class InstrumentsControllerTests: IntegrationBase
-    {        
+    public class InstrumentsControllerTests : IntegrationBase
+    {
+
+        public InstrumentsControllerTests(CustomWebApplicationFactory<MusicTutor.Api.Startup> factory) : base(factory){ }
+
         [Fact]
         public async Task GetAllInstruments()
         {
-
             var response = await _client.GetAsync(InstrumentsUri);
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
@@ -52,8 +48,5 @@ namespace MusicTutor.IntegrationTests
             response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
 
         }
-
-
-
     }
 }

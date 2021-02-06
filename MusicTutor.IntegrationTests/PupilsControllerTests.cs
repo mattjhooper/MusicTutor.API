@@ -1,16 +1,10 @@
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Testing;
-using MusicTutor.Api;
-using MusicTutor.Core.Models;
 using Xunit;
-using Microsoft.AspNetCore.TestHost;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Api.Contracts.Instruments;
 using System.Linq;
 using MusicTutor.Api.Commands.Pupils;
@@ -20,6 +14,8 @@ namespace MusicTutor.IntegrationTests
 {
     public class PupilsControllerTests: IntegrationBase
     {        
+        
+        public PupilsControllerTests(CustomWebApplicationFactory<MusicTutor.Api.Startup> factory) : base(factory){ }
         [Fact]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
