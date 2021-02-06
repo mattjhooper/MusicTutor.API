@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicTutor.Api.Queries.Instruments;
-using MusicTutor.Api.Commands.Instruments;
 using System;
 using Microsoft.AspNetCore.Http;
 using MusicTutor.Api.Contracts.Errors;

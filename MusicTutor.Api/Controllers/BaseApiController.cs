@@ -7,6 +7,9 @@ namespace MusicTutor.Api.Controllers
     [Route("[controller]")]
     public abstract class BaseApiController : ControllerBase
     {
+        public const string Pupils = "Pupils";
+        public const string Instruments = "Instruments";
+        
         protected readonly IMediator mediator;
         public BaseApiController(IMediator mediator)
         {
