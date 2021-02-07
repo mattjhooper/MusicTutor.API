@@ -9,13 +9,14 @@ using MusicTutor.Api.Contracts.Instruments;
 using System.Linq;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Pupils;
+using Xunit.Abstractions;
 
 namespace MusicTutor.IntegrationTests
 {
-    public class PupilsControllerTests: IntegrationBase
+    public class PupilsControllerTests: IntegrationTest
     {        
         
-        public PupilsControllerTests(CustomWebApplicationFactory<MusicTutor.Api.Startup> factory) : base(factory){ }
+        public PupilsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper){ }
         [Fact]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
@@ -34,6 +35,7 @@ namespace MusicTutor.IntegrationTests
 
         private async Task<InstrumentResponseDto> GetPiano()
         {
+            _output.WriteLine($"Get piano");
             var response = await _client.GetAsync(InstrumentsUri);
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
@@ -45,6 +47,7 @@ namespace MusicTutor.IntegrationTests
 
         private async Task GetPupilAndValidate(PupilResponseDto pupil)
         {
+            _output.WriteLine($"Get pupil");
             var response = await _client.GetAsync($"{PupilsUri}/{pupil.Id}");
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
@@ -55,6 +58,7 @@ namespace MusicTutor.IntegrationTests
 
         private async Task<PupilResponseDto> CreatePupilAndValidate(CreatePupil createPupil)
         {
+            _output.WriteLine($"Create pupil");
             var response = await _client.PostAsJsonAsync<CreatePupil>(PupilsUri, createPupil);
             response.StatusCode.Should().Be(StatusCodes.Status201Created);
 
@@ -73,6 +77,7 @@ namespace MusicTutor.IntegrationTests
 
         private async Task<PupilResponseDto> UpdatePupilAndValidate(UpdatePupil updatePupil)
         {
+            _output.WriteLine($"Update pupil");
             var response = await _client.PutAsJsonAsync<UpdatePupil>($"{PupilsUri}/{updatePupil.Id}", updatePupil);
             response.StatusCode.Should().Be(StatusCodes.Status200OK);
             var pupilResponse = await response.Content.ReadAsAsync<PupilResponseDto>();
@@ -89,6 +94,7 @@ namespace MusicTutor.IntegrationTests
 
         private async Task DeletePupilAndValidate(Guid pupilId)
         {
+            _output.WriteLine($"Delete pupil");
             var response = await _client.DeleteAsync($"{PupilsUri}/{pupilId}");
             response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
         }

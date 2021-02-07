@@ -19,6 +19,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7"/>
     <PackageReference Include="FluentAssertions" Version="5.10.3"/>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1"/>
+    <PackageReference Include="Respawn" Version="4.0.0"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Api\MusicTutor.Api.csproj"/>
