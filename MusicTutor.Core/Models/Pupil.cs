@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Ardalis.GuardClauses;
 using MusicTutor.Core.Base;
@@ -83,6 +81,14 @@ namespace MusicTutor.Core.Models
                 throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
             
             return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
+        }
+
+        public bool AddInstrument(Instrument instrument)
+        {
+            if (_instruments == null)
+                throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+            
+            return _instruments.Add(instrument);
         }
 
         public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using MusicTutor.Api.Queries.Pupils;
 using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Instruments;
+using MusicTutor.Api.Commands.Pupils;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {
@@ -59,6 +61,87 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             response.Result.Should().BeOfType<NotFoundResult>();
             NotFoundResult result = (NotFoundResult)response.Result;
             result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        }
+
+        [Fact]
+        public async Task PostAsync_ReturnsBadRequestIfIdsDoNotMatch()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<CreatePupilInstrumentLink>()).Returns(_instrumentDto);
+            var pupilInstrumentsController = new PupilInstrumentsController(_mediator);
+            
+            var createPupilInstrumentLink = new CreatePupilInstrumentLink(Guid.NewGuid(), _instrumentDto.Id);
+
+            // Act
+            var response = await pupilInstrumentsController.PostAsync(Guid.NewGuid(), createPupilInstrumentLink);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            ((string)result.Value).Should().Match("Route Id * must match message Body Id *.");
+        }
+
+        [Fact]
+        public async Task PostAsync_ReturnsNotFoundAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<CreatePupilInstrumentLink>()).Returns((InstrumentResponseDto)null);
+            var pupilInstrumentsController = new PupilInstrumentsController(_mediator);
+            
+            var createPupilInstrumentLink = new CreatePupilInstrumentLink(Guid.NewGuid(), _instrumentDto.Id);
+
+            // Act
+            var response = await pupilInstrumentsController.PostAsync(createPupilInstrumentLink.pupilId, createPupilInstrumentLink);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
+            response.Result.Should().BeOfType<NotFoundResult>();
+            NotFoundResult result = (NotFoundResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        }
+
+        [Fact]
+        public async Task PostAsync_DbErrorReturnsBadRequest()
+        {            
+            // Arrange
+            var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
+            _mediator.Send(Arg.Any<CreatePupilInstrumentLink>()).Returns<InstrumentResponseDto>(x => { throw dbException; });
+            var pupilInstrumentsController = new PupilInstrumentsController(_mediator);
+            
+            var createPupilInstrumentLink = new CreatePupilInstrumentLink(Guid.NewGuid(), _instrumentDto.Id);
+
+            // Act
+            var response = await pupilInstrumentsController.PostAsync(createPupilInstrumentLink.pupilId, createPupilInstrumentLink);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            result.Value.Should().Be("An invalid operation occurred");
+        }
+
+        [Fact]
+        public async Task PostAsync_ReturnsActionResultInstrumentResponseDto()
+        {            
+            // Arrange
+            _mediator.Send(Arg.Any<CreatePupilInstrumentLink>()).Returns(_instrumentDto);
+            var pupilInstrumentsController = new PupilInstrumentsController(_mediator);
+            var createPupilInstrumentLink = new CreatePupilInstrumentLink(Guid.NewGuid(), _instrumentDto.Id);
+
+            // Act
+            var response = await pupilInstrumentsController.PostAsync(createPupilInstrumentLink.pupilId, createPupilInstrumentLink);
+
+            // Assert
+            response.Should().BeOfType<ActionResult<InstrumentResponseDto>>();
+            response.Result.Should().BeOfType<CreatedAtRouteResult>();
+            CreatedAtRouteResult result = (CreatedAtRouteResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status201Created);
+            result.Value.Should().BeOfType<InstrumentResponseDto>();
+            var val = (InstrumentResponseDto)result.Value;
+            val.Name.Should().Be(_instrumentDto.Name);
         }
     }
 }
