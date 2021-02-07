@@ -15,33 +15,27 @@ using System;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class CreatePupilHandlerUnitTests
+    public class CreatePupilHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly CreatePupilHandler _handler;
-        private readonly IMusicTutorDbContext _dbContext;
-
-        private readonly Instrument _instrument;
-
-        public CreatePupilHandlerUnitTests()
+        private readonly CreatePupil _newPupil;
+        
+        public CreatePupilHandlerUnitTests() : base()
         {
-            _instrument = Instrument.CreateInstrument("TEST");
-            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils().Build();
-            IMapper mapper = MappingBuilder.Init().Build();
-            _handler = new CreatePupilHandler(_dbContext, mapper);
+            _handler = new CreatePupilHandler(_dbContext, _mapper);
+            _newPupil = new CreatePupil("NewPupilName", 14M, DateTime.Now, 7, _instrument.Id, "ContactName", "ContactEmail", "ContactPhoneNumber" );
         }
 
         [Fact]
         public async Task CreatePupilHandler_AddsPupilAsync()
         {
             //Given
-            var createPupil = new CreatePupil("PupilName", 14M, DateTime.Now, 7, _instrument.Id, "ContactName", "ContactEmail", "ContactPhoneNumber" );
-            
             //When
-            var response = await _handler.Handle(createPupil, new CancellationToken());
+            var response = await _handler.Handle(_newPupil, new CancellationToken());
             
             //Then    
-            response.Name.Should().Be("PupilName");
-            await _dbContext.Pupils.Received().AddAsync(Arg.Is<Pupil>(x => x.Name == "PupilName" && x.Contact.Name == "ContactName" && x.Instruments.Contains(_instrument)));
+            response.Name.Should().Be(_newPupil.Name);
+            await _dbContext.Pupils.Received().AddAsync(Arg.Is<Pupil>(x => x.Name == _newPupil.Name && x.Contact.Name == _newPupil.ContactName && x.Instruments.Contains(_instrument)));
             await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
@@ -49,10 +43,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task CreatePupilHandler_ThrowsExceptionForUnknownInstrumentAsync()
         {
             //Given
-            var createPupil = new CreatePupil("PupilName", 14M, DateTime.Now, 7, Guid.NewGuid(), "ContactName", "ContactEmail", "ContactPhoneNumber" );
+            var pupilUnknownInstrument = _newPupil with { DefaultInstrumentId = Guid.NewGuid() };
             
             //When
-            Func<Task> act = async () => { await _handler.Handle(createPupil, new CancellationToken()); };
+            Func<Task> act = async () => { await _handler.Handle(pupilUnknownInstrument, new CancellationToken()); };
             await act.Should().ThrowAsync<InvalidOperationException>();
             
             //Then    

@@ -15,30 +15,20 @@ using MusicTutor.Api.Queries.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class GetPupilInstrumentsHandlerUnitTests
+    public class GetPupilInstrumentsHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly GetPupilInstrumentsHandler _handler;
-        private readonly IMusicTutorDbContext _dbContext;
-
-        private readonly Instrument _instrument;
-        private readonly Pupil _Pupil;
-
+        
         public GetPupilInstrumentsHandlerUnitTests()
         {
-            _instrument = Instrument.CreateInstrument("TEST");
-            var instruments = new List<Instrument>();
-            instruments.Add(_instrument);
-            _Pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
-            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_Pupil).Build();
-            IMapper mapper = MappingBuilder.Init().Build();
-            _handler = new GetPupilInstrumentsHandler(_dbContext, mapper);
+            _handler = new GetPupilInstrumentsHandler(_dbContext, _mapper);
         }
 
         [Fact]
         public async Task GetPupilInstrumentsHandler_GetsInstrumentsAsync()
         {
             //Given
-            var getPupilInstruments = new GetPupilInstruments(_Pupil.Id);
+            var getPupilInstruments = new GetPupilInstruments(_pupil.Id);
             
             //When
             var response = await _handler.Handle(getPupilInstruments, new CancellationToken());

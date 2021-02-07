@@ -16,21 +16,12 @@ using System.Collections.Generic;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class DeletePupilHandlerUnitTests
+    public class DeletePupilHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly DeletePupilHandler _handler;
-        private readonly IMusicTutorDbContext _dbContext;
-
-        private readonly Instrument _instrument;
-        private readonly Pupil _Pupil;
-
+        
         public DeletePupilHandlerUnitTests()
         {
-            _instrument = Instrument.CreateInstrument("TEST");
-            var instruments = new List<Instrument>();
-            instruments.Add(_instrument);
-            _Pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
-            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_Pupil).Build();
             _handler = new DeletePupilHandler(_dbContext);
         }
 
@@ -38,13 +29,13 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task DeletePupilHandler_DeletesPupilAsync()
         {
             //Given
-            var deletePupil = new DeletePupil(_Pupil.Id);
+            var deletePupil = new DeletePupil(_pupil.Id);
             
             //When
             var response = await _handler.Handle(deletePupil, new CancellationToken());
             
             //Then    
-            _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_Pupil));            
+            _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_pupil));            
             await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 

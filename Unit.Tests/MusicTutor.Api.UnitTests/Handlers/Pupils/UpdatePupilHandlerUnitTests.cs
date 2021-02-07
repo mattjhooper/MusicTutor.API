@@ -16,53 +16,43 @@ using System.Collections.Generic;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class UpdatePupilHandlerUnitTests
+    public class UpdatePupilHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly UpdatePupilHandler _handler;
-        private readonly IMusicTutorDbContext _dbContext;
-
-        private readonly Instrument _instrument;
-        private readonly Pupil _Pupil;
-
+        private readonly UpdatePupil _updatePupil;
+        
         public UpdatePupilHandlerUnitTests()
         {
-            _instrument = Instrument.CreateInstrument("TEST");
-            var instruments = new List<Instrument>();
-            instruments.Add(_instrument);
-            _Pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
-            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_Pupil).Build();
-            IMapper mapper = MappingBuilder.Init().Build();
-            _handler = new UpdatePupilHandler(_dbContext, mapper);
+            _handler = new UpdatePupilHandler(_dbContext, _mapper);
+            _updatePupil = new UpdatePupil(_pupil.Id, "NewName", 15M, _pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber" );                        
         }
 
         [Fact]
         public async Task UpdatePupilHandler_UpdatesPupilAsync()
         {
             //Given
-            var updatePupil = new UpdatePupil(_Pupil.Id, "NewName", 15M, _Pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber" );
-            
             //When
-            var response = await _handler.Handle(updatePupil, new CancellationToken());
+            var response = await _handler.Handle(_updatePupil, new CancellationToken());
             
             //Then    
-            response.Name.Should().Be(updatePupil.Name);
-            response.LessonRate.Should().Be(updatePupil.LessonRate);
-            response.StartDate.Should().Be(updatePupil.StartDate);
-            response.FrequencyInDays.Should().Be(updatePupil.FrequencyInDays);
-            response.ContactName.Should().Be(updatePupil.ContactName);
-            response.ContactEmail.Should().Be(updatePupil.ContactEmail);
-            response.ContactPhoneNumber.Should().Be(updatePupil.ContactPhoneNumber);
+            response.Name.Should().Be(_updatePupil.Name);
+            response.LessonRate.Should().Be(_updatePupil.LessonRate);
+            response.StartDate.Should().Be(_updatePupil.StartDate);
+            response.FrequencyInDays.Should().Be(_updatePupil.FrequencyInDays);
+            response.ContactName.Should().Be(_updatePupil.ContactName);
+            response.ContactEmail.Should().Be(_updatePupil.ContactEmail);
+            response.ContactPhoneNumber.Should().Be(_updatePupil.ContactPhoneNumber);
             await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
         [Fact]
-        public async Task CreatePupilHandler_ReturnsNullForUnknownInstrumentAsync()
+        public async Task CreatePupilHandler_ReturnsNullForUnknownPupilAsync()
         {
             //Given
-            var updatePupil = new UpdatePupil(Guid.NewGuid(), "NewName", 15M, _Pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber" );
+            var unknownPupil = _updatePupil with { Id = Guid.NewGuid() };
             
             //When
-            var response = await _handler.Handle(updatePupil, new CancellationToken());
+            var response = await _handler.Handle(unknownPupil, new CancellationToken());
             response.Should().BeNull();
             
             //Then    

@@ -27,11 +27,18 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
     {
         PupilResponseDto _pupilDto;
         IMediator _mediator;
+        PupilsController _controller;
+        CreatePupil _createPupil;
+        UpdatePupil _updatePupil;
 
         public PupilsControllerUnitTests()
         {
             _pupilDto = new PupilResponseDto(Guid.NewGuid(), "Test Name", 10M, DateTime.Now, 7, 0, "Contact Name", "Contact Email", "Contact Phone Number");
             _mediator = Substitute.For<IMediator>();
+            _controller = new PupilsController(_mediator);
+
+            _createPupil = new CreatePupil(_pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, Guid.NewGuid(), _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+            _updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
             
         }
 
@@ -40,10 +47,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<GetAllPupils>()).Returns(new PupilResponseDto[] { _pupilDto });
-            var PupilsController = new PupilsController(_mediator);
             
             // Act
-            var response = await PupilsController.GetManyAsync();
+            var response = await _controller.GetManyAsync();
 
             // Assert
             response.Should().BeOfType<ActionResult<IEnumerable<PupilResponseDto>>>();
@@ -57,10 +63,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<GetPupilById>()).Returns(_pupilDto);
-            var PupilsController = new PupilsController(_mediator);
             
             // Act
-            var response = await PupilsController.GetSingleAsync(_pupilDto.Id);
+            var response = await _controller.GetSingleAsync(_pupilDto.Id);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -74,10 +79,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<GetPupilById>()).Returns<PupilResponseDto>(x => (PupilResponseDto)null);
-            var PupilsController = new PupilsController(_mediator);
             
             // Act
-            var response = await PupilsController.GetSingleAsync(_pupilDto.Id);
+            var response = await _controller.GetSingleAsync(_pupilDto.Id);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -90,13 +94,10 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task PostAsync_ReturnsActionResultPupilResponseDto()
         {            
             // Arrange
-            _mediator.Send(Arg.Any<CreatePupil>()).Returns(_pupilDto);
-            var PupilsController = new PupilsController(_mediator);
-            
-            var createPupil = new CreatePupil(_pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, Guid.NewGuid(), _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
+            _mediator.Send(Arg.Any<CreatePupil>()).Returns(_pupilDto);                        
 
             // Act
-            var response = await PupilsController.PostAsync(createPupil);
+            var response = await _controller.PostAsync(_createPupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -114,12 +115,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
             _mediator.Send(Arg.Any<CreatePupil>()).Returns<PupilResponseDto>(x => { throw dbException; });
-            var PupilsController = new PupilsController(_mediator);
             
-            var createPupil = new CreatePupil(_pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, Guid.NewGuid(), _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
-
             // Act
-            var response = await PupilsController.PostAsync(createPupil);
+            var response = await _controller.PostAsync(_createPupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -134,12 +132,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
-            var PupilsController = new PupilsController(_mediator);
             
-            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
-
             // Act
-            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+            var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -156,12 +151,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
-            var PupilsController = new PupilsController(_mediator);
             
-            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
-
             // Act
-            var response = await PupilsController.PutSingleAsync(Guid.NewGuid(), updatePupil);
+            var response = await _controller.PutSingleAsync(Guid.NewGuid(), _updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -177,12 +169,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw dbException; });
-            var PupilsController = new PupilsController(_mediator);
             
-            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
-
             // Act
-            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+            var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -198,12 +187,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             // Arrange
             var invalidOperationException = new InvalidOperationException("An invalid operation occurred");
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw invalidOperationException; });
-            var PupilsController = new PupilsController(_mediator);
             
-            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
-
             // Act
-            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+            var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -219,11 +205,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             // Arrange
             PupilResponseDto nullDto = null;
             _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(nullDto);
-            var PupilsController = new PupilsController(_mediator);
-            var updatePupil = new UpdatePupil(_pupilDto.Id, _pupilDto.Name, _pupilDto.LessonRate, _pupilDto.StartDate, _pupilDto.FrequencyInDays, _pupilDto.ContactName, _pupilDto.ContactEmail, _pupilDto.ContactPhoneNumber);
             
             // Act
-            var response = await PupilsController.PutSingleAsync(updatePupil.Id, updatePupil);
+            var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
 
             // Assert
             response.Should().BeOfType<ActionResult<PupilResponseDto>>();
@@ -235,10 +219,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(1);
-            var PupilsController = new PupilsController(_mediator);
             
             // Act
-            var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
+            var response = await _controller.DeleteItemAsync(_pupilDto.Id);
 
             // Assert
             response.Should().BeOfType<NoContentResult>();
@@ -249,10 +232,9 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {            
             // Arrange
             _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(0);
-            var PupilsController = new PupilsController(_mediator);
             
             // Act
-            var response = await PupilsController.DeleteItemAsync(_pupilDto.Id);
+            var response = await _controller.DeleteItemAsync(_pupilDto.Id);
 
             // Assert
             response.Should().BeOfType<NotFoundResult>();

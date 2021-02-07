@@ -17,24 +17,12 @@ using MusicTutor.Api.Contracts.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    public class GetAllPupilsHandlerUnitTests
+    public class GetAllPupilsHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly GetAllPupilsHandler _handler;
-        private readonly IMusicTutorDbContext _dbContext;
-
-        private readonly Instrument _instrument;
-
-        private readonly Pupil _pupil;
-
         public GetAllPupilsHandlerUnitTests()
         {
-            _instrument = Instrument.CreateInstrument("TEST");
-            var instruments = new List<Instrument>();
-            instruments.Add(_instrument);
-            _pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
-            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_pupil).Build();
-            IMapper mapper = MappingBuilder.Init().Build();
-            _handler = new GetAllPupilsHandler(_dbContext, mapper);
+            _handler = new GetAllPupilsHandler(_dbContext, _mapper);
         }
 
         [Fact]
@@ -49,7 +37,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Then    
             response.Count().Should().Be(1);
             var pupils = new List<PupilResponseDto>(response);
-            pupils[0].Name.Should().Be("PupilName");      
+            pupils[0].Name.Should().Be(_pupil.Name);      
         }
     }
 }

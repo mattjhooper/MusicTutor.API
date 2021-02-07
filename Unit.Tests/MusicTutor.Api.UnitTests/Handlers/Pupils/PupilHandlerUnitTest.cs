@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using MapsterMapper;
+using MusicTutor.Api.UnitTests.Mapping;
+using MusicTutor.Api.UnitTests.Utils;
+using MusicTutor.Core.Models;
+using MusicTutor.Core.Services;
+
+namespace MusicTutor.Api.UnitTests.Handlers.Pupils
+{
+    
+    public abstract class PupilHandlerUnitTest
+    {
+        protected readonly IMusicTutorDbContext _dbContext;
+        protected readonly Instrument _instrument;
+        protected readonly Pupil _pupil;
+        protected readonly IMapper _mapper;
+
+        public PupilHandlerUnitTest()
+        {
+            _instrument = Instrument.CreateInstrument("TEST");
+            var instruments = new List<Instrument>();
+            instruments.Add(_instrument);
+            _pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
+            _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_pupil).Build();
+            _mapper = MappingBuilder.Init().Build();            
+        }
+    }
+}
