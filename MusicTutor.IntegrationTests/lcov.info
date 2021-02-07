@@ -178,6 +178,17 @@ BRH:0
 FNF:1
 FNH:1
 end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Queries\Pupils\GetPupilInstruments.cs
+FN:8,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilInstruments::get_pupilId()
+FNDA:0,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilInstruments::get_pupilId()
+DA:9,0
+LF:1
+LH:0
+BRF:0
+BRH:0
+FNF:1
+FNH:0
+end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Queries\Instruments\GetInstrumentById.cs
 FN:6,System.Guid MusicTutor.Api.Queries.Instruments.GetInstrumentById::get_Id()
 FNDA:3,System.Guid MusicTutor.Api.Queries.Instruments.GetInstrumentById::get_Id()
@@ -211,7 +222,7 @@ FN:10,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServices
 FNDA:2,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServicesInAssemblyOf(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 DA:11,2
 DA:12,2
-DA:13,100
+DA:13,106
 DA:14,2
 DA:16,12
 DA:17,2
@@ -219,8 +230,8 @@ BRDA:12,47,0,1
 BRDA:12,47,1,2
 BRDA:13,16,0,12
 BRDA:13,24,0,10
-BRDA:13,16,1,90
-BRDA:13,24,1,90
+BRDA:13,16,1,96
+BRDA:13,24,1,96
 LF:6
 LH:6
 BRF:6
@@ -412,6 +423,39 @@ BRF:0
 BRH:0
 FNF:2
 FNH:2
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Pupils\GetPupilInstrumentsHandler.cs
+FN:15,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.GetPupilInstrumentsHandler::get_DbContext()
+FNDA:0,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.GetPupilInstrumentsHandler::get_DbContext()
+DA:16,0
+FN:16,System.Void MusicTutor.Api.EFCore.Handlers.Pupils.GetPupilInstrumentsHandler::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext,MapsterMapper.IMapper)
+FNDA:0,System.Void MusicTutor.Api.EFCore.Handlers.Pupils.GetPupilInstrumentsHandler::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext,MapsterMapper.IMapper)
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+DA:35,0
+DA:36,0
+LF:21
+LH:0
+BRF:2
+BRH:0
+FNF:2
+FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Pupils\UpdatePupilHandler.cs
 FN:13,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.UpdatePupilHandler::get_DbContext()
@@ -607,12 +651,12 @@ FNF:1
 FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\BaseApiController.cs
-FN:10,System.Void MusicTutor.Api.Controllers.BaseApiController::.ctor(MediatR.IMediator)
+FN:13,System.Void MusicTutor.Api.Controllers.BaseApiController::.ctor(MediatR.IMediator)
 FNDA:9,System.Void MusicTutor.Api.Controllers.BaseApiController::.ctor(MediatR.IMediator)
-DA:11,9
-DA:12,9
-DA:13,9
 DA:14,9
+DA:15,9
+DA:16,9
+DA:17,9
 LF:4
 LH:4
 BRF:0
@@ -620,69 +664,92 @@ BRH:0
 FNF:1
 FNH:1
 end_of_record
-SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\Pupils\PupilsController.cs
-FN:18,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController::.ctor(MediatR.IMediator)
-FNDA:4,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController::.ctor(MediatR.IMediator)
-DA:19,4
-DA:20,4
-DA:21,4
-FN:29,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetManyAsync>d__1::MoveNext()
-FNDA:0,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetManyAsync>d__1::MoveNext()
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\Pupils\PupilInstrumentsController.cs
+FN:14,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController::.ctor(MediatR.IMediator)
+FNDA:0,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController::.ctor(MediatR.IMediator)
+DA:15,0
+DA:16,0
+DA:17,0
+FN:26,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<GetManyAsync>d__1::MoveNext()
+FNDA:0,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<GetManyAsync>d__1::MoveNext()
+DA:27,0
+DA:28,0
 DA:30,0
 DA:31,0
 DA:33,0
 DA:34,0
-FN:45,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetSingleAsync>d__2::MoveNext()
+BRDA:30,179,0,0
+BRDA:30,179,1,0
+LF:9
+LH:0
+BRF:2
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\Pupils\PupilsController.cs
+FN:16,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController::.ctor(MediatR.IMediator)
+FNDA:4,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController::.ctor(MediatR.IMediator)
+DA:17,4
+DA:18,4
+DA:19,4
+FN:27,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetManyAsync>d__1::MoveNext()
+FNDA:0,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetManyAsync>d__1::MoveNext()
+DA:28,0
+DA:29,0
+DA:31,0
+DA:32,0
+FN:43,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetSingleAsync>d__2::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<GetSingleAsync>d__2::MoveNext()
-DA:46,1
+DA:44,1
+DA:45,1
 DA:47,1
-DA:49,1
-DA:50,0
-DA:52,1
-DA:53,1
-BRDA:49,179,0,0
-BRDA:49,179,1,1
-FN:68,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PostAsync>d__3::MoveNext()
+DA:48,0
+DA:50,1
+DA:51,1
+BRDA:47,179,0,0
+BRDA:47,179,1,1
+FN:66,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PostAsync>d__3::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PostAsync>d__3::MoveNext()
-DA:69,1
-DA:74,1
-DA:75,1
-DA:80,1
+DA:67,1
+DA:72,1
+DA:73,1
+DA:78,1
+DA:80,0
+DA:81,0
 DA:82,0
-DA:83,0
-DA:84,0
-DA:86,1
-FN:103,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
+DA:84,1
+FN:101,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<PutSingleAsync>d__4::MoveNext()
-DA:104,1
-DA:105,1
-DA:106,0
-DA:109,1
+DA:102,1
+DA:103,1
+DA:104,0
+DA:107,1
+DA:108,1
 DA:110,1
-DA:112,1
-DA:113,0
-DA:115,1
+DA:111,0
+DA:113,1
+DA:115,0
+DA:116,0
 DA:117,0
-DA:118,0
 DA:119,0
+DA:120,0
 DA:121,0
-DA:122,0
-DA:123,0
-DA:125,1
-BRDA:105,39,0,0
-BRDA:105,39,1,2
-BRDA:112,269,0,0
-BRDA:112,269,1,1
-FN:135,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
+DA:123,1
+BRDA:103,39,0,0
+BRDA:103,39,1,2
+BRDA:110,269,0,0
+BRDA:110,269,1,1
+FN:133,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
 FNDA:1,System.Void MusicTutor.Api.Controllers.Pupils.PupilsController/<DeleteItemAsync>d__5::MoveNext()
-DA:136,1
+DA:134,1
+DA:135,1
 DA:137,1
-DA:139,1
-DA:140,0
-DA:142,1
-DA:143,1
-BRDA:139,172,0,0
-BRDA:139,172,1,1
+DA:138,0
+DA:140,1
+DA:141,1
+BRDA:137,172,0,0
+BRDA:137,172,1,1
 LF:42
 LH:25
 BRF:8

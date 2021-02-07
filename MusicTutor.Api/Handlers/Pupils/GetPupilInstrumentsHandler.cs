@@ -17,14 +17,21 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
     {
         public async Task<IEnumerable<InstrumentResponseDto>> Handle(GetPupilInstruments request, CancellationToken cancellationToken)
         {
-            var pupilInstruments = await DbContext.Pupils
-                .Where(p => p.Id == request.pupilId)
-                .Include(p => p.Instruments)
-                .SelectMany(p => p.Instruments)
-                .ProjectToType<InstrumentResponseDto>()
-                .ToListAsync();
+            // var pupilInstruments = await DbContext.Pupils
+            //     .Where(p => p.Id == request.pupilId)
+            //     .Include(p => p.Instruments)
+            //     .SelectMany(p => p.Instruments)
+            //     .ProjectToType<InstrumentResponseDto>()
+            //     .ToListAsync();
 
-            return pupilInstruments;
+            // return pupilInstruments;
+
+            var pupil = await DbContext.Pupils.Where(p => p.Id == request.pupilId).Include(p => p.Instruments).SingleOrDefaultAsync();
+
+            if (pupil is null)
+                return null;
+
+            return Mapper.Map<IEnumerable<InstrumentResponseDto>>(pupil.Instruments);
         }
     }
 }
