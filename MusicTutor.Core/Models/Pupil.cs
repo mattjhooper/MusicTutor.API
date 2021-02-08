@@ -91,6 +91,14 @@ namespace MusicTutor.Core.Models
             return _instruments.Add(instrument);
         }
 
+        public int RemoveInstrument(Guid instrumentId)
+        {
+            if (_instruments == null)
+                throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+            
+            return _instruments.RemoveWhere(i => i.Id == instrumentId);
+        }
+
         public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)
         {
             Guard.Against.NullOrWhiteSpace(name, nameof(name));

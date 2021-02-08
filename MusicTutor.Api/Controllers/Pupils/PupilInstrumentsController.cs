@@ -71,5 +71,33 @@ namespace MusicTutor.Api.Controllers.Pupils
                 return BadRequest(ex.InnerException.Message);
             }
         }
+
+         /// <summary>
+        /// Creates a new Pupil Instrument Link and returns the instrument
+        /// </summary>
+        /// <param name="pupilId"></param>
+        /// <param name="instrumentId"></param>
+        /// <returns>If successful it returns a CreatedAtRoute response - see
+        /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
+        /// </returns>
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+        [HttpDelete("{pupilId}/Instruments/{instrumentId}", Name = "DeletePupilInstrument")]
+        public async Task<ActionResult> DeleteAsync([FromRoute] Guid pupilId, [FromRoute] Guid instrumentId)
+        {
+            try
+            {
+                var result = await mediator.Send(new DeletePupilInstrumentLink(pupilId, instrumentId));
+
+                if (result <= 0)
+                    return NotFound();
+
+                return NoContent();
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
     }
 }
