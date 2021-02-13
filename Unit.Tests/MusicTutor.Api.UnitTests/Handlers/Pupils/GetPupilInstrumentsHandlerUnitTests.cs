@@ -34,7 +34,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             var response = await _handler.Handle(getPupilInstruments, new CancellationToken());
             
             //Then    
-            response.Count().Should().Be(1);
+            response.Count().Should().Be(2);
         }
 
         [Fact]

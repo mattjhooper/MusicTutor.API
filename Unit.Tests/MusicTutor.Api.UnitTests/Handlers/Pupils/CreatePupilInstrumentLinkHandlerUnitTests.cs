@@ -43,7 +43,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         }
 
         [Fact]
-        public async Task CreatePupilHandler_ReturnsNullForUnknownPupilAsync()
+        public async Task CreatePupilInstrumentLinkHandler_ReturnsNullForUnknownPupilAsync()
         {
             //Given
             var unknownPupilLink = _createPupilInstrumentLink with { pupilId = Guid.NewGuid() };
@@ -57,7 +57,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         }
 
         [Fact]
-        public async Task CreatePupilHandler_ThrowsExceptionForUnknownInstrumentAsync()
+        public async Task CreatePupilInstrumentLinkHandler_ThrowsExceptionForUnknownInstrumentAsync()
         {
             //Given
             var unknownInstrumentLink = _createPupilInstrumentLink with { instrumentId = Guid.NewGuid() };

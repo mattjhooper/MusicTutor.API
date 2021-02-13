@@ -20,7 +20,8 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
 
             var deleteCount = pupil.RemoveInstrument(deletePupilInstrumentLink.instrumentId);
 
-            await DbContext.SaveChangesAsync(cancellationToken);
+            if (deleteCount > 0)
+                await DbContext.SaveChangesAsync(cancellationToken);
 
             return deleteCount;
         }
