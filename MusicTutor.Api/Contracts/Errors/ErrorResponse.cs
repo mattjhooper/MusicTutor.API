@@ -4,6 +4,6 @@ namespace MusicTutor.Api.Contracts.Errors
 {
     public class ErrorResponse
     {
-        public List<ErrorModel> Errors { get; } = new List<ErrorModel>();
+        public List<ErrorModel> Errors { get; init; } = new List<ErrorModel>();
     }
 } 

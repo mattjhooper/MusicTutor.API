@@ -12,6 +12,10 @@ using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Api.Commands.Pupils;
 using Microsoft.EntityFrameworkCore;
+using MusicTutor.Api.Validators.Pupils;
+using FluentValidation.Results;
+using MusicTutor.Api.Commands.Validators;
+using MusicTutor.Api.Contracts.Errors;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {
@@ -26,6 +30,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {
             _instrumentDto = new InstrumentResponseDto(Guid.NewGuid(), "Test Name");
             _mediator = Substitute.For<IMediator>();
+            _mediator.Send(Arg.Any<ValidateCommand>()).Returns((ErrorResponse)null);
             _controller = new PupilInstrumentsController(_mediator);
             
         }

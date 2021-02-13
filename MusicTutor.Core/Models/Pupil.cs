@@ -77,26 +77,39 @@ namespace MusicTutor.Core.Models
 
         public string InstrumentsToString()
         {
-            if (_instruments == null)
-                throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+            checkInstrumentCollectionIsLoaded();
             
             return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
         }
 
         public bool AddInstrument(Instrument instrument)
         {
-            if (_instruments == null)
-                throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+            checkInstrumentCollectionIsLoaded();
             
             return _instruments.Add(instrument);
         }
 
+        public bool CanRemoveInstrument(Guid instrumentId)
+        {
+            checkInstrumentCollectionIsLoaded();
+
+            return _instruments.Any(i => i.Id == instrumentId) && _instruments.Count() > 1;
+        }
+
         public int RemoveInstrument(Guid instrumentId)
+        {
+            checkInstrumentCollectionIsLoaded();
+
+            if (!CanRemoveInstrument(instrumentId))
+                return 0;
+            
+            return _instruments.RemoveWhere(i => i.Id == instrumentId);
+        }
+
+        private void checkInstrumentCollectionIsLoaded()
         {
             if (_instruments == null)
                 throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
-            
-            return _instruments.RemoveWhere(i => i.Id == instrumentId);
         }
 
         public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)

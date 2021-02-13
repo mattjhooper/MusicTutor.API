@@ -107,28 +107,60 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Validators\Pupils\DbValidator.cs
-FN:11,System.Void MusicTutor.Api.Validators.Pupils.DbValidator::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext)
+FN:12,System.Void MusicTutor.Api.Validators.Pupils.DbValidator::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext)
 FNDA:4,System.Void MusicTutor.Api.Validators.Pupils.DbValidator::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext)
-DA:12,4
 DA:13,4
 DA:14,4
 DA:15,4
-FN:17,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<InstrumentAlreadyExistsAsync>d__2::MoveNext()
+DA:16,4
+FN:18,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<InstrumentAlreadyExistsAsync>d__2::MoveNext()
 FNDA:2,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<InstrumentAlreadyExistsAsync>d__2::MoveNext()
-DA:18,2
 DA:19,2
 DA:20,2
-FN:22,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<PupilAlreadyExistsAsync>d__3::MoveNext()
+DA:21,2
+FN:23,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<PupilAlreadyExistsAsync>d__3::MoveNext()
 FNDA:2,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<PupilAlreadyExistsAsync>d__3::MoveNext()
-DA:23,2
 DA:24,2
 DA:25,2
-LF:10
+DA:26,2
+FN:28,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<PupilInstrumentCanBeRemovedAsync>d__4::MoveNext()
+FNDA:0,System.Void MusicTutor.Api.Validators.Pupils.DbValidator/<PupilInstrumentCanBeRemovedAsync>d__4::MoveNext()
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:34,0
+DA:35,0
+BRDA:31,401,0,0
+BRDA:31,401,1,0
+LF:16
 LH:10
+BRF:2
+BRH:0
+FNF:4
+FNH:3
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Validators\Pupils\DeletePupilInstrumentLinkValidator.cs
+FN:8,System.Void MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
+FNDA:0,System.Void MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
+DA:9,0
+DA:10,0
+DA:11,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:21,0
+DA:22,0
+DA:23,0
+LF:12
+LH:0
 BRF:0
 BRH:0
-FNF:3
-FNH:3
+FNF:1
+FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Validators\Pupils\UpdatePupilValidator.cs
 FN:14,System.Void MusicTutor.Api.Validators.Pupils.UpdatePupilValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
@@ -243,7 +275,7 @@ FN:10,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServices
 FNDA:1,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServicesInAssemblyOf(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 DA:11,1
 DA:12,1
-DA:13,58
+DA:13,61
 DA:14,1
 DA:16,6
 DA:17,1
@@ -251,8 +283,8 @@ BRDA:12,47,0,1
 BRDA:12,47,1,1
 BRDA:13,16,0,6
 BRDA:13,24,0,5
-BRDA:13,16,1,53
-BRDA:13,24,1,53
+BRDA:13,16,1,56
+BRDA:13,24,1,56
 LF:6
 LH:6
 BRF:6
@@ -344,6 +376,42 @@ LH:0
 BRF:0
 BRH:0
 FNF:1
+FNH:0
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Validators\ValidateDeletePupilInstrumentLinkHandler.cs
+FN:10,MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator MusicTutor.Api.EFCore.Handlers.Validators.ValidateDeletePupilInstrumentLinkHandler::get_Validator()
+FNDA:0,MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator MusicTutor.Api.EFCore.Handlers.Validators.ValidateDeletePupilInstrumentLinkHandler::get_Validator()
+DA:11,0
+FN:11,System.Void MusicTutor.Api.EFCore.Handlers.Validators.ValidateDeletePupilInstrumentLinkHandler::.ctor(MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator)
+FNDA:0,System.Void MusicTutor.Api.EFCore.Handlers.Validators.ValidateDeletePupilInstrumentLinkHandler::.ctor(MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator)
+DA:12,0
+DA:13,0
+DA:14,0
+DA:15,0
+DA:16,0
+DA:17,0
+DA:18,0
+DA:19,0
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+DA:27,0
+DA:28,0
+DA:29,0
+DA:30,0
+DA:31,0
+DA:32,0
+DA:33,0
+DA:34,0
+LF:24
+LH:0
+BRF:4
+BRH:0
+FNF:2
 FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Pupils\CreatePupilHandler.cs
@@ -746,57 +814,63 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\Pupils\PupilInstrumentsController.cs
-FN:17,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController::.ctor(MediatR.IMediator)
+FN:19,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController::.ctor(MediatR.IMediator)
 FNDA:9,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController::.ctor(MediatR.IMediator)
-DA:18,9
-DA:19,9
 DA:20,9
-FN:29,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<GetManyAsync>d__1::MoveNext()
+DA:21,9
+DA:22,9
+FN:31,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<GetManyAsync>d__1::MoveNext()
 FNDA:2,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<GetManyAsync>d__1::MoveNext()
-DA:30,2
-DA:31,2
+DA:32,2
 DA:33,2
-DA:34,1
+DA:35,2
 DA:36,1
-DA:37,2
-BRDA:33,179,0,1
-BRDA:33,179,1,1
-FN:51,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<PostAsync>d__2::MoveNext()
+DA:38,1
+DA:39,2
+BRDA:35,179,0,1
+BRDA:35,179,1,1
+FN:53,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<PostAsync>d__2::MoveNext()
 FNDA:4,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<PostAsync>d__2::MoveNext()
-DA:52,4
-DA:53,4
-DA:54,1
-DA:57,3
-DA:58,3
-DA:60,2
-DA:61,1
-DA:67,1
+DA:54,4
+DA:55,4
+DA:56,1
+DA:59,3
+DA:60,3
+DA:62,2
+DA:63,1
 DA:69,1
-DA:70,1
 DA:71,1
-DA:73,4
-BRDA:53,39,0,1
-BRDA:53,39,1,3
-BRDA:60,269,0,1
-BRDA:60,269,1,1
-FN:86,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<DeleteAsync>d__3::MoveNext()
+DA:72,1
+DA:73,1
+DA:75,4
+BRDA:55,39,0,1
+BRDA:55,39,1,3
+BRDA:62,269,0,1
+BRDA:62,269,1,1
+FN:89,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<DeleteAsync>d__3::MoveNext()
 FNDA:3,System.Void MusicTutor.Api.Controllers.Pupils.PupilInstrumentsController/<DeleteAsync>d__3::MoveNext()
-DA:87,3
-DA:89,3
 DA:90,3
-DA:92,2
-DA:93,1
-DA:95,1
-DA:97,1
-DA:98,1
-DA:99,1
-DA:101,3
-BRDA:92,190,0,1
-BRDA:92,190,1,1
-LF:31
-LH:31
-BRF:8
-BRH:8
+DA:92,3
+DA:93,3
+DA:95,3
+DA:96,3
+DA:97,0
+DA:99,3
+DA:101,2
+DA:102,1
+DA:104,1
+DA:106,1
+DA:107,1
+DA:108,1
+DA:110,3
+BRDA:96,223,0,0
+BRDA:96,223,1,3
+BRDA:101,406,0,1
+BRDA:101,406,1,1
+LF:35
+LH:34
+BRF:10
+BRH:9
 FNF:4
 FNH:4
 end_of_record
@@ -990,6 +1064,17 @@ BRH:0
 FNF:1
 FNH:1
 end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Commands\Validators\ValidateCommand.cs
+FN:7,MusicTutor.Api.Commands.Pupils.DeletePupilInstrumentLink MusicTutor.Api.Commands.Validators.ValidateCommand::get_Command()
+FNDA:6,MusicTutor.Api.Commands.Pupils.DeletePupilInstrumentLink MusicTutor.Api.Commands.Validators.ValidateCommand::get_Command()
+DA:8,6
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
+end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Commands\Pupils\CreatePupil.cs
 FN:7,System.String MusicTutor.Api.Commands.Pupils.CreatePupil::get_Name()
 FNDA:185,System.String MusicTutor.Api.Commands.Pupils.CreatePupil::get_Name()
@@ -1092,8 +1177,8 @@ FNH:2
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Instrument.cs
 FN:17,System.Guid MusicTutor.Core.Models.Instrument::get_Id()
-FNDA:144,System.Guid MusicTutor.Core.Models.Instrument::get_Id()
-DA:18,144
+FNDA:146,System.Guid MusicTutor.Core.Models.Instrument::get_Id()
+DA:18,146
 FN:19,System.String MusicTutor.Core.Models.Instrument::get_Name()
 FNDA:116,System.String MusicTutor.Core.Models.Instrument::get_Name()
 DA:20,116
@@ -1210,8 +1295,8 @@ FN:17,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:46,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:18,46
 FN:18,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:24,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:19,24
+FNDA:26,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:19,26
 FN:19,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:24,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:20,24
@@ -1251,49 +1336,60 @@ FN:78,System.String MusicTutor.Core.Models.Pupil::InstrumentsToString()
 FNDA:0,System.String MusicTutor.Core.Models.Pupil::InstrumentsToString()
 DA:79,0
 DA:80,0
-DA:81,0
+DA:82,0
 DA:83,0
-DA:84,0
-BRDA:80,12,0,0
-BRDA:80,12,1,0
-FN:86,System.Boolean MusicTutor.Core.Models.Pupil::AddInstrument(MusicTutor.Core.Models.Instrument)
+FN:85,System.Boolean MusicTutor.Core.Models.Pupil::AddInstrument(MusicTutor.Core.Models.Instrument)
 FNDA:1,System.Boolean MusicTutor.Core.Models.Pupil::AddInstrument(MusicTutor.Core.Models.Instrument)
+DA:86,1
 DA:87,1
-DA:88,1
-DA:89,0
-DA:91,1
-DA:92,1
-BRDA:88,12,0,0
-BRDA:88,12,1,1
-FN:94,System.Int32 MusicTutor.Core.Models.Pupil::RemoveInstrument(System.Guid)
+DA:89,1
+DA:90,1
+FN:92,System.Boolean MusicTutor.Core.Models.Pupil::CanRemoveInstrument(System.Guid)
+FNDA:2,System.Boolean MusicTutor.Core.Models.Pupil::CanRemoveInstrument(System.Guid)
+DA:93,2
+DA:94,2
+DA:96,6
+DA:97,2
+BRDA:96,44,0,1
+BRDA:96,44,1,1
+FN:99,System.Int32 MusicTutor.Core.Models.Pupil::RemoveInstrument(System.Guid)
 FNDA:2,System.Int32 MusicTutor.Core.Models.Pupil::RemoveInstrument(System.Guid)
-DA:95,2
-DA:96,2
-DA:97,0
-DA:99,6
 DA:100,2
-BRDA:96,25,0,0
-BRDA:96,25,1,2
-FN:102,System.Void MusicTutor.Core.Models.Pupil::UpdatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.String,System.String,System.String)
-FNDA:1,System.Void MusicTutor.Core.Models.Pupil::UpdatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.String,System.String,System.String)
-DA:103,1
+DA:101,2
+DA:103,2
 DA:104,1
-DA:105,1
-DA:106,1
-DA:107,1
-DA:108,1
-DA:109,1
-DA:111,1
-DA:112,1
-DA:113,1
+DA:106,3
+DA:107,2
+BRDA:103,38,0,1
+BRDA:103,38,1,1
+FN:109,System.Void MusicTutor.Core.Models.Pupil::checkInstrumentCollectionIsLoaded()
+FNDA:5,System.Void MusicTutor.Core.Models.Pupil::checkInstrumentCollectionIsLoaded()
+DA:110,5
+DA:111,5
+DA:112,0
+DA:113,5
+BRDA:111,12,0,0
+BRDA:111,12,1,5
+FN:115,System.Void MusicTutor.Core.Models.Pupil::UpdatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.String,System.String,System.String)
+FNDA:1,System.Void MusicTutor.Core.Models.Pupil::UpdatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.String,System.String,System.String)
 DA:116,1
-BRDA:112,95,0,1
-BRDA:112,95,1,1
-FN:118,MusicTutor.Core.Models.Pupil MusicTutor.Core.Models.Pupil::CreatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.Collections.Generic.ICollection`1<MusicTutor.Core.Models.Instrument>,System.String,System.String,System.String)
+DA:117,1
+DA:118,1
+DA:119,1
+DA:120,1
+DA:121,1
+DA:122,1
+DA:124,1
+DA:125,1
+DA:126,1
+DA:129,1
+BRDA:125,95,0,1
+BRDA:125,95,1,1
+FN:131,MusicTutor.Core.Models.Pupil MusicTutor.Core.Models.Pupil::CreatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.Collections.Generic.ICollection`1<MusicTutor.Core.Models.Instrument>,System.String,System.String,System.String)
 FNDA:18,MusicTutor.Core.Models.Pupil MusicTutor.Core.Models.Pupil::CreatePupil(System.String,System.Decimal,System.DateTime,System.Int32,System.Collections.Generic.ICollection`1<MusicTutor.Core.Models.Instrument>,System.String,System.String,System.String)
-DA:119,18
-DA:120,18
-DA:121,18
+DA:132,18
+DA:133,18
+DA:134,18
 FN:39,System.Void MusicTutor.Core.Models.Pupil::.ctor()
 FNDA:19,System.Void MusicTutor.Core.Models.Pupil::.ctor()
 DA:40,19
@@ -1324,12 +1420,12 @@ FN:63,System.Void MusicTutor.Core.Models.Pupil::.ctor(System.String,System.Decim
 FNDA:1,System.Void MusicTutor.Core.Models.Pupil::.ctor(System.String,System.Decimal,System.DateTime,System.Int32,System.Collections.Generic.ICollection`1<MusicTutor.Core.Models.Instrument>,System.String,System.String,System.String)
 DA:64,1
 DA:65,2
-LF:68
-LH:49
+LF:75
+LH:58
 BRF:12
-BRH:6
-FNF:22
-FNH:16
+BRH:9
+FNF:24
+FNH:18
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Data.EFCore\MusicTutorDbContext.cs
 FN:15,Microsoft.EntityFrameworkCore.DbSet`1<MusicTutor.Core.Models.Pupil> MusicTutor.Data.EFCore.MusicTutorDbContext::get_Pupils()

@@ -9,6 +9,8 @@ using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Errors;
 using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Api.Validators.Pupils;
+using MusicTutor.Api.Commands.Validators;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
@@ -16,7 +18,7 @@ namespace MusicTutor.Api.Controllers.Pupils
     public class PupilInstrumentsController : BaseApiController
     {
         public PupilInstrumentsController(IMediator mediator) : base(mediator)
-        {                       
+        {   
         }
 
         /// <summary>
@@ -81,13 +83,20 @@ namespace MusicTutor.Api.Controllers.Pupils
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
         [HttpDelete("{pupilId}/Instruments/{instrumentId}", Name = "DeletePupilInstrument")]
         public async Task<ActionResult> DeleteAsync([FromRoute] Guid pupilId, [FromRoute] Guid instrumentId)
         {
             try
             {
-                var result = await mediator.Send(new DeletePupilInstrumentLink(pupilId, instrumentId));
+                var deletePupilInstrumentLink = new DeletePupilInstrumentLink(pupilId, instrumentId);
+
+                var validationResult = await mediator.Send(new ValidateCommand(deletePupilInstrumentLink));
+                if (validationResult is not null)
+                    return BadRequest(validationResult);
+
+                var result = await mediator.Send(deletePupilInstrumentLink);
 
                 if (result <= 0)
                     return NotFound();
