@@ -174,6 +174,30 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         }
 
         [Fact]
+        public async Task DeleteAsync_FluentValidationErrorReturnsBadRequest()
+        {            
+            // Arrange
+            var errors = new List<ValidationFailure>
+            {
+                new ValidationFailure("Fieldname", "Error Message")                
+            };
+            var fluentValidationException = new FluentValidation.ValidationException(errors);
+
+            _mediator.Send(Arg.Any<DeletePupilInstrumentLink>()).Returns<int>(x => { throw fluentValidationException; });
+            
+            // Act
+            var response = await _controller.DeleteAsync(Guid.NewGuid(), _instrumentDto.Id);
+
+            // Assert
+            response.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            result.Value.Should().BeOfType<List<ValidationFailure>>();
+            List<ValidationFailure> validationErrors = (List<ValidationFailure>)result.Value;
+            validationErrors[0].ErrorMessage.Should().Be("Error Message");
+        }
+
+        [Fact]
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {            
             // Arrange
