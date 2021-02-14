@@ -9,8 +9,6 @@ using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Errors;
 using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Api.Queries.Pupils;
-using MusicTutor.Api.Validators.Pupils;
-using MusicTutor.Api.Commands.Validators;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
@@ -92,16 +90,16 @@ namespace MusicTutor.Api.Controllers.Pupils
             {
                 var deletePupilInstrumentLink = new DeletePupilInstrumentLink(pupilId, instrumentId);
 
-                var validationResult = await mediator.Send(new ValidateCommand(deletePupilInstrumentLink));
-                if (validationResult is not null)
-                    return BadRequest(validationResult);
-
                 var result = await mediator.Send(deletePupilInstrumentLink);
 
                 if (result <= 0)
                     return NotFound();
 
                 return NoContent();
+            }
+            catch (FluentValidation.ValidationException ex)
+            {
+                return BadRequest(ex.Errors);
             }
             catch (DbUpdateException ex)
             {
