@@ -142,19 +142,19 @@ FNH:4
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Validators\Pupils\DeletePupilInstrumentLinkValidator.cs
 FN:8,System.Void MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
-FNDA:3,System.Void MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
-DA:9,3
-DA:10,3
-DA:11,3
-DA:13,3
-DA:14,3
-DA:15,3
-DA:17,3
-DA:18,3
-DA:19,3
-DA:21,3
-DA:22,3
-DA:23,3
+FNDA:4,System.Void MusicTutor.Api.Validators.Pupils.DeletePupilInstrumentLinkValidator::.ctor(MusicTutor.Api.Validators.Pupils.IDbValidator)
+DA:9,4
+DA:10,4
+DA:11,4
+DA:13,4
+DA:14,4
+DA:15,4
+DA:17,4
+DA:18,4
+DA:19,4
+DA:21,4
+DA:22,4
+DA:23,4
 LF:12
 LH:12
 BRF:0
@@ -1067,8 +1067,8 @@ FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Commands\Pupils\DeletePupilInstrumentLink.cs
 FN:6,System.Guid MusicTutor.Api.Commands.Pupils.DeletePupilInstrumentLink::get_pupilId()
-FNDA:80,System.Guid MusicTutor.Api.Commands.Pupils.DeletePupilInstrumentLink::get_pupilId()
-DA:7,80
+FNDA:85,System.Guid MusicTutor.Api.Commands.Pupils.DeletePupilInstrumentLink::get_pupilId()
+DA:7,85
 LF:1
 LH:1
 BRF:0
@@ -1111,42 +1111,42 @@ FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Behaviors\ValidationBehavior.cs
 FN:12,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2::.ctor(System.Collections.Generic.IEnumerable`1<FluentValidation.IValidator`1<TRequest>>)
-FNDA:1,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2::.ctor(System.Collections.Generic.IEnumerable`1<FluentValidation.IValidator`1<TRequest>>)
-DA:13,1
-DA:14,1
-DA:15,1
-DA:16,1
+FNDA:3,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2::.ctor(System.Collections.Generic.IEnumerable`1<FluentValidation.IValidator`1<TRequest>>)
+DA:13,3
+DA:14,3
+DA:15,3
+DA:16,3
 FN:21,System.Threading.Tasks.Task`1<FluentValidation.Results.ValidationResult> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c__DisplayClass2_1::<Handle>b__2(FluentValidation.IValidator`1<TRequest>)
-FNDA:0,System.Threading.Tasks.Task`1<FluentValidation.Results.ValidationResult> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c__DisplayClass2_1::<Handle>b__2(FluentValidation.IValidator`1<TRequest>)
-DA:22,0
+FNDA:2,System.Threading.Tasks.Task`1<FluentValidation.Results.ValidationResult> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c__DisplayClass2_1::<Handle>b__2(FluentValidation.IValidator`1<TRequest>)
+DA:22,2
 FN:22,System.Collections.Generic.IEnumerable`1<FluentValidation.Results.ValidationFailure> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c::<Handle>b__2_0(FluentValidation.Results.ValidationResult)
-FNDA:0,System.Collections.Generic.IEnumerable`1<FluentValidation.Results.ValidationFailure> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c::<Handle>b__2_0(FluentValidation.Results.ValidationResult)
-DA:23,0
+FNDA:3,System.Collections.Generic.IEnumerable`1<FluentValidation.Results.ValidationFailure> MusicTutor.Api.Behaviors.ValidationBehavior`2/<>c::<Handle>b__2_0(FluentValidation.Results.ValidationResult)
+DA:23,3
 FN:17,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2/<Handle>d__2::MoveNext()
-FNDA:1,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2/<Handle>d__2::MoveNext()
-DA:18,1
-DA:19,1
-DA:20,0
-DA:21,0
-DA:24,0
-DA:25,0
+FNDA:2,System.Void MusicTutor.Api.Behaviors.ValidationBehavior`2/<Handle>d__2::MoveNext()
+DA:18,2
+DA:19,2
+DA:20,1
+DA:21,1
+DA:24,1
+DA:25,1
 DA:26,0
 DA:27,1
 DA:28,1
-BRDA:19,75,0,0
-BRDA:23,297,0,0
-BRDA:23,297,1,0
-BRDA:23,333,0,0
-BRDA:23,333,1,0
-BRDA:24,391,0,0
+BRDA:19,75,0,1
+BRDA:23,297,0,1
+BRDA:23,297,1,1
+BRDA:23,333,0,1
+BRDA:23,333,1,1
+BRDA:24,391,0,1
 BRDA:24,391,1,0
 BRDA:19,75,1,1
 LF:15
-LH:8
+LH:14
 BRF:8
-BRH:1
+BRH:7
 FNF:4
-FNH:2
+FNH:4
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Contact.cs
 FN:4,System.String MusicTutor.Core.Models.Contact::get_Name()
@@ -1286,8 +1286,8 @@ FN:17,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:53,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:18,53
 FN:18,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:33,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:19,33
+FNDA:31,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:19,31
 FN:19,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:31,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:20,31

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using FluentValidation;
 using MediatR;
 using MusicTutor.Api.Behaviors;
@@ -29,14 +30,36 @@ namespace MusicTutor.Api.UnitTests.Behaviors
         [Fact]
         public async Task WhenNoValidators_NextCalled()
         {
-        //Given
-        var request = new DeletePupilInstrumentLink(Guid.NewGuid(), Guid.NewGuid());
-        
-        //When
-        var response = await _sut.Handle(request, new CancellationToken(), _next);
+            //Given
+            var request = new DeletePupilInstrumentLink(Guid.NewGuid(), Guid.NewGuid());
+            
+            //When
+            var response = await _sut.Handle(request, new CancellationToken(), _next);
 
-        //Then
-        _next.Received(1);
+            //Then
+            _next.Received(1);
+        }
+
+        [Fact]
+        public void ValidateFailure_ThrowsError()
+        {
+            //Given
+            var dbValidator = Substitute.For<IDbValidator>();
+            dbValidator.PupilInstrumentCanBeRemovedAsync(Arg.Any<DeletePupilInstrumentLink>(), default).Returns(false);
+            var validator = new DeletePupilInstrumentLinkValidator(dbValidator);
+            var validators = new List<DeletePupilInstrumentLinkValidator>
+            {
+                validator
+            };
+            var validationBehavior = new ValidationBehavior<DeletePupilInstrumentLink, int>(validators);
+            var request = new DeletePupilInstrumentLink(Guid.NewGuid(), Guid.NewGuid());
+
+            //When
+            validationBehavior.Invoking(y => y.Handle(request, new CancellationToken(), _next))
+                .Should().Throw<FluentValidation.ValidationException>();
+
+            //Then
+            _next.DidNotReceive();
         }
 
     }    
