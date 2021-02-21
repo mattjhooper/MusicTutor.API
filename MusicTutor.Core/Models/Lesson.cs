@@ -16,19 +16,19 @@ namespace MusicTutor.Core.Models
         }
 
 
-        public int Id { get; private set; }
+        public Guid Id { get; private set; }
         public DateTime StartDateTime { get; private set; }
 
         public int DurationInMinutes { get; private set; }
 
         public decimal Cost { get; private set; } 
 
-        public int PupilId { get; private set; }
+        public Guid PupilId { get; private set; }
 
         public Pupil Pupil { get; private set; }        
 
-        // public int InstrumentId { get; set; }
-        // public Instrument Instrument { get; set; }
+        public Guid? InstrumentId { get; set; }
+        public Instrument Instrument { get; set; }
     
         public bool IsPlanned { get; private set; } = false;
 
