@@ -89,11 +89,18 @@ namespace MusicTutor.Core.Models
             return _instruments.Add(instrument);
         }
 
+        public bool HasInstrument(Guid instrumentId)
+        {
+            checkInstrumentCollectionIsLoaded();
+
+            return _instruments.Any(i => i.Id == instrumentId);
+        }
+
         public bool CanRemoveInstrument(Guid instrumentId)
         {
             checkInstrumentCollectionIsLoaded();
 
-            return _instruments.Any(i => i.Id == instrumentId) && _instruments.Count() > 1;
+            return HasInstrument(instrumentId) && _instruments.Count() > 1;
         }
 
         public int RemoveInstrument(Guid instrumentId)
