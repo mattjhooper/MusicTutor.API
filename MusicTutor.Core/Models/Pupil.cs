@@ -75,6 +75,15 @@ namespace MusicTutor.Core.Models
             _lessons.Add(new Lesson(startDateTime, durationInMinutes, cost, true));
         }
 
+        public void AddLesson(Lesson lesson)
+        {
+            _lessons.Add(lesson);
+            if (!lesson.IsPlanned)
+            {
+                AccountBalance -= lesson.Cost;
+            }
+        }
+
         public string InstrumentsToString()
         {
             checkInstrumentCollectionIsLoaded();

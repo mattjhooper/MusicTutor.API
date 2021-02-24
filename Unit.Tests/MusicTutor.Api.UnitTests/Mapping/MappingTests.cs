@@ -5,6 +5,7 @@ using MusicTutor.Api.Contracts.Instruments;
 using FluentAssertions;
 using System;
 using MusicTutor.Api.Contracts.Pupils;
+using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.Api.UnitTests.Mapping
 {
@@ -42,6 +43,47 @@ namespace MusicTutor.Api.UnitTests.Mapping
             //Then
             pupilDto.LessonRate.Should().Be(pupil.CurrentLessonRate);
             
+        }
+
+        [Fact]
+        public void ShouldSupportLessonMapping()
+        {
+            //Given
+            var lesson = Lesson.CreateLesson(DateTime.Now, 15, 15.5M);
+            
+            //When
+            var lessonDto = _mapper.Map<LessonResponseDto>(lesson);
+
+            //Then
+            lessonDto.Should().BeOfType(typeof(LessonResponseDto));
+            lessonDto.StartDateTime.Should().Be(lesson.StartDateTime);
+            lessonDto.InstrumentId.Should().BeNull();
+            lessonDto.InstrumentName.Should().BeNullOrEmpty();
+            lessonDto.DurationInMinutes.Should().Be(lesson.DurationInMinutes);
+            lessonDto.Cost.Should().Be(lesson.Cost);
+            lessonDto.Status.Should().Be(Lesson.STATUS_COMPLETE);
+            lessonDto.Id.Should().Be(lesson.Id);
+        }
+
+        [Fact]
+        public void ShouldSupportLessonMappingWithInstrument()
+        {
+            //Given
+            var instrument = Instrument.CreateInstrument("Piano");
+            var lesson = Lesson.CreateLessonWithInstrument(DateTime.Now, 15, 15.5M, instrument, true);
+            
+            //When
+            var lessonDto = _mapper.Map<LessonResponseDto>(lesson);
+
+            //Then
+            lessonDto.Should().BeOfType(typeof(LessonResponseDto));
+            lessonDto.StartDateTime.Should().Be(lesson.StartDateTime);
+            lessonDto.InstrumentId.Should().Be(instrument.Id);
+            lessonDto.InstrumentName.Should().Be(instrument.Name);
+            lessonDto.DurationInMinutes.Should().Be(lesson.DurationInMinutes);
+            lessonDto.Cost.Should().Be(lesson.Cost);
+            lessonDto.Status.Should().Be(Lesson.STATUS_PLANNED);
+            lessonDto.Id.Should().Be(lesson.Id);
         }
     }
 }

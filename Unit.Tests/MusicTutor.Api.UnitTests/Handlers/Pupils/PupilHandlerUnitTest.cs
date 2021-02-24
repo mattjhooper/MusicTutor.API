@@ -25,6 +25,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             instruments.Add(_instrument);
             instruments.Add(_secondInstrument);
             _pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
+            _pupil.AddCompletedLesson(DateTime.Now.AddDays(-1), 30, _pupil.CurrentLessonRate);
             _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_pupil).Build();
             _mapper = MappingBuilder.Init().Build();            
         }

@@ -5,9 +5,12 @@ namespace MusicTutor.Core.Models
 {
     public class Lesson : ModelBase 
     {
+        public const string STATUS_PLANNED = "Planned";
+        public const string STATUS_COMPLETE = "Complete";
+
         private Lesson() {}
 
-        internal Lesson(DateTime startDateTime, int durationInMinutes, decimal cost, bool isPlanned = false) 
+        public Lesson(DateTime startDateTime, int durationInMinutes, decimal cost, bool isPlanned = false) 
         {
             StartDateTime = startDateTime;
             DurationInMinutes = durationInMinutes;
@@ -32,7 +35,30 @@ namespace MusicTutor.Core.Models
     
         public bool IsPlanned { get; private set; } = false;
 
-        public string Status => IsPlanned? "Planned" : "Complete";
+        public string Status => IsPlanned? STATUS_PLANNED : STATUS_COMPLETE;
+
+        public static Lesson CreateLesson(DateTime startDateTime, int durationInMinutes, decimal cost, bool isPlanned = false)
+        {
+            var lesson = new Lesson
+            {
+                Id = Guid.NewGuid(),
+                StartDateTime = startDateTime,
+                DurationInMinutes = durationInMinutes,
+                Cost = cost,
+                IsPlanned = isPlanned
+            };
+
+            return lesson;
+        }
+
+        public static Lesson CreateLessonWithInstrument(DateTime startDateTime, int durationInMinutes, decimal cost, Instrument instrument, bool isPlanned = false)
+        {
+            var lesson = CreateLesson(startDateTime, durationInMinutes, cost, isPlanned);
+            lesson.InstrumentId = instrument.Id;
+            lesson.Instrument = instrument;
+
+            return lesson;
+        }
 
     }
 }

@@ -14,6 +14,7 @@ namespace MusicTutor.Api.Helpers
                 var services = scope.ServiceProvider;
 
                 var dataService = services.GetRequiredService<IDataService>();
+                dataService.RemoveDataStore();
                 dataService.SetupDataStore();
             }
 

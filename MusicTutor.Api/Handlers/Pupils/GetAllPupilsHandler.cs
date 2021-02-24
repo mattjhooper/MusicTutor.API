@@ -16,7 +16,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
     {        
         public async Task<IEnumerable<PupilResponseDto>> Handle(GetAllPupils request, CancellationToken cancellationToken)
         {
-            var pupils = await DbContext.Pupils.ProjectToType<PupilResponseDto>().ToListAsync();            
+            var pupils = await DbContext.Pupils.AsNoTracking().ProjectToType<PupilResponseDto>().ToListAsync();            
 
             return pupils;
         }
