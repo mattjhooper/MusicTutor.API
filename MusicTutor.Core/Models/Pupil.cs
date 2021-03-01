@@ -84,37 +84,51 @@ namespace MusicTutor.Core.Models
             }
         }
 
+        public bool RemoveLesson(Lesson lesson)
+        {            
+            CheckLessonsCollectionIsLoaded();
+
+            if (!lesson.IsPlanned)
+            {
+                AccountBalance += lesson.Cost;
+            }
+
+            return _lessons.Remove(lesson);
+        }
+
+
+
         public string InstrumentsToString()
         {
-            checkInstrumentCollectionIsLoaded();
+            CheckInstrumentCollectionIsLoaded();
             
             return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
         }
 
         public bool AddInstrument(Instrument instrument)
         {
-            checkInstrumentCollectionIsLoaded();
+            CheckInstrumentCollectionIsLoaded();
             
             return _instruments.Add(instrument);
         }
 
         public bool HasInstrument(Guid instrumentId)
         {
-            checkInstrumentCollectionIsLoaded();
+            CheckInstrumentCollectionIsLoaded();
 
             return _instruments.Any(i => i.Id == instrumentId);
         }
 
         public bool CanRemoveInstrument(Guid instrumentId)
         {
-            checkInstrumentCollectionIsLoaded();
+            CheckInstrumentCollectionIsLoaded();
 
             return HasInstrument(instrumentId) && _instruments.Count() > 1;
         }
 
         public int RemoveInstrument(Guid instrumentId)
         {
-            checkInstrumentCollectionIsLoaded();
+            CheckInstrumentCollectionIsLoaded();
 
             if (!CanRemoveInstrument(instrumentId))
                 return 0;
@@ -122,10 +136,16 @@ namespace MusicTutor.Core.Models
             return _instruments.RemoveWhere(i => i.Id == instrumentId);
         }
 
-        private void checkInstrumentCollectionIsLoaded()
+        private void CheckInstrumentCollectionIsLoaded()
         {
             if (_instruments == null)
                 throw new InvalidOperationException("The Instruments collection must be loaded before calling this method");
+        }
+
+        private void CheckLessonsCollectionIsLoaded()
+        {
+            if (_lessons == null)
+                throw new InvalidOperationException("The Lessons collection must be loaded before calling this method");
         }
 
         public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)
