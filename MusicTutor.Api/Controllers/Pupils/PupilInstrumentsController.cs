@@ -72,14 +72,11 @@ namespace MusicTutor.Api.Controllers.Pupils
             }
         }
 
-         /// <summary>
-        /// Creates a new Pupil Instrument Link and returns the instrument
+        /// <summary>
+        /// Deletes the Pupil Instrument Link
         /// </summary>
         /// <param name="pupilId"></param>
         /// <param name="instrumentId"></param>
-        /// <returns>If successful it returns a CreatedAtRoute response - see
-        /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
-        /// </returns>
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]

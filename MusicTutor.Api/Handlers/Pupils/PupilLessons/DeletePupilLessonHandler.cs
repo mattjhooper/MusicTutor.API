@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record DeletePupilLessonLinkHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupilLesson, int>
+    public record DeletePupilLessonHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupilLesson, int>
     {        
         public async Task<int> Handle(DeletePupilLesson request, CancellationToken cancellationToken)
         {

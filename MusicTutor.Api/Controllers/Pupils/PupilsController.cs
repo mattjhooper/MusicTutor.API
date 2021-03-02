@@ -139,42 +139,6 @@ namespace MusicTutor.Api.Controllers.Pupils
                 return NotFound();
 
             return NoContent();
-        }
-
-        /// <summary>
-        /// Creates a new Pupil Instrument Link and returns the instrument
-        /// </summary>
-        /// <param name="pupilId"></param>
-        /// <param name="item"></param>
-        /// <returns>If successful it returns a CreatedAtRoute response - see
-        /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
-        /// </returns>
-        [ProducesResponseType(typeof(LessonResponseDto), StatusCodes.Status201Created)] //You need this, otherwise Swagger says the success status is 200, not 201
-        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-        [HttpPost("{pupilId}/Lessons", Name = "AddPupilLesson")]
-        public async Task<ActionResult<LessonResponseDto>> PostAsync([FromRoute] Guid pupilId, [FromBody] CreatePupilLesson item)
-        {
-            if (pupilId != item.PupilId)
-                return BadRequest($"Route Id [{pupilId}] must match message Body Id [{item.PupilId}].");
-            
-            try
-            {
-                var result = await mediator.Send(item);
-
-                if (result is null)
-                    return NotFound();
-
-                //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSingleInstrument")],
-                //on the Get you want to call, then then use the Name value in the Response.
-                //Otherwise you get a "No route matches the supplied values" error.
-                //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id } , result);
-            }
-            catch (DbUpdateException ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            }
-        }        
+        }              
     }
 }
