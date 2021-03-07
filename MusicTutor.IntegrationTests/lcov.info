@@ -595,11 +595,12 @@ FNF:2
 FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Pupils\PupilLessons\CreatePupilLessonHandler.cs
-FN:13,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::get_DbContext()
+FN:12,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::get_DbContext()
 FNDA:0,MusicTutor.Core.Services.IMusicTutorDbContext MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::get_DbContext()
-DA:14,0
-FN:14,System.Void MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext,MapsterMapper.IMapper)
+DA:13,0
+FN:13,System.Void MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext,MapsterMapper.IMapper)
 FNDA:0,System.Void MusicTutor.Api.EFCore.Handlers.Pupils.CreatePupilLessonHandler::.ctor(MusicTutor.Core.Services.IMusicTutorDbContext,MapsterMapper.IMapper)
+DA:14,0
 DA:15,0
 DA:16,0
 DA:17,0
@@ -614,7 +615,6 @@ DA:25,0
 DA:26,0
 DA:27,0
 DA:28,0
-DA:29,0
 LF:16
 LH:0
 BRF:2

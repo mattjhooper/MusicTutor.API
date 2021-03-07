@@ -8,7 +8,7 @@ using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
-    
+
     public abstract class PupilHandlerUnitTest
     {
         protected readonly IMusicTutorDbContext _dbContext;
@@ -27,7 +27,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             _pupil = Pupil.CreatePupil("PupilName", 14M, DateTime.Now, 7, instruments, "ContactName", "ContactEmail", "ContactPhoneNumber");
             _pupil.AddCompletedLesson(DateTime.Now.AddDays(-1), 30, _pupil.CurrentLessonRate);
             _dbContext = MockDbContextBuilder.Init().WithInstruments(_instrument).WithPupils(_pupil).Build();
-            _mapper = MappingBuilder.Init().Build();            
+            _mapper = MappingBuilder.Init().Build();
         }
     }
 }
