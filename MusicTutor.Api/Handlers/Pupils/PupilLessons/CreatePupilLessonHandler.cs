@@ -12,15 +12,15 @@ using MusicTutor.Core.Models;
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record CreatePupilLessonHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupilLesson, LessonResponseDto>
-    {        
+    {
         public async Task<LessonResponseDto> Handle(CreatePupilLesson createPupilLesson, CancellationToken cancellationToken)
         {
             var pupil = await DbContext.Pupils.SingleOrDefaultAsync(p => p.Id == createPupilLesson.PupilId);
-            if (pupil is null)                
+            if (pupil is null)
                 return null;
 
             var lesson = new Lesson(createPupilLesson.StartDateTime, createPupilLesson.DurationInMinutes, createPupilLesson.Cost, createPupilLesson.IsPlanned);
-            pupil.AddLesson(lesson) ;  
+            pupil.AddLesson(lesson);
 
             await DbContext.SaveChangesAsync(cancellationToken);
 

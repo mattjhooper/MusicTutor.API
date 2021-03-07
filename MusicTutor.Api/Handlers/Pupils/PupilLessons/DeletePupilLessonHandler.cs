@@ -12,18 +12,18 @@ using System.Linq;
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record DeletePupilLessonHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupilLesson, int>
-    {        
+    {
         public async Task<int> Handle(DeletePupilLesson request, CancellationToken cancellationToken)
         {
             var pupil = await DbContext.Pupils.Include(p => p.Lessons).SingleOrDefaultAsync(p => p.Id == request.PupilId);
-            if (pupil is null)                
+            if (pupil is null)
                 return -1;
 
             var lesson = pupil.Lessons.SingleOrDefault(l => l.Id == request.LessonId);
 
             if (lesson is null)
                 return 0;
-                
+
             var isLessonDeleted = pupil.RemoveLesson(lesson);
 
             if (isLessonDeleted)

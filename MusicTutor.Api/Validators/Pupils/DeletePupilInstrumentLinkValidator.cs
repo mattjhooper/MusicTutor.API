@@ -18,7 +18,7 @@ namespace MusicTutor.Api.Validators.Pupils
              .NotNull()
              .NotEmpty();
 
-            RuleFor(x => x) 
+            RuleFor(x => x)
              .MustAsync(check.PupilInstrumentCanBeRemovedAsync).WithMessage("Instrument cannot be removed. Either the instrument is not assigned or is the last instrument.");
         }
     }

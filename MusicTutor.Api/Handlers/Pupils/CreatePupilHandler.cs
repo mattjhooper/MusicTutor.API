@@ -12,7 +12,7 @@ using MusicTutor.Core.Services;
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record CreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupil, PupilResponseDto>
-    {        
+    {
         public async Task<PupilResponseDto> Handle(CreatePupil createPupil, CancellationToken cancellationToken)
         {
             var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == createPupil.DefaultInstrumentId);
@@ -21,7 +21,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
                 throw new InvalidOperationException("Instrument cannot be found");
 
             Pupil pupil = createPupil.MakePupil(instrument);
-            
+
             await DbContext.Pupils.AddAsync(pupil, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
 
@@ -29,4 +29,3 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
         }
     }
 }
-    

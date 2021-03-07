@@ -10,7 +10,7 @@ using MusicTutor.Api.Queries.Pupils;
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record DeletePupilHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupil, int>
-    {        
+    {
         public async Task<int> Handle(DeletePupil request, CancellationToken cancellationToken)
         {
             int deletedCount = 0;
@@ -26,4 +26,3 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
         }
     }
 }
-    

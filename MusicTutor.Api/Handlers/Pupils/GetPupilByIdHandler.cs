@@ -12,7 +12,7 @@ using MusicTutor.Core.Services;
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public record GetPupilByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilById, PupilResponseDto>
-    {        
+    {
         public async Task<PupilResponseDto> Handle(GetPupilById request, CancellationToken cancellationToken)
         {
             var pupil = await DbContext.Pupils.Where(p => p.Id == request.Id).ProjectToType<PupilResponseDto>().SingleOrDefaultAsync();
@@ -21,4 +21,3 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
         }
     }
 }
-     

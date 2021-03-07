@@ -25,7 +25,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
             if (lesson is null)
                 return null;
 
-            return Mapper.Map<LessonResponseDto>(lesson);            
+            return Mapper.Map<LessonResponseDto>(lesson);
         }
     }
 }
