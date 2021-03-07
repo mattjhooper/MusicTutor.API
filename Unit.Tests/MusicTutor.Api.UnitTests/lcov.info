@@ -1196,10 +1196,10 @@ FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Contracts\Lessons\Mappings\LessonMapping.cs
 FN:9,System.Void MusicTutor.Api.Contracts.Lessons.Mappings.LessonMapping::Register(Mapster.TypeAdapterConfig)
-FNDA:1,System.Void MusicTutor.Api.Contracts.Lessons.Mappings.LessonMapping::Register(Mapster.TypeAdapterConfig)
-DA:10,1
-DA:11,1
-DA:12,1
+FNDA:24,System.Void MusicTutor.Api.Contracts.Lessons.Mappings.LessonMapping::Register(Mapster.TypeAdapterConfig)
+DA:10,24
+DA:11,24
+DA:12,24
 LF:3
 LH:3
 BRF:0
@@ -1561,8 +1561,8 @@ FN:17,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:55,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:18,55
 FN:18,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:51,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:19,51
+FNDA:52,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:19,52
 FN:19,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:69,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:20,69
