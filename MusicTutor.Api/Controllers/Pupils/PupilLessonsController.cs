@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Http;
 using MusicTutor.Api.Contracts.Errors;
-using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Api.Commands.Pupils;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace MusicTutor.Api.Controllers.Pupils
     public class PupilLessonsController : BaseApiController
     {
         public PupilLessonsController(IMediator mediator) : base(mediator)
-        {                       
+        {
         }
 
 
@@ -70,7 +69,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
             if (pupilId != item.PupilId)
                 return BadRequest($"Route Id [{pupilId}] must match message Body Id [{item.PupilId}].");
-            
+
             try
             {
                 var result = await mediator.Send(item);
@@ -82,7 +81,7 @@ namespace MusicTutor.Api.Controllers.Pupils
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.
                 //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-                return CreatedAtRoute("GetSinglePupilLesson", new { pupilId = item.PupilId, lessonId = result.Id } , result);
+                return CreatedAtRoute("GetSinglePupilLesson", new { pupilId = item.PupilId, lessonId = result.Id }, result);
             }
             catch (DbUpdateException ex)
             {
@@ -116,6 +115,6 @@ namespace MusicTutor.Api.Controllers.Pupils
             {
                 return BadRequest(ex.InnerException.Message);
             }
-        }        
+        }
     }
 }
