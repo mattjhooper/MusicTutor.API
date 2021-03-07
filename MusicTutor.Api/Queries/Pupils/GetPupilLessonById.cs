@@ -5,6 +5,6 @@ using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.Api.Queries.Pupils
 {
-    public record GetPupilLessonById(Guid pupilId, Guid lessonId) : IRequest<LessonResponseDto> {}     
+    public record GetPupilLessonById(Guid PupilId, Guid LessonId) : IRequest<LessonResponseDto> { }
 
 }

@@ -15,12 +15,12 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
     {
         public async Task<LessonResponseDto> Handle(GetPupilLessonById request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.Where(p => p.Id == request.pupilId).Include(p => p.Lessons).SingleOrDefaultAsync();
+            var pupil = await DbContext.Pupils.Where(p => p.Id == request.PupilId).Include(p => p.Lessons).SingleOrDefaultAsync();
 
             if (pupil is null)
                 return null;
 
-            var lesson = pupil.Lessons.SingleOrDefault(l => l.Id == request.lessonId);
+            var lesson = pupil.Lessons.SingleOrDefault(l => l.Id == request.LessonId);
 
             if (lesson is null)
                 return null;

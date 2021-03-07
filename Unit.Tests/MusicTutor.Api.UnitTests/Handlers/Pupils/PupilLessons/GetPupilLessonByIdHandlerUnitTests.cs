@@ -31,14 +31,14 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             var response = await _handler.Handle(_getPupilLessonById, new CancellationToken());
 
             //Then    
-            response.Id.Should().Be(_getPupilLessonById.lessonId);
+            response.Id.Should().Be(_getPupilLessonById.LessonId);
         }
 
         [Fact]
         public async Task GetPupilLessonByIdHandler_PupilNotFound_ReturnsNull()
         {
             //Given
-            var unknownPupil = _getPupilLessonById with { pupilId = Guid.NewGuid() };
+            var unknownPupil = _getPupilLessonById with { PupilId = Guid.NewGuid() };
 
             //When
             var response = await _handler.Handle(unknownPupil, new CancellationToken());
@@ -51,7 +51,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task GetPupilLessonByIdHandler_LessonNotFound_ReturnsNull()
         {
             //Given
-            var unknownLesson = _getPupilLessonById with { lessonId = Guid.NewGuid() };
+            var unknownLesson = _getPupilLessonById with { LessonId = Guid.NewGuid() };
 
             //When
             var response = await _handler.Handle(unknownLesson, new CancellationToken());
