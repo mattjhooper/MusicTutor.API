@@ -243,8 +243,8 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Queries\Pupils\GetPupilLessonById.cs
-FN:7,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_pupilId()
-FNDA:23,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_pupilId()
+FN:7,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_PupilId()
+FNDA:23,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_PupilId()
 DA:8,23
 LF:1
 LH:1
@@ -1561,8 +1561,8 @@ FN:17,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:63,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:18,63
 FN:18,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:71,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:19,71
+FNDA:69,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:19,69
 FN:19,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:97,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:20,97

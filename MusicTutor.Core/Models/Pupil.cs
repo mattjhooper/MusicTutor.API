@@ -10,7 +10,7 @@ namespace MusicTutor.Core.Models
     {
 
         public const int NameLength = 150;
-        
+
         public Guid Id { get; private set; }
 
         public string Name { get; private set; }
@@ -48,21 +48,21 @@ namespace MusicTutor.Core.Models
             Name = name;
             CurrentLessonRate = currentLessonRate;
             StartDate = startDate;
-            FrequencyInDays = frequencyInDays;  
+            FrequencyInDays = frequencyInDays;
             Contact = contact;
-            
+
             if (instruments is null)
                 throw new ArgumentNullException(nameof(instruments));
 
             _instruments = new HashSet<Instrument>(instruments);
 
-            if (!instruments.Any())            
+            if (!instruments.Any())
                 throw new InvalidOperationException("Pupil must have at least one instrument");
         }
-        
-        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null) : 
+
+        public Pupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null) :
             this(name, currentLessonRate, startDate, frequencyInDays, instruments, new Contact(contactName, contactEmail, contactPhone))
-        {}
+        { }
 
         public void AddCompletedLesson(DateTime startDateTime, int durationInMinutes, decimal cost)
         {
@@ -85,7 +85,7 @@ namespace MusicTutor.Core.Models
         }
 
         public bool RemoveLesson(Lesson lesson)
-        {            
+        {
             CheckLessonsCollectionIsLoaded();
 
             if (!lesson.IsPlanned)
@@ -101,14 +101,14 @@ namespace MusicTutor.Core.Models
         public string InstrumentsToString()
         {
             CheckInstrumentCollectionIsLoaded();
-            
+
             return _instruments.Select(i => i.Name).Aggregate("", (str, next) => str + next + " ").Trim();
         }
 
         public bool AddInstrument(Instrument instrument)
         {
             CheckInstrumentCollectionIsLoaded();
-            
+
             return _instruments.Add(instrument);
         }
 
@@ -132,8 +132,14 @@ namespace MusicTutor.Core.Models
 
             if (!CanRemoveInstrument(instrumentId))
                 return 0;
-            
+
             return _instruments.RemoveWhere(i => i.Id == instrumentId);
+        }
+
+        public void AddPayment(Payment payment)
+        {
+            _payments.Add(payment);
+            AccountBalance += payment.Amount;
         }
 
         private void CheckInstrumentCollectionIsLoaded()
@@ -157,10 +163,10 @@ namespace MusicTutor.Core.Models
             StartDate = startDate;
             FrequencyInDays = frequencyInDays;
 
-            Contact newContact = new (contactName, contactEmail, contactPhone);
-            if (newContact != Contact)            
+            Contact newContact = new(contactName, contactEmail, contactPhone);
+            if (newContact != Contact)
                 Contact = newContact;
-            
+
 
         }
 

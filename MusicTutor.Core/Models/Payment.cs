@@ -1,27 +1,29 @@
 using System;
+using MusicTutor.Core.Models.Enums;
 
 namespace MusicTutor.Core.Models
 {
-    public class Payment 
+    public class Payment
     {
-        public enum PaymentType
+        public Guid Id { get; private set; }
+        public DateTime PaymentDate { get; private set; }
+
+        public decimal Amount { get; private set; }
+
+        public Guid PupilId { get; private set; }
+
+        public Pupil Pupil { get; private set; }
+
+        public PaymentType Type { get; private set; }
+
+        private Payment() { }
+
+        public Payment(DateTime paymentDate, decimal amount, PaymentType paymentType)
         {
-            Cash,
-            BankTransfer,
-            Cheque,
-            Other
+            PaymentDate = paymentDate;
+            Amount = amount;
+            Type = paymentType;
         }
-        
-        public int Id { get; set; }
-        public DateTime PaymentDate { get; set; }
-
-        public decimal Amount { get; set; } 
-
-        public int PupilId { get; set; }
-
-        public Pupil Pupil { get; set; }
-
-        public PaymentType Type { get; set; }
 
     }
 }

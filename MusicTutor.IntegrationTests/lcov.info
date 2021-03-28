@@ -243,8 +243,8 @@ FNF:1
 FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Queries\Pupils\GetPupilLessonById.cs
-FN:7,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_pupilId()
-FNDA:0,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_pupilId()
+FN:7,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_PupilId()
+FNDA:0,System.Guid MusicTutor.Api.Queries.Pupils.GetPupilLessonById::get_PupilId()
 DA:8,0
 LF:1
 LH:0
