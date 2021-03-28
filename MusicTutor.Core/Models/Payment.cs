@@ -25,5 +25,18 @@ namespace MusicTutor.Core.Models
             Type = paymentType;
         }
 
+        public static Payment CreatePayment(DateTime paymentDate, decimal amount, PaymentType paymentType)
+        {
+            var payment = new Payment
+            {
+                Id = Guid.NewGuid(),
+                PaymentDate = paymentDate,
+                Amount = amount,
+                Type = paymentType
+            };
+
+            return payment;
+        }
+
     }
 }

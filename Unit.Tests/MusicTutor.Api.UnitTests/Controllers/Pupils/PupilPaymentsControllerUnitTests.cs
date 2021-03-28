@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Api.Controllers.Pupils;
+using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Models.Enums;
 using NSubstitute;
 using Xunit;
@@ -28,6 +29,38 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             _mediator = Substitute.For<IMediator>();
             _controller = new PupilPaymentsController(_mediator);
             _createPupilPayment = new CreatePupilPayment(Guid.NewGuid(), _paymentDto.PaymentDate, _paymentDto.Amount, _paymentDto.Type);
+        }
+
+        [Fact]
+        public async Task GetSingleAsync_ReturnsOkObjectResultAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<GetPupilPaymentById>()).Returns(_paymentDto);
+
+            // Act
+            var response = await _controller.GetSingleAsync(Guid.NewGuid(), Guid.NewGuid());
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PaymentResponseDto>>();
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        }
+
+        [Fact]
+        public async Task GetSingleAsync_ReturnsNotFoundResultAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<GetPupilPaymentById>()).Returns((PaymentResponseDto)null);
+
+            // Act
+            var response = await _controller.GetSingleAsync(Guid.NewGuid(), Guid.NewGuid());
+
+            // Assert
+            response.Should().BeOfType<ActionResult<PaymentResponseDto>>();
+            response.Result.Should().BeOfType<NotFoundResult>();
+            NotFoundResult result = (NotFoundResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
         }
 
         [Fact]

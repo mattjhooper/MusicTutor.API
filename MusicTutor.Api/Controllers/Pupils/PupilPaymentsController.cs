@@ -19,40 +19,40 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
         }
 
+
+        /// <summary>
+        /// Gets the PupilPayment with the given id
+        /// </summary>
+        /// <param name="pupilId"></param>
+        /// <param name="paymentId"></param>
+        /// <returns></returns>
+        [HttpGet("{pupilId}/Payments/{paymentId}", Name = "GetSinglePupilPayment")]
+        [ProducesResponseType(typeof(PaymentResponseDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<PaymentResponseDto>> GetSingleAsync([FromRoute] Guid pupilId, [FromRoute] Guid paymentId)
+        {
+            var payment = await mediator.Send(new GetPupilPaymentById(pupilId, paymentId));
+
+            if (payment is null)
+                return NotFound();
+
+            return Ok(payment);
+        }
         /*
-                /// <summary>
-                /// Gets the PupilPayment with the given id
-                /// </summary>
-                /// <param name="pupilId"></param>
-                /// <param name="paymentId"></param>
-                /// <returns></returns>
-                [HttpGet("{pupilId}/Payments/{paymentId}", Name = "GetSinglePupilPayment")]
-                [ProducesResponseType(typeof(PaymentResponseDto), StatusCodes.Status200OK)]
-                [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-                public async Task<ActionResult<PaymentResponseDto>> GetSingleAsync([FromRoute] Guid pupilId, [FromRoute] Guid paymentId)
-                {
-                    var payment = await mediator.Send(new GetPupilPaymentById(pupilId, paymentId));
+                        /// <summary>
+                        /// Gets all Pupil Payments
+                        /// </summary>
+                        /// <returns></returns>
+                        [HttpGet("{pupilId}/Payments", Name = "GetPupilPayments")]
+                        [ProducesResponseType(typeof(IEnumerable<PaymentResponseDto>), StatusCodes.Status200OK)]
+                        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+                        public async Task<ActionResult<IEnumerable<PaymentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
+                        {
+                            var payments = await mediator.Send(new GetPupilPayments(pupilId));
 
-                    if (payment is null)
-                        return NotFound();
-
-                    return Ok(payment);
-                }
-
-                /// <summary>
-                /// Gets all Pupil Payments
-                /// </summary>
-                /// <returns></returns>
-                [HttpGet("{pupilId}/Payments", Name = "GetPupilPayments")]
-                [ProducesResponseType(typeof(IEnumerable<PaymentResponseDto>), StatusCodes.Status200OK)]
-                [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-                public async Task<ActionResult<IEnumerable<PaymentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
-                {
-                    var payments = await mediator.Send(new GetPupilPayments(pupilId));
-
-                    return Ok(payments);
-                }
-        */
+                            return Ok(payments);
+                        }
+                */
         /// <summary>
         /// Creates a new Pupil Payment and returns the Payment
         /// </summary>
