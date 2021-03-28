@@ -15,14 +15,14 @@ namespace MusicTutor.Api.Installers
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title ="MusicTutor.API", Version = "v1", });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MusicTutor.API", Version = "v1", });
                 c.ExampleFilters();
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
-            });  
-
-            services.AddSwaggerExamplesFromAssemblyOf<Startup>();         
+            });
+            services.AddSwaggerGenNewtonsoftSupport();
+            services.AddSwaggerExamplesFromAssemblyOf<Startup>();
         }
     }
 }

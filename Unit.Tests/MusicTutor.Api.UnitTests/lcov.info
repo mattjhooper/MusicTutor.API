@@ -369,15 +369,22 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Installers\MvcInstaller.cs
-FN:11,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+FN:14,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 FNDA:1,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
-DA:12,1
-DA:13,1
-DA:15,2
+DA:15,1
 DA:16,1
-DA:17,1
-LF:5
-LH:5
+DA:18,1
+DA:19,1
+DA:20,0
+DA:21,0
+DA:22,0
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,1
+DA:27,1
+LF:12
+LH:6
 BRF:0
 BRH:0
 FNF:1
@@ -395,10 +402,11 @@ DA:20,0
 DA:21,0
 DA:22,0
 DA:23,0
+DA:24,1
 DA:25,1
 DA:26,1
-LF:11
-LH:4
+LF:12
+LH:5
 BRF:0
 BRH:0
 FNF:1
@@ -1834,8 +1842,8 @@ FN:17,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 FNDA:73,MusicTutor.Core.Models.Contact MusicTutor.Core.Models.Pupil::get_Contact()
 DA:18,73
 FN:18,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-FNDA:100,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
-DA:19,100
+FNDA:102,System.Decimal MusicTutor.Core.Models.Pupil::get_CurrentLessonRate()
+DA:19,102
 FN:19,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 FNDA:151,System.Decimal MusicTutor.Core.Models.Pupil::get_AccountBalance()
 DA:20,151
