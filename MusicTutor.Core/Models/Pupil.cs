@@ -142,6 +142,15 @@ namespace MusicTutor.Core.Models
             AccountBalance += payment.Amount;
         }
 
+        public bool RemovePayment(Payment payment)
+        {
+            CheckPaymentsCollectionIsLoaded();
+
+            AccountBalance -= payment.Amount;
+
+            return _payments.Remove(payment);
+        }
+
         private void CheckInstrumentCollectionIsLoaded()
         {
             if (_instruments == null)
@@ -152,6 +161,12 @@ namespace MusicTutor.Core.Models
         {
             if (_lessons == null)
                 throw new InvalidOperationException("The Lessons collection must be loaded before calling this method");
+        }
+
+        private void CheckPaymentsCollectionIsLoaded()
+        {
+            if (_payments == null)
+                throw new InvalidOperationException("The Payments collection must be loaded before calling this method");
         }
 
         public void UpdatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, string contactName, string contactEmail, string contactPhone)

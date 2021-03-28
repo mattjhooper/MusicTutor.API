@@ -38,21 +38,21 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             return Ok(payment);
         }
-        /*
-                        /// <summary>
-                        /// Gets all Pupil Payments
-                        /// </summary>
-                        /// <returns></returns>
-                        [HttpGet("{pupilId}/Payments", Name = "GetPupilPayments")]
-                        [ProducesResponseType(typeof(IEnumerable<PaymentResponseDto>), StatusCodes.Status200OK)]
-                        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-                        public async Task<ActionResult<IEnumerable<PaymentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
-                        {
-                            var payments = await mediator.Send(new GetPupilPayments(pupilId));
 
-                            return Ok(payments);
-                        }
-                */
+        /// <summary>
+        /// Gets all Pupil Payments
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{pupilId}/Payments", Name = "GetPupilPayments")]
+        [ProducesResponseType(typeof(IEnumerable<PaymentResponseDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<IEnumerable<PaymentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
+        {
+            var payments = await mediator.Send(new GetPupilPayments(pupilId));
+
+            return Ok(payments);
+        }
+
         /// <summary>
         /// Creates a new Pupil Payment and returns the Payment
         /// </summary>
@@ -88,34 +88,34 @@ namespace MusicTutor.Api.Controllers.Pupils
                 return BadRequest(ex.InnerException.Message);
             }
         }
-        /*
-                /// <summary>
-                /// Deletes the Pupil Payment
-                /// </summary>
-                /// <param name="pupilId"></param>
-                /// <param name="paymentId"></param>
-                [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-                [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
-                [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
-                [HttpDelete("{pupilId}/payments/{paymentId}", Name = "DeletePupilPayment")]
-                public async Task<ActionResult> DeleteAsync([FromRoute] Guid pupilId, [FromRoute] Guid paymentId)
-                {
-                    try
-                    {
-                        var deletePupilPayment = new DeletePupilPayment(pupilId, paymentId);
 
-                        var result = await mediator.Send(deletePupilPayment);
+        /// <summary>
+        /// Deletes the Pupil Payment
+        /// </summary>
+        /// <param name="pupilId"></param>
+        /// <param name="paymentId"></param>
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status204NoContent)]
+        [HttpDelete("{pupilId}/payments/{paymentId}", Name = "DeletePupilPayment")]
+        public async Task<ActionResult> DeleteAsync([FromRoute] Guid pupilId, [FromRoute] Guid paymentId)
+        {
+            try
+            {
+                var deletePupilPayment = new DeletePupilPayment(pupilId, paymentId);
 
-                        if (result <= 0)
-                            return NotFound();
+                var result = await mediator.Send(deletePupilPayment);
 
-                        return NoContent();
-                    }
-                    catch (DbUpdateException ex)
-                    {
-                        return BadRequest(ex.InnerException.Message);
-                    }
-                }
-        */
+                if (result <= 0)
+                    return NotFound();
+
+                return NoContent();
+            }
+            catch (DbUpdateException ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+        }
+
     }
 }

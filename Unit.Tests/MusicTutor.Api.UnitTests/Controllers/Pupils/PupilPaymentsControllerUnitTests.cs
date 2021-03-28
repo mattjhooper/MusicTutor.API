@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using MediatR;
@@ -61,6 +62,38 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             response.Result.Should().BeOfType<NotFoundResult>();
             NotFoundResult result = (NotFoundResult)response.Result;
             result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        }
+
+        [Fact]
+        public async Task GetManyAsync_ReturnsOkObjectResultAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<GetPupilPayments>()).Returns(new PaymentResponseDto[] { _paymentDto });
+
+            // Act
+            var response = await _controller.GetManyAsync(Guid.NewGuid());
+
+            // Assert
+            response.Should().BeOfType<ActionResult<IEnumerable<PaymentResponseDto>>>();
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        }
+
+        [Fact]
+        public async Task GetManyAsync_EmptyListReturnsOKObject()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<GetPupilPayments>()).Returns<IEnumerable<PaymentResponseDto>>(x => (IEnumerable<PaymentResponseDto>)null);
+
+            // Act
+            var response = await _controller.GetManyAsync(Guid.NewGuid());
+
+            // Assert
+            response.Should().BeOfType<ActionResult<IEnumerable<PaymentResponseDto>>>();
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
         }
 
         [Fact]
@@ -132,6 +165,51 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             result.Value.Should().BeOfType<PaymentResponseDto>();
             var val = (PaymentResponseDto)result.Value;
             val.Type.Should().Be(_paymentDto.Type);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ReturnsNotFoundAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<DeletePupilPayment>()).Returns(-1);
+
+            // Act
+            var response = await _controller.DeleteAsync(Guid.NewGuid(), _paymentDto.Id);
+
+            // Assert
+            response.Should().BeOfType<NotFoundResult>();
+            NotFoundResult result = (NotFoundResult)response;
+            result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_DbErrorReturnsBadRequest()
+        {
+            // Arrange
+            var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
+            _mediator.Send(Arg.Any<DeletePupilPayment>()).Returns<int>(x => { throw dbException; });
+
+            // Act
+            var response = await _controller.DeleteAsync(Guid.NewGuid(), _paymentDto.Id);
+
+            // Assert
+            response.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+            result.Value.Should().Be("An invalid operation occurred");
+        }
+
+        [Fact]
+        public async Task DeleteItemAsync_ReturnsNoContentAsync()
+        {
+            // Arrange
+            _mediator.Send(Arg.Any<DeletePupilPayment>()).Returns<int>(1);
+
+            // Act
+            var response = await _controller.DeleteAsync(Guid.NewGuid(), _paymentDto.Id);
+
+            // Assert
+            response.Should().BeOfType<NoContentResult>();
         }
 
     }
