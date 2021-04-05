@@ -13,10 +13,10 @@ using MusicTutor.Api.Queries.Pupils;
 namespace MusicTutor.Api.Controllers.Pupils
 {
     [Route(Pupils)]
-    public class PupilInstrumentsController : BaseApiController
+    public class PupilInstrumentsController : AuthApiController
     {
         public PupilInstrumentsController(IMediator mediator) : base(mediator)
-        {   
+        {
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
             if (pupilId != item.pupilId)
                 return BadRequest($"Route Id [{pupilId}] must match message Body Id [{item.pupilId}].");
-            
+
             try
             {
                 var result = await mediator.Send(item);
@@ -64,7 +64,7 @@ namespace MusicTutor.Api.Controllers.Pupils
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.
                 //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id } , result);
+                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id }, result);
             }
             catch (DbUpdateException ex)
             {

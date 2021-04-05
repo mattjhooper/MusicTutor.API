@@ -13,7 +13,7 @@ using MusicTutor.Api.Contracts.Lessons;
 namespace MusicTutor.Api.Controllers.Pupils
 {
     [Route(Pupils)]
-    public class PupilLessonsController : BaseApiController
+    public class PupilLessonsController : AuthApiController
     {
         public PupilLessonsController(IMediator mediator) : base(mediator)
         {

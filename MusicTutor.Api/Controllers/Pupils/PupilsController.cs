@@ -9,14 +9,13 @@ using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Api.Commands.Pupils;
 using System.Collections.Generic;
-using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
-    public class PupilsController : BaseApiController
+    public class PupilsController : AuthApiController
     {
         public PupilsController(IMediator mediator) : base(mediator)
-        {                       
+        {
         }
 
 
@@ -28,7 +27,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         public async Task<ActionResult<IEnumerable<PupilResponseDto>>> GetManyAsync()
         {
             var pupils = await mediator.Send(new GetAllPupils());
-            
+
             return Ok(pupils);
         }
 
@@ -68,7 +67,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
             //var result = new PupilResponseDto(Guid.NewGuid(), item.Name, item.LessonRate, item.StartDate, item.FrequencyInDays, 0);
             //return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
-            
+
             try
             {
                 var result = await mediator.Send(item);
@@ -76,7 +75,7 @@ namespace MusicTutor.Api.Controllers.Pupils
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.
                 //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-                return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
+                return CreatedAtRoute("GetSinglePupil", new { id = result.Id }, result);
             }
             catch (DbUpdateException ex)
             {
@@ -96,22 +95,22 @@ namespace MusicTutor.Api.Controllers.Pupils
         /// https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1#implement-the-other-crud-operations
         /// </returns>
         [ProducesResponseType(typeof(PupilResponseDto), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)] 
+        [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [HttpPut("{id}")]
         public async Task<ActionResult<PupilResponseDto>> PutSingleAsync([FromRoute] Guid id, [FromBody] UpdatePupil item)
         {
             if (id != item.Id)
                 return BadRequest($"Route Id [{id}] must match message Body Id [{item.Id}].");
-            
+
             try
             {
                 var pupil = await mediator.Send(item);
 
                 if (pupil is null)
                     return NotFound();
-                
-                return  Ok(pupil);
+
+                return Ok(pupil);
             }
             catch (DbUpdateException ex)
             {
@@ -139,6 +138,6 @@ namespace MusicTutor.Api.Controllers.Pupils
                 return NotFound();
 
             return NoContent();
-        }              
+        }
     }
 }

@@ -12,10 +12,10 @@ using MusicTutor.Api.Contracts.Errors;
 
 namespace MusicTutor.Api.Controllers.Instruments
 {
-    public class InstrumentsController : BaseApiController
+    public class InstrumentsController : AuthApiController
     {
         public InstrumentsController(IMediator mediator) : base(mediator)
-        {                       
+        {
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace MusicTutor.Api.Controllers.Instruments
         public async Task<ActionResult<IEnumerable<InstrumentResponseDto>>> GetManyAsync()
         {
             var instruments = await mediator.Send(new GetAllInstruments());
-            
+
             return Ok(instruments);
         }
 
@@ -70,7 +70,7 @@ namespace MusicTutor.Api.Controllers.Instruments
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.
                 //see https://stackoverflow.com/questions/36560239/asp-net-core-createdatroute-failure for more on this
-                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id } , result);
+                return CreatedAtRoute("GetSingleInstrument", new { id = result.Id }, result);
             }
             catch (DbUpdateException ex)
             {
