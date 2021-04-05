@@ -34,16 +34,16 @@ namespace MusicTutor.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             var swaggerSettings = Configuration.GetSection(nameof(SwaggerSettings)).Get<SwaggerSettings>();
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => 
+            app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint(swaggerSettings.Url, swaggerSettings.Name);
                 c.RoutePrefix = string.Empty;
@@ -60,6 +60,8 @@ namespace MusicTutor.Api
                 endpoints.MapControllers();
                 endpoints.MapHealthChecks("/health");
             });
+
+            app.UseAuthentication();
         }
     }
 }

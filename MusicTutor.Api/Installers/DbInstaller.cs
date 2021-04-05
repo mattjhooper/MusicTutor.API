@@ -17,9 +17,9 @@ namespace MusicTutor.Api.Installers
             //services.AddDbContext<MusicTutorDbContext>(opt =>
             //    opt.UseInMemoryDatabase("MusicTutorFull")); 
 
-            services.AddScoped<IMusicTutorDbContext>(provider => provider.GetService<MusicTutorDbContext>());           
+            services.AddScoped<IMusicTutorDbContext>(provider => provider.GetService<MusicTutorDbContext>());
 
-            services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();  
+            services.AddHealthChecks().AddDbContextCheck<MusicTutorDbContext>();
 
             services.AddScoped<IDataService, DataServiceEFCore>();
 
