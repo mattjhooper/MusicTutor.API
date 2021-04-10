@@ -23,14 +23,14 @@ namespace MusicTutor.IntegrationTests
 
                 config.AddConfiguration(integrationConfig);
 
-                
+
             });
 
             builder.ConfigureServices(services =>
             {
                 lock (_lock)
                 {
-                    if (! _databaseInitialized)
+                    if (!_databaseInitialized)
                     {
                         var sp = services.BuildServiceProvider();
 
@@ -38,8 +38,9 @@ namespace MusicTutor.IntegrationTests
                         {
                             var scopedServices = scope.ServiceProvider;
                             var db = scopedServices.GetRequiredService<MusicTutorDbContext>();
-                            db.Database.EnsureCreated(); 
-                            db.SeedDatabase(Directory.GetCurrentDirectory());                   
+                            db.Database.EnsureDeleted();
+                            db.Database.EnsureCreated();
+                            db.SeedDatabase(Directory.GetCurrentDirectory());
 
                             _databaseInitialized = true;
                         }

@@ -14,6 +14,9 @@ using Microsoft.OpenApi.Models;
 using MusicTutor.Api.Installers;
 using MusicTutor.Api.Settings;
 
+// Design Patterns: Good Startup.cs Hygiene
+// https://dev.to/seangwright/kentico-xperience-design-patterns-good-startup-cs-hygiene-3klm
+
 namespace MusicTutor.Api
 {
     public class Startup

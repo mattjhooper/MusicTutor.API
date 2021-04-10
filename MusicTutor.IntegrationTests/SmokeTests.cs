@@ -9,7 +9,7 @@ namespace MusicTutor.IntegrationTests
     public class SmokeTests : IntegrationTest
     {
         public SmokeTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper)
-      : base(fixture, testOutputHelper) {}
+      : base(fixture, testOutputHelper) { }
 
         [Theory]
         [InlineData("/Instruments")]
