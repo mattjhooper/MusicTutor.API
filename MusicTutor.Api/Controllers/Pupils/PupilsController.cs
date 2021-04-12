@@ -9,6 +9,7 @@ using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Api.Commands.Pupils;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {
@@ -26,6 +27,8 @@ namespace MusicTutor.Api.Controllers.Pupils
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PupilResponseDto>>> GetManyAsync()
         {
+            Console.WriteLine($"UserID: {UserId}");
+
             var pupils = await mediator.Send(new GetAllPupils());
 
             return Ok(pupils);
