@@ -35,7 +35,7 @@ namespace MusicTutor.Api.Controllers.Auth
             // Check if the incoming request is valid
             if (ModelState.IsValid)
             {
-                // check i the user with the same email exist
+                // check if the user with the same email already exists
                 var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
                 if (existingUser != null)
@@ -44,7 +44,7 @@ namespace MusicTutor.Api.Controllers.Auth
                     {
                         Result = false,
                         Errors = new List<string>(){
-                                            "Email already exist"
+                                            "Email already exists"
                                         }
                     });
                 }
