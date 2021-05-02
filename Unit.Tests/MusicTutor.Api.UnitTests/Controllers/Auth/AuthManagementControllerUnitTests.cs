@@ -20,35 +20,12 @@ namespace MusicTutor.Api.UnitTests.Controllers.Auth
 
         private readonly AuthManagementController _sut;
         private readonly IMediator _mediator;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IOptionsMonitor<JwtConfig> _optionsMonitor;
-
 
         public AuthManagementControllerUnitTests()
         {
             _mediator = Substitute.For<IMediator>();
 
-            _optionsMonitor = Substitute.For<IOptionsMonitor<JwtConfig>>();
-            var store = Substitute.For<IUserStore<IdentityUser>>();
-            var optionsAccessor = Substitute.For<IOptions<IdentityOptions>>();
-            var passwordHasher = Substitute.For<IPasswordHasher<IdentityUser>>();
-            var userValidators = Substitute.For<IEnumerable<IUserValidator<IdentityUser>>>();
-            var passwordValidators = Substitute.For<IEnumerable<IPasswordValidator<IdentityUser>>>();
-            var keyNormalizer = Substitute.For<ILookupNormalizer>();
-            var errors = Substitute.For<IdentityErrorDescriber>();
-            var services = Substitute.For<System.IServiceProvider>();
-            var logger = Substitute.For<Microsoft.Extensions.Logging.ILogger<UserManager<IdentityUser>>>();
-            _userManager = new UserManager<IdentityUser>(store,
-                                                         optionsAccessor,
-                                                         passwordHasher,
-                                                         userValidators,
-                                                         passwordValidators,
-                                                         keyNormalizer,
-                                                         errors,
-                                                         services,
-                                                         logger);
-
-            _sut = new AuthManagementController(_userManager, _optionsMonitor, _mediator);
+            _sut = new AuthManagementController(_mediator);
         }
 
         [Fact]
@@ -67,13 +44,21 @@ namespace MusicTutor.Api.UnitTests.Controllers.Auth
             result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
         }
 
-        [Fact(Skip = "Cannot mock FindByEmailAsync")]
-        public void Register_ReturnsBadRequestForDuplicateEmail()
+        [Fact]
+        public void Register_ReturnsBadRequestForFalseResult()
         {
             // Arrange
-            var user = new RegisterUser("UserName", string.Empty, string.Empty);
-            _userManager.FindByEmailAsync(Arg.Any<string>()).Returns<IdentityUser>((IdentityUser)null);
+            var user = new RegisterUser("UserName", "duplicate@email.com", string.Empty);
+            var registrationResponse = new RegistrationResponseDto()
+            {
+                Result = false,
+                Token = null,
+                Errors = new List<string>(){
+                                        "Error1"
+                                    }
+            };
 
+            _mediator.Send(Arg.Any<RegisterUser>()).Returns(registrationResponse);
 
             // Act
             var response = _sut.Register(user);
@@ -82,6 +67,91 @@ namespace MusicTutor.Api.UnitTests.Controllers.Auth
             response.Result.Should().BeOfType<BadRequestObjectResult>();
             BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
             result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        }
+
+        [Fact]
+        public void Register_ReturnsTokenForTrueResult()
+        {
+            // Arrange
+            var user = new RegisterUser("UserName", "new@email.com", string.Empty);
+            var registrationResponse = new RegistrationResponseDto()
+            {
+                Result = true,
+                Token = "exampleToken"
+            };
+
+            _mediator.Send(Arg.Any<RegisterUser>()).Returns(registrationResponse);
+
+            // Act
+            var response = _sut.Register(user);
+
+            // Assert
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
+        }
+
+        [Fact]
+        public void Login_ReturnsBadRequestForInvalidModel()
+        {
+            // Arrange
+            var user = new LoginUser(string.Empty, string.Empty);
+            _sut.ModelState.TryAddModelError("TestError", "Invalid State");
+
+            // Act
+            var response = _sut.Login(user);
+
+            // Assert
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        }
+
+        [Fact]
+        public void Login_ReturnsBadRequestForFalseResult()
+        {
+            // Arrange
+            var user = new LoginUser("duplicate@email.com", string.Empty);
+            var registrationResponse = new RegistrationResponseDto()
+            {
+                Result = false,
+                Token = null,
+                Errors = new List<string>(){
+                                        "Error1"
+                                    }
+            };
+
+            _mediator.Send(Arg.Any<LoginUser>()).Returns(registrationResponse);
+
+            // Act
+            var response = _sut.Login(user);
+
+            // Assert
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            BadRequestObjectResult result = (BadRequestObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
+        }
+
+        [Fact]
+        public void Login_ReturnsTokenForTrueResult()
+        {
+            // Arrange
+            var user = new LoginUser("new@email.com", string.Empty);
+            var registrationResponse = new RegistrationResponseDto()
+            {
+                Result = true,
+                Token = "exampleToken"
+            };
+
+            _mediator.Send(Arg.Any<LoginUser>()).Returns(registrationResponse);
+
+            // Act
+            var response = _sut.Login(user);
+
+            // Assert
+            response.Result.Should().BeOfType<OkObjectResult>();
+            OkObjectResult result = (OkObjectResult)response.Result;
+            result.StatusCode.Should().Be(StatusCodes.Status200OK);
         }
     }
 }

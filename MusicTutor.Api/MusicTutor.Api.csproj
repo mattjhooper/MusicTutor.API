@@ -29,5 +29,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MusicTutor.Core\MusicTutor.Core.csproj" />
     <ProjectReference Include="..\MusicTutor.Data.EFCore\MusicTutor.Data.EFCore.csproj" />
+    <ProjectReference Include="..\MusicTutor.Auth\MusicTutor.Auth.csproj" />
   </ItemGroup>
 </Project>

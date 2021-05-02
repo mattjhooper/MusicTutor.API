@@ -196,17 +196,6 @@ BRH:0
 FNF:1
 FNH:1
 end_of_record
-SF:C:\dev\MusicTutor.API\MusicTutor.Api\Settings\JwtConfig.cs
-FN:4,System.String MusicTutor.Api.Settings.JwtConfig::get_Secret()
-FNDA:11,System.String MusicTutor.Api.Settings.JwtConfig::get_Secret()
-DA:5,11
-LF:1
-LH:1
-BRF:0
-BRH:0
-FNF:1
-FNH:1
-end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Settings\SwaggerSettings.cs
 FN:4,System.String MusicTutor.Api.Settings.SwaggerSettings::get_Url()
 FNDA:9,System.String MusicTutor.Api.Settings.SwaggerSettings::get_Url()
@@ -331,7 +320,7 @@ FN:10,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServices
 FNDA:3,System.Void MusicTutor.Api.Installers.InstallerExtensions::InstallServicesInAssemblyOf(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 DA:11,3
 DA:12,3
-DA:13,267
+DA:13,270
 DA:14,3
 DA:16,18
 DA:17,3
@@ -339,8 +328,8 @@ BRDA:12,47,0,1
 BRDA:12,47,1,3
 BRDA:13,16,0,18
 BRDA:13,24,0,15
-BRDA:13,16,1,252
-BRDA:13,24,1,252
+BRDA:13,16,1,255
+BRDA:13,24,1,255
 LF:6
 LH:6
 BRF:6
@@ -381,11 +370,10 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Installers\MvcInstaller.cs
-FN:21,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
+FN:22,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
 FNDA:3,System.Void MusicTutor.Api.Installers.MvcInstaller::InstallServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)
-DA:22,3
 DA:23,3
-DA:25,3
+DA:24,3
 DA:26,3
 DA:27,3
 DA:28,3
@@ -395,7 +383,7 @@ DA:31,3
 DA:32,3
 DA:33,3
 DA:34,3
-DA:37,3
+DA:35,3
 DA:38,3
 DA:39,3
 DA:40,3
@@ -416,11 +404,13 @@ DA:54,3
 DA:55,3
 DA:56,3
 DA:57,3
-DA:59,4
-DA:60,3
+DA:58,3
+DA:60,4
 DA:61,3
-LF:36
-LH:36
+DA:63,3
+DA:64,3
+LF:37
+LH:37
 BRF:0
 BRH:0
 FNF:1
@@ -1018,6 +1008,104 @@ BRH:0
 FNF:2
 FNH:2
 end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Auth\LoginUserHandler.cs
+FN:22,System.Void MusicTutor.Api.EFCore.Handlers.Auth.LoginUserHandler::.ctor(MusicTutor.Services.Auth.IAuthService)
+FNDA:0,System.Void MusicTutor.Api.EFCore.Handlers.Auth.LoginUserHandler::.ctor(MusicTutor.Services.Auth.IAuthService)
+DA:23,0
+DA:24,0
+DA:25,0
+DA:26,0
+FN:28,System.Void MusicTutor.Api.EFCore.Handlers.Auth.LoginUserHandler/<Handle>d__2::MoveNext()
+FNDA:0,System.Void MusicTutor.Api.EFCore.Handlers.Auth.LoginUserHandler/<Handle>d__2::MoveNext()
+DA:29,0
+DA:32,0
+DA:34,0
+DA:35,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:47,0
+DA:49,0
+DA:50,0
+DA:51,0
+DA:53,0
+DA:54,0
+DA:55,0
+DA:56,0
+DA:57,0
+DA:60,0
+DA:62,0
+DA:63,0
+DA:64,0
+DA:65,0
+DA:66,0
+DA:67,0
+DA:68,0
+DA:72,0
+BRDA:34,180,0,0
+BRDA:34,180,1,0
+BRDA:49,379,0,0
+BRDA:49,379,1,0
+LF:33
+LH:0
+BRF:4
+BRH:0
+FNF:2
+FNH:0
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Api\Handlers\Auth\RegisterUserHandler.cs
+FN:23,System.Void MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler::.ctor(MusicTutor.Services.Auth.IAuthService)
+FNDA:5,System.Void MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler::.ctor(MusicTutor.Services.Auth.IAuthService)
+DA:24,5
+DA:25,5
+DA:26,5
+DA:27,5
+FN:61,System.String MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler/<>c::<Handle>b__2_0(Microsoft.AspNetCore.Identity.IdentityError)
+FNDA:0,System.String MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler/<>c::<Handle>b__2_0(Microsoft.AspNetCore.Identity.IdentityError)
+DA:62,0
+FN:29,System.Void MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler/<Handle>d__2::MoveNext()
+FNDA:5,System.Void MusicTutor.Api.EFCore.Handlers.Auth.RegisterUserHandler/<Handle>d__2::MoveNext()
+DA:30,5
+DA:33,5
+DA:35,5
+DA:36,0
+DA:37,0
+DA:38,0
+DA:39,0
+DA:40,0
+DA:41,0
+DA:42,0
+DA:43,0
+DA:46,5
+DA:47,5
+DA:48,5
+DA:49,5
+DA:50,5
+DA:52,5
+DA:53,5
+DA:54,5
+DA:55,5
+DA:56,5
+DA:59,0
+DA:60,0
+DA:61,0
+DA:63,0
+DA:64,5
+BRDA:35,180,0,0
+BRDA:35,180,1,5
+BRDA:48,438,0,5
+BRDA:48,438,1,0
+LF:31
+LH:18
+BRF:4
+BRH:2
+FNF:3
+FNH:2
+end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Examples\Pupils\CreatePupilExample.cs
 FN:9,MusicTutor.Api.Commands.Pupils.CreatePupil MusicTutor.Api.Examples.Pupils.CreatePupilExample::GetExamples()
 FNDA:0,MusicTutor.Api.Commands.Pupils.CreatePupil MusicTutor.Api.Examples.Pupils.CreatePupilExample::GetExamples()
@@ -1430,138 +1518,60 @@ FNF:5
 FNH:5
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Controllers\Auth\AuthManagementController.cs
-FN:138,System.String MusicTutor.Api.Controllers.Auth.AuthManagementController::GenerateJwtToken(Microsoft.AspNetCore.Identity.IdentityUser)
-FNDA:5,System.String MusicTutor.Api.Controllers.Auth.AuthManagementController::GenerateJwtToken(Microsoft.AspNetCore.Identity.IdentityUser)
-DA:139,5
-DA:141,5
-DA:144,5
-DA:151,5
-DA:152,5
-DA:153,5
-DA:154,5
-DA:155,5
-DA:156,5
-DA:157,5
-DA:158,5
-DA:159,5
-DA:160,5
-DA:161,5
-DA:162,5
-DA:163,5
-DA:164,5
-DA:165,5
-DA:166,5
-DA:168,5
-DA:170,5
-DA:172,5
-DA:173,5
-FN:24,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.Extensions.Options.IOptionsMonitor`1<MusicTutor.Api.Settings.JwtConfig>,MediatR.IMediator)
-FNDA:5,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.Extensions.Options.IOptionsMonitor`1<MusicTutor.Api.Settings.JwtConfig>,MediatR.IMediator)
-DA:25,5
-DA:26,5
-DA:27,5
-DA:28,5
-DA:29,5
-FN:67,System.String MusicTutor.Api.Controllers.Auth.AuthManagementController/<>c::<Register>b__3_0(Microsoft.AspNetCore.Identity.IdentityError)
-FNDA:0,System.String MusicTutor.Api.Controllers.Auth.AuthManagementController/<>c::<Register>b__3_0(Microsoft.AspNetCore.Identity.IdentityError)
-DA:68,0
-FN:33,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Register>d__3::MoveNext()
-FNDA:5,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Register>d__3::MoveNext()
-DA:34,5
-DA:36,5
-DA:37,5
-DA:39,5
-DA:41,5
-DA:42,0
-DA:43,0
-DA:44,0
-DA:45,0
-DA:46,0
-DA:47,0
-DA:48,0
-DA:49,0
-DA:52,5
-DA:53,5
-DA:54,5
-DA:55,5
-DA:56,5
-DA:58,5
-DA:59,5
-DA:60,5
-DA:61,5
-DA:62,5
+FN:58,MusicTutor.Api.Contracts.Auth.RegistrationResponseDto MusicTutor.Api.Controllers.Auth.AuthManagementController::InvalidModelResponse()
+FNDA:0,MusicTutor.Api.Contracts.Auth.RegistrationResponseDto MusicTutor.Api.Controllers.Auth.AuthManagementController::InvalidModelResponse()
+DA:59,0
+DA:60,0
+DA:61,0
+DA:62,0
+DA:63,0
+DA:64,0
 DA:65,0
 DA:66,0
 DA:67,0
-DA:69,0
-DA:70,0
-DA:71,0
-DA:74,0
-DA:75,0
-DA:76,0
-DA:77,0
-DA:78,0
-DA:79,0
-DA:80,0
-DA:81,5
-BRDA:36,44,0,5
-BRDA:41,205,0,0
-BRDA:41,205,1,5
-BRDA:54,475,0,5
-BRDA:54,475,1,0
-BRDA:36,44,1,0
-FN:85,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Login>d__4::MoveNext()
-FNDA:0,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Login>d__4::MoveNext()
-DA:86,0
-DA:87,0
-DA:88,0
-DA:90,0
-DA:92,0
-DA:93,0
-DA:95,0
-DA:96,0
-DA:97,0
-DA:98,0
-DA:99,0
-DA:100,0
-DA:101,0
-DA:105,0
-DA:107,0
-DA:108,0
-DA:109,0
-DA:111,0
-DA:112,0
-DA:113,0
-DA:114,0
-DA:115,0
-DA:118,0
-DA:120,0
-DA:121,0
-DA:122,0
-DA:123,0
-DA:124,0
-DA:125,0
-DA:126,0
-DA:130,0
-DA:131,0
-DA:132,0
-DA:133,0
-DA:134,0
-DA:135,0
-DA:136,0
-DA:137,0
-BRDA:87,44,0,0
-BRDA:92,205,0,0
-BRDA:92,205,1,0
-BRDA:107,416,0,0
-BRDA:107,416,1,0
-BRDA:87,44,1,0
-LF:104
-LH:44
-BRF:12
-BRH:3
-FNF:5
-FNH:3
+FN:12,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController::.ctor(MediatR.IMediator)
+FNDA:5,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController::.ctor(MediatR.IMediator)
+DA:13,5
+DA:14,5
+DA:15,5
+FN:19,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Register>d__1::MoveNext()
+FNDA:5,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Register>d__1::MoveNext()
+DA:20,5
+DA:22,5
+DA:23,5
+DA:25,5
+DA:27,5
+DA:28,0
+DA:29,0
+DA:32,5
+DA:35,0
+DA:36,5
+BRDA:22,33,0,5
+BRDA:27,204,0,0
+BRDA:27,204,1,5
+BRDA:22,33,1,0
+FN:40,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Login>d__2::MoveNext()
+FNDA:0,System.Void MusicTutor.Api.Controllers.Auth.AuthManagementController/<Login>d__2::MoveNext()
+DA:41,0
+DA:42,0
+DA:43,0
+DA:45,0
+DA:47,0
+DA:48,0
+DA:49,0
+DA:52,0
+DA:55,0
+DA:56,0
+BRDA:42,33,0,0
+BRDA:47,204,0,0
+BRDA:47,204,1,0
+BRDA:42,33,1,0
+LF:32
+LH:10
+BRF:8
+BRH:2
+FNF:4
+FNH:2
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Contracts\Pupils\PupilResponseDto.cs
 FN:4,System.Guid MusicTutor.Api.Contracts.Pupils.PupilResponseDto::get_Id()
@@ -1687,8 +1697,8 @@ FN:6,System.String MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_To
 FNDA:20,System.String MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Token()
 DA:7,20
 FN:7,System.Boolean MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Result()
-FNDA:15,System.Boolean MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Result()
-DA:8,15
+FNDA:20,System.Boolean MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Result()
+DA:8,20
 FN:8,System.Collections.Generic.List`1<System.String> MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Errors()
 FNDA:10,System.Collections.Generic.List`1<System.String> MusicTutor.Api.Contracts.Auth.RegistrationResponseDto::get_Errors()
 DA:9,10
@@ -1826,9 +1836,9 @@ FNF:1
 FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Commands\Auth\LoginUser.cs
-FN:2,System.String MusicTutor.Api.Commands.Auth.LoginUser::get_Email()
+FN:5,System.String MusicTutor.Api.Commands.Auth.LoginUser::get_Email()
 FNDA:0,System.String MusicTutor.Api.Commands.Auth.LoginUser::get_Email()
-DA:3,0
+DA:6,0
 LF:1
 LH:0
 BRF:0
@@ -1837,9 +1847,9 @@ FNF:1
 FNH:0
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Api\Commands\Auth\RegisterUser.cs
-FN:2,System.String MusicTutor.Api.Commands.Auth.RegisterUser::get_Name()
+FN:5,System.String MusicTutor.Api.Commands.Auth.RegisterUser::get_Name()
 FNDA:105,System.String MusicTutor.Api.Commands.Auth.RegisterUser::get_Name()
-DA:3,105
+DA:6,105
 LF:1
 LH:1
 BRF:0
@@ -1885,6 +1895,72 @@ BRF:8
 BRH:0
 FNF:4
 FNH:0
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Auth\AuthService.cs
+FN:25,System.Threading.Tasks.Task`1<Microsoft.AspNetCore.Identity.IdentityUser> MusicTutor.Services.Auth.AuthService::FindIdentityUserByEmailAsync(System.String)
+FNDA:5,System.Threading.Tasks.Task`1<Microsoft.AspNetCore.Identity.IdentityUser> MusicTutor.Services.Auth.AuthService::FindIdentityUserByEmailAsync(System.String)
+DA:26,5
+DA:27,5
+DA:28,5
+FN:30,System.Threading.Tasks.Task`1<System.Boolean> MusicTutor.Services.Auth.AuthService::CheckPasswordAsync(Microsoft.AspNetCore.Identity.IdentityUser,System.String)
+FNDA:0,System.Threading.Tasks.Task`1<System.Boolean> MusicTutor.Services.Auth.AuthService::CheckPasswordAsync(Microsoft.AspNetCore.Identity.IdentityUser,System.String)
+DA:31,0
+DA:32,0
+DA:33,0
+FN:35,System.Threading.Tasks.Task`1<Microsoft.AspNetCore.Identity.IdentityResult> MusicTutor.Services.Auth.AuthService::CreateIdentityUserAsync(Microsoft.AspNetCore.Identity.IdentityUser,System.String)
+FNDA:5,System.Threading.Tasks.Task`1<Microsoft.AspNetCore.Identity.IdentityResult> MusicTutor.Services.Auth.AuthService::CreateIdentityUserAsync(Microsoft.AspNetCore.Identity.IdentityUser,System.String)
+DA:36,5
+DA:37,5
+DA:38,5
+FN:40,System.String MusicTutor.Services.Auth.AuthService::GenerateJwtToken(Microsoft.AspNetCore.Identity.IdentityUser)
+FNDA:5,System.String MusicTutor.Services.Auth.AuthService::GenerateJwtToken(Microsoft.AspNetCore.Identity.IdentityUser)
+DA:41,5
+DA:43,5
+DA:46,5
+DA:53,5
+DA:54,5
+DA:55,5
+DA:56,5
+DA:57,5
+DA:58,5
+DA:59,5
+DA:60,5
+DA:61,5
+DA:62,5
+DA:63,5
+DA:64,5
+DA:65,5
+DA:66,5
+DA:67,5
+DA:68,5
+DA:70,5
+DA:72,5
+DA:74,5
+DA:75,5
+FN:18,System.Void MusicTutor.Services.Auth.AuthService::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.Extensions.Options.IOptionsMonitor`1<MusicTutor.Services.Auth.Settings.JwtConfig>)
+FNDA:5,System.Void MusicTutor.Services.Auth.AuthService::.ctor(Microsoft.AspNetCore.Identity.UserManager`1<Microsoft.AspNetCore.Identity.IdentityUser>,Microsoft.Extensions.Options.IOptionsMonitor`1<MusicTutor.Services.Auth.Settings.JwtConfig>)
+DA:19,5
+DA:20,5
+DA:21,5
+DA:22,5
+DA:23,5
+LF:37
+LH:34
+BRF:0
+BRH:0
+FNF:5
+FNH:4
+end_of_record
+SF:C:\dev\MusicTutor.API\MusicTutor.Auth\Settings\JwtConfig.cs
+FN:4,System.String MusicTutor.Services.Auth.Settings.JwtConfig::get_Secret()
+FNDA:11,System.String MusicTutor.Services.Auth.Settings.JwtConfig::get_Secret()
+DA:5,11
+LF:1
+LH:1
+BRF:0
+BRH:0
+FNF:1
+FNH:1
 end_of_record
 SF:C:\dev\MusicTutor.API\MusicTutor.Core\Models\Contact.cs
 FN:4,System.String MusicTutor.Core.Models.Contact::get_Name()

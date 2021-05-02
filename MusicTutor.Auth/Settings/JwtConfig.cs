@@ -1,4 +1,4 @@
-namespace MusicTutor.Api.Settings
+namespace MusicTutor.Services.Auth.Settings
 {
     public class JwtConfig
     {

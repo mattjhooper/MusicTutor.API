@@ -8,8 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using MusicTutor.Api.Behaviors;
-using MusicTutor.Api.Settings;
 using MusicTutor.Data.EFCore;
+using MusicTutor.Services.Auth;
+using MusicTutor.Services.Auth.Settings;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -58,6 +59,8 @@ namespace MusicTutor.Api.Installers
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                                     .AddEntityFrameworkStores<MusicTutorDbContext>();
+
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }
