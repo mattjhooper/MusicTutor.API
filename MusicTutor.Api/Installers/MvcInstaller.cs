@@ -57,7 +57,7 @@ namespace MusicTutor.Api.Installers
                 };
             });
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<MusicTutorUser>(options => options.SignIn.RequireConfirmedAccount = true)
                                     .AddEntityFrameworkStores<MusicTutorDbContext>();
 
             services.AddScoped<IAuthService, AuthService>();

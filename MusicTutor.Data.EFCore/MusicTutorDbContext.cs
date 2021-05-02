@@ -9,10 +9,11 @@ using MusicTutor.Data.EFCore.Configuration;
 using MusicTutor.Core.Models;
 using MusicTutor.Core.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace MusicTutor.Data.EFCore
 {
-    public class MusicTutorDbContext : IdentityDbContext, IMusicTutorDbContext
+    public class MusicTutorDbContext : IdentityDbContext<MusicTutorUser, IdentityRole<Guid>, Guid>, IMusicTutorDbContext
     {
         public DbSet<Pupil> Pupils { get; set; }
         public DbSet<Instrument> Instruments { get; set; }

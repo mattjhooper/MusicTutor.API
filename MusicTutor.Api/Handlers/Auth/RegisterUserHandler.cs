@@ -30,7 +30,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Auth
         {
 
             // check if the user with the same email already exists
-            var existingUser = await _authService.FindIdentityUserByEmailAsync(user.Email);
+            var existingUser = await _authService.FindUserByEmailAsync(user.Email);
 
             if (existingUser != null)
             {
@@ -43,8 +43,8 @@ namespace MusicTutor.Api.EFCore.Handlers.Auth
                 };
             }
 
-            var newUser = new IdentityUser() { Email = user.Email, UserName = user.Email };
-            var isCreated = await _authService.CreateIdentityUserAsync(newUser, user.Password);
+            var newUser = new MusicTutorUser() { Email = user.Email, UserName = user.Email };
+            var isCreated = await _authService.CreateUserAsync(newUser, user.Password);
             if (isCreated.Succeeded)
             {
                 var jwtToken = _authService.GenerateJwtToken(newUser);

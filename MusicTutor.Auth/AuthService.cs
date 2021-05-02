@@ -12,32 +12,32 @@ namespace MusicTutor.Services.Auth
 {
     public class AuthService : IAuthService
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<MusicTutorUser> _userManager;
 
         private readonly JwtConfig _jwtConfig;
 
-        public AuthService(UserManager<IdentityUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
+        public AuthService(UserManager<MusicTutorUser> userManager, IOptionsMonitor<JwtConfig> optionsMonitor)
         {
             _userManager = userManager;
             _jwtConfig = optionsMonitor.CurrentValue;
         }
 
-        public Task<IdentityUser> FindIdentityUserByEmailAsync(string email)
+        public Task<MusicTutorUser> FindUserByEmailAsync(string email)
         {
             return _userManager.FindByEmailAsync(email);
         }
 
-        public Task<bool> CheckPasswordAsync(IdentityUser existingUser, string password)
+        public Task<bool> CheckPasswordAsync(MusicTutorUser existingUser, string password)
         {
             return _userManager.CheckPasswordAsync(existingUser, password);
         }
 
-        public Task<IdentityResult> CreateIdentityUserAsync(IdentityUser newUser, string password)
+        public Task<IdentityResult> CreateUserAsync(MusicTutorUser newUser, string password)
         {
             return _userManager.CreateAsync(newUser, password);
         }
 
-        public string GenerateJwtToken(IdentityUser user)
+        public string GenerateJwtToken(MusicTutorUser user)
         {
             // Now its ime to define the jwt token which will be responsible of creating our tokens
             var jwtTokenHandler = new JwtSecurityTokenHandler();
@@ -54,7 +54,7 @@ namespace MusicTutor.Services.Auth
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                new Claim("Id", user.Id),
+                new Claim("Id", user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 // the JTI is used for our refresh token which we will be convering in the next video

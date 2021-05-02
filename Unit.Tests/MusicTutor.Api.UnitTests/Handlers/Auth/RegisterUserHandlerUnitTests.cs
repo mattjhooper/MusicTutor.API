@@ -24,11 +24,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Auth
             _user = new RegisterUser("Name", "user@email.com", "password");
             _token = "MyToken";
             _authService = Substitute.For<IAuthService>();
-            _authService.FindIdentityUserByEmailAsync(Arg.Any<string>()).Returns<IdentityUser>((IdentityUser)null);
+            _authService.FindUserByEmailAsync(Arg.Any<string>()).Returns<MusicTutorUser>((MusicTutorUser)null);
 
-            _authService.CreateIdentityUserAsync(Arg.Any<IdentityUser>(), Arg.Any<string>()).Returns<IdentityResult>(IdentityResult.Success);
+            _authService.CreateUserAsync(Arg.Any<MusicTutorUser>(), Arg.Any<string>()).Returns<IdentityResult>(IdentityResult.Success);
 
-            _authService.GenerateJwtToken(Arg.Any<IdentityUser>()).Returns<string>(_token);
+            _authService.GenerateJwtToken(Arg.Any<MusicTutorUser>()).Returns<string>(_token);
 
             _handler = new(_authService);
 
@@ -49,7 +49,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Auth
         public async Task Handle_ExistingUser_ReturnsError()
         {
             //Given
-            _authService.FindIdentityUserByEmailAsync(Arg.Any<string>()).Returns<IdentityUser>(new IdentityUser(_user.Email));
+            _authService.FindUserByEmailAsync(Arg.Any<string>()).Returns<MusicTutorUser>(new MusicTutorUser());
 
 
             //When
@@ -64,7 +64,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Auth
         public async Task Handle_CreateIdentityUserAsyncFail_ReturnsError()
         {
             //Given
-            _authService.CreateIdentityUserAsync(Arg.Any<IdentityUser>(), Arg.Any<string>()).Returns<IdentityResult>(IdentityResult.Failed(new IdentityError[] { new IdentityError() }));
+            _authService.CreateUserAsync(Arg.Any<MusicTutorUser>(), Arg.Any<string>()).Returns<IdentityResult>(IdentityResult.Failed(new IdentityError[] { new IdentityError() }));
 
             //When
             var response = await _handler.Handle(_user, new CancellationToken());

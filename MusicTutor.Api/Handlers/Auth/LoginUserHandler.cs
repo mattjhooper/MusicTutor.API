@@ -29,7 +29,7 @@ namespace MusicTutor.Api.EFCore.Handlers.Auth
         {
 
             // check if the user with the same email exist
-            var existingUser = await _authService.FindIdentityUserByEmailAsync(user.Email);
+            var existingUser = await _authService.FindUserByEmailAsync(user.Email);
 
             if (existingUser == null)
             {
