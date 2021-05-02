@@ -71,7 +71,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Auth
 
             //Then
             response.Result.Should().BeFalse();
-            // response.Errors.Count.Should().BeGreaterThan(0);
+            response.Errors.Count.Should().BeGreaterThan(0);
         }
     }
 }
