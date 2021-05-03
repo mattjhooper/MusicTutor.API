@@ -10,6 +10,7 @@ using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Api.Controllers.Pupils;
 using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Api.UnitTests.Utils;
 using MusicTutor.Core.Models.Enums;
 using NSubstitute;
 using Xunit;
@@ -29,6 +30,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             _paymentDto = new PaymentResponseDto(Guid.NewGuid(), DateTime.Now, 15M, PaymentType.Cash);
             _mediator = Substitute.For<IMediator>();
             _controller = new PupilPaymentsController(_mediator);
+            _controller.ControllerContext = MockControllerContextBuilder.GetControllerContext();
             _createPupilPayment = new CreatePupilPayment(Guid.NewGuid(), _paymentDto.PaymentDate, _paymentDto.Amount, _paymentDto.Type);
         }
 

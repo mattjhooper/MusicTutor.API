@@ -13,6 +13,7 @@ using MusicTutor.Api.Contracts.Lessons;
 using MusicTutor.Api.Commands.Pupils;
 using Microsoft.EntityFrameworkCore;
 using MusicTutor.Core.Models;
+using MusicTutor.Api.UnitTests.Utils;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {
@@ -29,6 +30,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
             _lessonDto = new LessonResponseDto(Guid.NewGuid(), DateTime.Now, 30, 15M, false, Lesson.STATUS_COMPLETE, Guid.NewGuid(), "Main Instrument");
             _mediator = Substitute.For<IMediator>();
             _controller = new PupilLessonsController(_mediator);
+            _controller.ControllerContext = MockControllerContextBuilder.GetControllerContext();
             _createPupilLesson = new CreatePupilLesson(Guid.NewGuid(), _lessonDto.StartDateTime, _lessonDto.DurationInMinutes, _lessonDto.Cost, _lessonDto.IsPlanned);
         }
 
