@@ -12,13 +12,15 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Api.Commands.Pupils;
+using MusicTutor.Api.Contracts.Instruments;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
     public class GetPupilInstrumentsHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly GetPupilInstrumentsHandler _handler;
-        
+
         public GetPupilInstrumentsHandlerUnitTests()
         {
             _handler = new GetPupilInstrumentsHandler(_dbContext, _mapper);
@@ -29,10 +31,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupilInstruments = new GetPupilInstruments(_pupil.Id);
-            
+            var req = new WithMusicTutorUserId<GetPupilInstruments, IEnumerable<InstrumentResponseDto>>(_currentUser.Id, getPupilInstruments);
+
             //When
-            var response = await _handler.Handle(getPupilInstruments, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Count().Should().Be(2);
         }
@@ -43,10 +46,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Given
             var guid = Guid.NewGuid();
             var getPupilInstruments = new GetPupilInstruments(guid);
-            
+            var req = new WithMusicTutorUserId<GetPupilInstruments, IEnumerable<InstrumentResponseDto>>(_currentUser.Id, getPupilInstruments);
+
             //When
-            var response = await _handler.Handle(getPupilInstruments, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Should().BeNull();
         }

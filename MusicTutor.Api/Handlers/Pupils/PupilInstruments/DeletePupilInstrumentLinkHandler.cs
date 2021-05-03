@@ -10,12 +10,13 @@ using MusicTutor.Api.Contracts.Instruments;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record DeletePupilInstrumentLinkHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupilInstrumentLink, int>
-    {        
-        public async Task<int> Handle(DeletePupilInstrumentLink deletePupilInstrumentLink, CancellationToken cancellationToken)
+    public record DeletePupilInstrumentLinkHandler(IMusicTutorDbContext DbContext) : IRequestHandler<WithMusicTutorUserId<DeletePupilInstrumentLink, int>, int>
+    {
+        public async Task<int> Handle(WithMusicTutorUserId<DeletePupilInstrumentLink, int> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.Include(p => p.Instruments).SingleOrDefaultAsync(p => p.Id == deletePupilInstrumentLink.pupilId);
-            if (pupil is null)                
+            var deletePupilInstrumentLink = request.Request;
+            var pupil = await DbContext.GetPupilWithInstrumentsForUserAsync(deletePupilInstrumentLink.pupilId, request.MusicTutorUserId);
+            if (pupil is null)
                 return -1;
 
             var deleteCount = pupil.RemoveInstrument(deletePupilInstrumentLink.instrumentId);

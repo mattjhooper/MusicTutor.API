@@ -20,7 +20,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
     {
         private readonly DeletePupilInstrumentLinkHandler _handler;
         private readonly DeletePupilInstrumentLink _deletePupilInstrumentLink;
-        
+
 
         public DeletePupilInstrumentLinkHandlerUnitTests()
         {
@@ -33,24 +33,26 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task DeletePupilInstrumentLinkHandler_RemovesInstrumentLinkAsync()
         {
             //Given
+            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, _deletePupilInstrumentLink);
             //When
-            var response = await _handler.Handle(_deletePupilInstrumentLink, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Should().Be(1);
             await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
         [Fact]
-        public async Task  DeletePupilInstrumentLinkHandler_ReturnsMinus1ForUnknownPupilAsync()
+        public async Task DeletePupilInstrumentLinkHandler_ReturnsMinus1ForUnknownPupilAsync()
         {
             //Given
             var unknownPupilLink = _deletePupilInstrumentLink with { pupilId = Guid.NewGuid() };
-            
+            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, unknownPupilLink);
+
             //When
-            var response = await _handler.Handle(unknownPupilLink, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
             response.Should().Be(-1);
-            
+
             //Then    
             await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
@@ -60,11 +62,12 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownInstrumentLink = _deletePupilInstrumentLink with { instrumentId = Guid.NewGuid() };
-            
+            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, unknownInstrumentLink);
+
             //When
-            var response = await _handler.Handle(unknownInstrumentLink, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
             response.Should().Be(0);
-            
+
             //Then    
             await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }

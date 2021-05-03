@@ -10,12 +10,13 @@ using MusicTutor.Api.Contracts.Instruments;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record CreatePupilInstrumentLinkHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupilInstrumentLink, InstrumentResponseDto>
-    {        
-        public async Task<InstrumentResponseDto> Handle(CreatePupilInstrumentLink createPupilInstrumentLink, CancellationToken cancellationToken)
+    public record CreatePupilInstrumentLinkHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto>, InstrumentResponseDto>
+    {
+        public async Task<InstrumentResponseDto> Handle(WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.Include(p => p.Instruments).SingleOrDefaultAsync(p => p.Id == createPupilInstrumentLink.pupilId);
-            if (pupil is null)                
+            var createPupilInstrumentLink = request.Request;
+            var pupil = await DbContext.GetPupilWithInstrumentsForUserAsync(createPupilInstrumentLink.pupilId, request.MusicTutorUserId);
+            if (pupil is null)
                 return null;
 
             var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == createPupilInstrumentLink.instrumentId);
