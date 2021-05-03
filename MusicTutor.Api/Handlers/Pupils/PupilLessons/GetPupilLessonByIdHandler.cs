@@ -5,22 +5,24 @@ using System.Threading.Tasks;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Lessons;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record GetPupilLessonByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilLessonById, LessonResponseDto>
+    public record GetPupilLessonByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto>, LessonResponseDto>
     {
-        public async Task<LessonResponseDto> Handle(GetPupilLessonById request, CancellationToken cancellationToken)
+        public async Task<LessonResponseDto> Handle(WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.Where(p => p.Id == request.PupilId).Include(p => p.Lessons).SingleOrDefaultAsync();
+            var getPupilLessonById = request.Request;
+            var pupil = await DbContext.GetPupilWithLessonsForUserAsync(getPupilLessonById.PupilId, request.MusicTutorUserId);
 
             if (pupil is null)
                 return null;
 
-            var lesson = pupil.Lessons.SingleOrDefault(l => l.Id == request.LessonId);
+            var lesson = pupil.Lessons.SingleOrDefault(l => l.Id == getPupilLessonById.LessonId);
 
             if (lesson is null)
                 return null;

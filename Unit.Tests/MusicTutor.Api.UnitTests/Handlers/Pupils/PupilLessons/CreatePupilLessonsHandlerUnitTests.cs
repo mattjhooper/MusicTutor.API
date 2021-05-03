@@ -8,6 +8,7 @@ using System.Linq;
 using System;
 using MusicTutor.Api.Commands.Pupils;
 using NSubstitute;
+using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -26,8 +27,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task CreatePupilLessonHandler_CreatesLessonsAsync()
         {
             //Given
+            var req = new WithMusicTutorUserId<CreatePupilLesson, LessonResponseDto>(_currentUser.Id, _createPupilLesson);
             //When
-            var response = await _handler.Handle(_createPupilLesson, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Status.Should().Be(Lesson.STATUS_COMPLETE);
@@ -42,9 +44,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _createPupilLesson with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<CreatePupilLesson, LessonResponseDto>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();

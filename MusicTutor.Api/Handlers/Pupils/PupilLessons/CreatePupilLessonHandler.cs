@@ -10,11 +10,13 @@ using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record CreatePupilLessonHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupilLesson, LessonResponseDto>
+    public record CreatePupilLessonHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<CreatePupilLesson, LessonResponseDto>, LessonResponseDto>
     {
-        public async Task<LessonResponseDto> Handle(CreatePupilLesson createPupilLesson, CancellationToken cancellationToken)
+        public async Task<LessonResponseDto> Handle(WithMusicTutorUserId<CreatePupilLesson, LessonResponseDto> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.SingleOrDefaultAsync(p => p.Id == createPupilLesson.PupilId);
+            var createPupilLesson = request.Request;
+            var pupil = await DbContext.GetPupilWithLessonsForUserAsync(createPupilLesson.PupilId, request.MusicTutorUserId);
+
             if (pupil is null)
                 return null;
 

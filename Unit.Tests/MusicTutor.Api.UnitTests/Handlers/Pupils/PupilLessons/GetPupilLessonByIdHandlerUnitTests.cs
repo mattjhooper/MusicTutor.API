@@ -9,6 +9,7 @@ using System;
 using MusicTutor.Api.Commands.Pupils;
 using NSubstitute;
 using MusicTutor.Api.Queries.Pupils;
+using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -27,8 +28,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task GetPupilLessonByIdHandler_GetsLesson()
         {
             //Given
+            var req = new WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto>(_currentUser.Id, _getPupilLessonById);
             //When
-            var response = await _handler.Handle(_getPupilLessonById, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Id.Should().Be(_getPupilLessonById.LessonId);
@@ -39,9 +41,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _getPupilLessonById with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();
@@ -52,9 +55,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownLesson = _getPupilLessonById with { LessonId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto>(_currentUser.Id, unknownLesson);
 
             //When
-            var response = await _handler.Handle(unknownLesson, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();

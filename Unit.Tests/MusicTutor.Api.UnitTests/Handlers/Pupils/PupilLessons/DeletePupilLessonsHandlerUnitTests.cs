@@ -26,8 +26,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task DeletePupilLessonHandler_DeletesLessonsAsync()
         {
             //Given
+            var req = new WithMusicTutorUserId<DeletePupilLesson, int>(_currentUser.Id, _deletePupilLesson);
             //When
-            var response = await _handler.Handle(_deletePupilLesson, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(1);
@@ -40,9 +41,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _deletePupilLesson with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<DeletePupilLesson, int>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(-1);
@@ -52,10 +54,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task DeletePupilLessonHandler_LessonNotFound_Returns0()
         {
             //Given
-            var unknownPupil = _deletePupilLesson with { LessonId = Guid.NewGuid() };
+            var unknownLesson = _deletePupilLesson with { LessonId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<DeletePupilLesson, int>(_currentUser.Id, unknownLesson);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(0);
