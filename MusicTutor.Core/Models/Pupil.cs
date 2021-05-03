@@ -15,6 +15,9 @@ namespace MusicTutor.Core.Models
 
         public string Name { get; private set; }
 
+        public Guid MusicTutorUserId { get; private set; }
+        public MusicTutorUser MusicTutorUser { get; private set; }
+
         public Contact Contact { get; private set; }
         public decimal CurrentLessonRate { get; private set; }
         public decimal AccountBalance { get; private set; } = 0.0m;
@@ -183,6 +186,11 @@ namespace MusicTutor.Core.Models
                 Contact = newContact;
 
 
+        }
+
+        public void AssignToMusicTutorUser(Guid musicTutorUserId)
+        {
+            MusicTutorUserId = musicTutorUserId;
         }
 
         public static Pupil CreatePupil(string name, decimal currentLessonRate, DateTime startDate, int frequencyInDays, ICollection<Instrument> instruments, string contactName, string contactEmail = null, string contactPhone = null)
