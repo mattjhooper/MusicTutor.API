@@ -73,7 +73,7 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var req = new MusicTutorUserCreatePupil(UserId, createPupil);
+                var req = new WithMusicTutorUserId<CreatePupil, PupilResponseDto>(UserId, createPupil);
 
                 var result = await mediator.Send(req);
                 //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSinglePupil")],

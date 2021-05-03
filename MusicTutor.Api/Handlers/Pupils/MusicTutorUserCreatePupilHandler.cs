@@ -11,17 +11,17 @@ using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record MusicTutorUserCreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<MusicTutorUserCreatePupil, PupilResponseDto>
+    public record MusicTutorUserCreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<CreatePupil, PupilResponseDto>, PupilResponseDto>
     {
-        public async Task<PupilResponseDto> Handle(MusicTutorUserCreatePupil request, CancellationToken cancellationToken)
+        public async Task<PupilResponseDto> Handle(WithMusicTutorUserId<CreatePupil, PupilResponseDto> requestWithUserId, CancellationToken cancellationToken)
         {
-            var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == request.CreatePupil.DefaultInstrumentId);
+            var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == requestWithUserId.Request.DefaultInstrumentId);
 
             if (instrument is null)
                 throw new InvalidOperationException("Instrument cannot be found");
 
-            Pupil pupil = request.CreatePupil.MakePupil(instrument);
-            pupil.AssignToMusicTutorUser(request.MusicTutorUserId);
+            Pupil pupil = requestWithUserId.Request.MakePupil(instrument);
+            pupil.AssignToMusicTutorUser(requestWithUserId.MusicTutorUserId);
 
             await DbContext.Pupils.AddAsync(pupil, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
