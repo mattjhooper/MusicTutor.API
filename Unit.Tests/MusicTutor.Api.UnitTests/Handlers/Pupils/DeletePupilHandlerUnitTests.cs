@@ -19,7 +19,7 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
     public class DeletePupilHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly DeletePupilHandler _handler;
-        
+
         public DeletePupilHandlerUnitTests()
         {
             _handler = new DeletePupilHandler(_dbContext);
@@ -30,12 +30,13 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var deletePupil = new DeletePupil(_pupil.Id);
-            
+            var req = new WithMusicTutorUserId<DeletePupil, int>(_currentUser.Id, deletePupil);
+
             //When
-            var response = await _handler.Handle(deletePupil, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
-            _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_pupil));            
+            _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_pupil));
             await _dbContext.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
 
@@ -45,12 +46,13 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Given
             var guid = Guid.NewGuid();
             var deletePupil = new DeletePupil(guid);
-            
+            var req = new WithMusicTutorUserId<DeletePupil, int>(_currentUser.Id, deletePupil);
+
             //When
-            var response = await _handler.Handle(deletePupil, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
-           // response.Should().Be(1);
+            // response.Should().Be(1);
             _dbContext.Pupils.DidNotReceive().Remove(Arg.Any<Pupil>());
             await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }

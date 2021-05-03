@@ -9,12 +9,12 @@ using MusicTutor.Api.Queries.Pupils;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record DeletePupilHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupil, int>
+    public record DeletePupilHandler(IMusicTutorDbContext DbContext) : IRequestHandler<WithMusicTutorUserId<DeletePupil, int>, int>
     {
-        public async Task<int> Handle(DeletePupil request, CancellationToken cancellationToken)
+        public async Task<int> Handle(WithMusicTutorUserId<DeletePupil, int> requestWithUserId, CancellationToken cancellationToken)
         {
             int deletedCount = 0;
-            var Pupil = DbContext.Pupils.SingleOrDefault(i => i.Id == request.Id);
+            var Pupil = await DbContext.GetPupilForUserAsync(requestWithUserId.Request.Id, requestWithUserId.MusicTutorUserId);
 
             if (Pupil is not null)
             {

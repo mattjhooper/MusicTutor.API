@@ -29,7 +29,9 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
             Console.WriteLine($"UserID: {UserId}");
 
-            var pupils = await mediator.Send(new GetAllPupils());
+            var req = new WithMusicTutorUserId<GetAllPupils, IEnumerable<PupilResponseDto>>(UserId, new GetAllPupils());
+
+            var pupils = await mediator.Send(req);
 
             return Ok(pupils);
         }
@@ -45,7 +47,8 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PupilResponseDto>> GetSingleAsync([FromRoute] Guid id)
         {
-            var pupil = await mediator.Send(new GetPupilById(id));
+            var req = new WithMusicTutorUserId<GetPupilById, PupilResponseDto>(UserId, new GetPupilById(id));
+            var pupil = await mediator.Send(req);
 
             if (pupil is null)
                 return NotFound();
@@ -110,7 +113,8 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var pupil = await mediator.Send(item);
+                var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(UserId, item);
+                var pupil = await mediator.Send(req);
 
                 if (pupil is null)
                     return NotFound();
@@ -137,7 +141,8 @@ namespace MusicTutor.Api.Controllers.Pupils
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteItemAsync([FromRoute] Guid id)
         {
-            var deleteCount = await mediator.Send(new DeletePupil(id));
+            var req = new WithMusicTutorUserId<DeletePupil, int>(UserId, new DeletePupil(id));
+            var deleteCount = await mediator.Send(req);
 
             if (deleteCount == 0)
                 return NotFound();

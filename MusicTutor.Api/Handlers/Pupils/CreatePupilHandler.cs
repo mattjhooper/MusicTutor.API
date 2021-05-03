@@ -11,16 +11,17 @@ using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record CreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupil, PupilResponseDto>
+    public record CreatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<CreatePupil, PupilResponseDto>, PupilResponseDto>
     {
-        public async Task<PupilResponseDto> Handle(CreatePupil createPupil, CancellationToken cancellationToken)
+        public async Task<PupilResponseDto> Handle(WithMusicTutorUserId<CreatePupil, PupilResponseDto> requestWithUserId, CancellationToken cancellationToken)
         {
-            var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == createPupil.DefaultInstrumentId);
+            var instrument = await DbContext.Instruments.SingleOrDefaultAsync(i => i.Id == requestWithUserId.Request.DefaultInstrumentId);
 
             if (instrument is null)
                 throw new InvalidOperationException("Instrument cannot be found");
 
-            Pupil pupil = createPupil.MakePupil(instrument);
+            Pupil pupil = requestWithUserId.Request.MakePupil(instrument);
+            pupil.AssignToMusicTutorUser(requestWithUserId.MusicTutorUserId);
 
             await DbContext.Pupils.AddAsync(pupil, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);

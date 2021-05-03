@@ -14,6 +14,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Pupils;
+using MusicTutor.Api.Commands.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -30,14 +31,15 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupils = new GetAllPupils();
-            
+            var req = new WithMusicTutorUserId<GetAllPupils, IEnumerable<PupilResponseDto>>(_currentUser.Id, getPupils);
+
             //When
-            var response = await _handler.Handle(getPupils, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Count().Should().Be(1);
             var pupils = new List<PupilResponseDto>(response);
-            pupils[0].Name.Should().Be(_pupil.Name);      
+            pupils[0].Name.Should().Be(_pupil.Name);
         }
     }
 }

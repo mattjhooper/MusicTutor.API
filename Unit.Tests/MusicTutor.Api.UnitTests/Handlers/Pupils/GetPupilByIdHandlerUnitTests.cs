@@ -13,13 +13,15 @@ using MusicTutor.Core.Models;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using MusicTutor.Api.Commands.Pupils;
+using MusicTutor.Api.Contracts.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
     public class GetPupilByIdHandlerUnitTests : PupilHandlerUnitTest
     {
         private readonly GetPupilByIdHandler _handler;
-        
+
         public GetPupilByIdHandlerUnitTests()
         {
             _handler = new GetPupilByIdHandler(_dbContext, _mapper);
@@ -30,10 +32,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupil = new GetPupilById(_pupil.Id);
-            
+            var req = new WithMusicTutorUserId<GetPupilById, PupilResponseDto>(_currentUser.Id, getPupil);
+
             //When
-            var response = await _handler.Handle(getPupil, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Name.Should().Be(_pupil.Name);
         }

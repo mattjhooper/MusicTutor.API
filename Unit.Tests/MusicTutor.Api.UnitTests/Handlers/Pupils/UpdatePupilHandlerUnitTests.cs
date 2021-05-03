@@ -13,6 +13,7 @@ using MusicTutor.Core.Models;
 using System.Linq;
 using System;
 using System.Collections.Generic;
+using MusicTutor.Api.Contracts.Pupils;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -20,20 +21,22 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
     {
         private readonly UpdatePupilHandler _handler;
         private readonly UpdatePupil _updatePupil;
-        
+
         public UpdatePupilHandlerUnitTests()
         {
             _handler = new UpdatePupilHandler(_dbContext, _mapper);
-            _updatePupil = new UpdatePupil(_pupil.Id, "NewName", 15M, _pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber" );                        
+            _updatePupil = new UpdatePupil(_pupil.Id, "NewName", 15M, _pupil.StartDate.AddHours(1), 14, "NewContactName", "NewContactEmail", "NewContactPhoneNumber");
         }
 
         [Fact]
         public async Task UpdatePupilHandler_UpdatesPupilAsync()
         {
             //Given
+            var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(_currentUser.Id, _updatePupil);
+
             //When
-            var response = await _handler.Handle(_updatePupil, new CancellationToken());
-            
+            var response = await _handler.Handle(req, new CancellationToken());
+
             //Then    
             response.Name.Should().Be(_updatePupil.Name);
             response.LessonRate.Should().Be(_updatePupil.LessonRate);
@@ -50,11 +53,12 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _updatePupil with { Id = Guid.NewGuid() };
-            
+            var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(_currentUser.Id, unknownPupil);
+
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
             response.Should().BeNull();
-            
+
             //Then    
             await _dbContext.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
         }
