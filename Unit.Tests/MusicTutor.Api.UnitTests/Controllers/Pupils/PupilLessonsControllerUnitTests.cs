@@ -14,6 +14,7 @@ using MusicTutor.Api.Commands.Pupils;
 using Microsoft.EntityFrameworkCore;
 using MusicTutor.Core.Models;
 using MusicTutor.Api.UnitTests.Utils;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {

@@ -3,7 +3,7 @@ using MediatR;
 using MusicTutor.Api.Contracts.Pupils;
 using MusicTutor.Core.Models;
 
-namespace MusicTutor.Api.Commands.Pupils
+namespace MusicTutor.Api.Commands.Auth
 {
     public interface IResponseContract { }
 

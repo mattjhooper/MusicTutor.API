@@ -1,11 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using MusicTutor.Api.Commands.Pupils;
+using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Services;

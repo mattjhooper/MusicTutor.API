@@ -4,13 +4,11 @@ using System.Threading.Tasks;
 using System.Threading;
 using FluentAssertions;
 using MusicTutor.Core.Models;
-using System.Linq;
 using System;
-using MusicTutor.Api.Commands.Pupils;
-using NSubstitute;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Models.Enums;
 using MusicTutor.Api.Contracts.Payments;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {

@@ -12,10 +12,9 @@ using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Instruments;
 using MusicTutor.Api.Commands.Pupils;
 using Microsoft.EntityFrameworkCore;
-using MusicTutor.Api.Validators.Pupils;
 using FluentValidation.Results;
-using MusicTutor.Api.Contracts.Errors;
 using MusicTutor.Api.UnitTests.Utils;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {

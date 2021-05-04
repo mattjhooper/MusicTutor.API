@@ -9,6 +9,7 @@ using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Api.Commands.Pupils;
 using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Payments;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.Controllers.Pupils
 {

@@ -1,8 +1,4 @@
-using MapsterMapper;
-using MusicTutor.Api.UnitTests.Mapping;
 using MusicTutor.Api.EFCore.Handlers.Pupils;
-using MusicTutor.Core.Services;
-using MusicTutor.Api.UnitTests.Utils;
 using Xunit;
 using MusicTutor.Api.Commands.Pupils;
 using System.Threading.Tasks;
@@ -12,8 +8,8 @@ using NSubstitute;
 using MusicTutor.Core.Models;
 using System.Linq;
 using System;
-using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Instruments;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {

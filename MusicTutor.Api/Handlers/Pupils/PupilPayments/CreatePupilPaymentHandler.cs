@@ -2,12 +2,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Core.Services;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Core.Models;
-using System;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {

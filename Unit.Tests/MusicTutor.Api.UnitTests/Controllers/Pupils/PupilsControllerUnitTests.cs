@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicTutor.Api.Queries.Pupils;
 using System.Collections.Generic;
 using System.Linq;
+using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Pupils
 {
