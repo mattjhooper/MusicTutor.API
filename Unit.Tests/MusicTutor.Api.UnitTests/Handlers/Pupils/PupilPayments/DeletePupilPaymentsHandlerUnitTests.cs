@@ -30,8 +30,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var existingBalance = _pupil.AccountBalance;
+            var req = new WithMusicTutorUserId<DeletePupilPayment, int>(_currentUser.Id, _deletePupilPayment);
             //When
-            var response = await _handler.Handle(_deletePupilPayment, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(1);
@@ -45,9 +46,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _deletePupilPayment with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<DeletePupilPayment, int>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(-1);
@@ -57,10 +59,11 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task DeletePupilPaymentHandler_PaymentNotFound_Returns0()
         {
             //Given
-            var unknownPupil = _deletePupilPayment with { PaymentId = Guid.NewGuid() };
+            var unknownPayment = _deletePupilPayment with { PaymentId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<DeletePupilPayment, int>(_currentUser.Id, unknownPayment);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().Be(0);

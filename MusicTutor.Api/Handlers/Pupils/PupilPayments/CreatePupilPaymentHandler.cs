@@ -11,11 +11,13 @@ using System;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record CreatePupilPaymentHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreatePupilPayment, PaymentResponseDto>
+    public record CreatePupilPaymentHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<CreatePupilPayment, PaymentResponseDto>, PaymentResponseDto>
     {
-        public async Task<PaymentResponseDto> Handle(CreatePupilPayment createPupilPayment, CancellationToken cancellationToken)
+        public async Task<PaymentResponseDto> Handle(WithMusicTutorUserId<CreatePupilPayment, PaymentResponseDto> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.SingleOrDefaultAsync(p => p.Id == createPupilPayment.PupilId);
+            var createPupilPayment = request.Request;
+            var pupil = await DbContext.GetPupilWithPaymentsForUserAsync(createPupilPayment.PupilId, request.MusicTutorUserId);
+
             if (pupil is null)
                 return null;
 
@@ -25,9 +27,6 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
             await DbContext.SaveChangesAsync(cancellationToken);
 
             return Mapper.Map<PaymentResponseDto>(payment);
-
-            //var response = new PaymentResponseDto(Guid.NewGuid(), createPupilPayment.PaymentDate, createPupilPayment.Amount, createPupilPayment.Type);
-            //return response;
         }
     }
 }

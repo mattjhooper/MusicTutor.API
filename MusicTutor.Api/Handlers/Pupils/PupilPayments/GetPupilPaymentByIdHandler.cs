@@ -5,22 +5,23 @@ using System.Threading.Tasks;
 using MapsterMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record GetPupilPaymentByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilPaymentById, PaymentResponseDto>
+    public record GetPupilPaymentByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>, PaymentResponseDto>
     {
-        public async Task<PaymentResponseDto> Handle(GetPupilPaymentById request, CancellationToken cancellationToken)
+        public async Task<PaymentResponseDto> Handle(WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto> request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.Pupils.Where(p => p.Id == request.PupilId).Include(p => p.Payments).SingleOrDefaultAsync();
+            var pupil = await DbContext.GetPupilWithPaymentsForUserAsync(request.Request.PupilId, request.MusicTutorUserId);
 
             if (pupil is null)
                 return null;
 
-            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.PaymentId);
+            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.Request.PaymentId);
 
             if (payment is null)
                 return null;

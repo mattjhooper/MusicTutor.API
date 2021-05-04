@@ -9,6 +9,7 @@ using System;
 using MusicTutor.Api.Commands.Pupils;
 using NSubstitute;
 using MusicTutor.Core.Models.Enums;
+using MusicTutor.Api.Contracts.Payments;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -28,8 +29,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var existingBalance = _pupil.AccountBalance;
+            var req = new WithMusicTutorUserId<CreatePupilPayment, PaymentResponseDto>(_currentUser.Id, _createPupilPayment);
             //When
-            var response = await _handler.Handle(_createPupilPayment, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Amount.Should().Be(_createPupilPayment.Amount);
@@ -45,9 +47,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _createPupilPayment with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<CreatePupilPayment, PaymentResponseDto>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();

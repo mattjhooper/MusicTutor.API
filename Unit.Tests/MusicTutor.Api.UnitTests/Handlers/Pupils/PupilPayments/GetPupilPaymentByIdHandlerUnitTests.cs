@@ -10,6 +10,7 @@ using MusicTutor.Api.Commands.Pupils;
 using NSubstitute;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Models.Enums;
+using MusicTutor.Api.Contracts.Payments;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -30,8 +31,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         public async Task GetPupilPaymentByIdHandler_GetsPayment()
         {
             //Given
+            var req = new WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>(_currentUser.Id, _getPupilPaymentById);
             //When
-            var response = await _handler.Handle(_getPupilPaymentById, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Id.Should().Be(_getPupilPaymentById.PaymentId);
@@ -42,9 +44,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _getPupilPaymentById with { PupilId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(unknownPupil, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();
@@ -55,9 +58,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPayment = _getPupilPaymentById with { PaymentId = Guid.NewGuid() };
+            var req = new WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>(_currentUser.Id, unknownPayment);
 
             //When
-            var response = await _handler.Handle(unknownPayment, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();

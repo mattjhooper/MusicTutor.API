@@ -13,6 +13,8 @@ using System;
 using System.Collections.Generic;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Models.Enums;
+using MusicTutor.Api.Commands.Pupils;
+using MusicTutor.Api.Contracts.Payments;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
@@ -32,9 +34,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupilPayments = new GetPupilPayments(_pupil.Id);
+            var req = new WithMusicTutorUserId<GetPupilPayments, IEnumerable<PaymentResponseDto>>(_currentUser.Id, getPupilPayments);
 
             //When
-            var response = await _handler.Handle(getPupilPayments, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Count().Should().Be(1);
@@ -46,9 +49,10 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Given
             var guid = Guid.NewGuid();
             var getPupilPayments = new GetPupilPayments(guid);
+            var req = new WithMusicTutorUserId<GetPupilPayments, IEnumerable<PaymentResponseDto>>(_currentUser.Id, getPupilPayments);
 
             //When
-            var response = await _handler.Handle(getPupilPayments, new CancellationToken());
+            var response = await _handler.Handle(req, new CancellationToken());
 
             //Then    
             response.Should().BeNull();
