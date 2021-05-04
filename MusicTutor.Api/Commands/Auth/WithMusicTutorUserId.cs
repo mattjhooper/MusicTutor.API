@@ -5,19 +5,8 @@ using MusicTutor.Core.Models;
 
 namespace MusicTutor.Api.Commands.Auth
 {
-    public interface IResponseContract { }
-
-    public class WithMusicTutorUserId<TRequest, TResponse> : IRequest<TResponse>
+    public record WithMusicTutorUserId<TRequest, TResponse>(Guid MusicTutorUserId, TRequest Request) : IRequest<TResponse>
     {
-        public Guid MusicTutorUserId { get; init; }
-
-        public TRequest Request { get; init; }
-
-        public WithMusicTutorUserId(Guid musicTutorUserId, TRequest request)
-        {
-            MusicTutorUserId = musicTutorUserId;
-            Request = request;
-        }
     }
 
 }
