@@ -18,7 +18,7 @@ namespace MusicTutor.IntegrationTests
     {
 
         public PupilsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper) { }
-        [Fact]
+        [Fact(Skip = "Don't run in CI")]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
             var piano = await GetInstrument("Piano");

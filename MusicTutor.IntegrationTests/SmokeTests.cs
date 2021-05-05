@@ -9,9 +9,9 @@ namespace MusicTutor.IntegrationTests
     public class SmokeTests : IntegrationTest
     {
         public SmokeTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper)
-      : base(fixture, testOutputHelper) {}
+      : base(fixture, testOutputHelper) { }
 
-        [Theory]
+        [Theory(Skip = "Don't run in CI")]
         [InlineData("/Instruments")]
         [InlineData("/Pupils")]
         public async Task Smoketest_Should_ResultInOK(string endpoint)

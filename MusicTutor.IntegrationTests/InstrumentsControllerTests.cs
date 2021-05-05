@@ -15,7 +15,7 @@ namespace MusicTutor.IntegrationTests
 
         public InstrumentsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper) { }
 
-        [Fact]
+        [Fact(Skip = "Don't run in CI")]
         public async Task GetAllInstruments()
         {
             _output.WriteLine("Get all Instruments");
@@ -27,7 +27,7 @@ namespace MusicTutor.IntegrationTests
             content.Count.Should().Be(4);
         }
 
-        [Fact]
+        [Fact(Skip = "Don't run in CI")]
         public async Task ShouldBeAbleToAddInstrumentAndRemoveIt()
         {
             _output.WriteLine("Create Triangle");
