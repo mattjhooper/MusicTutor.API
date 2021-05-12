@@ -12,11 +12,11 @@ namespace MusicTutor.Data.EFCore.Configuration
             builder
                 .Property(i => i.Name)
                 .IsRequired()
-                .HasMaxLength(Instrument.NameLength);  
+                .HasMaxLength(Instrument.NameLength);
 
             builder
                 .HasIndex(i => i.Name)
-                .IsUnique();                         
+                .IsUnique();
         }
     }
 }

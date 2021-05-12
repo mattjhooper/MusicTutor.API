@@ -10,6 +10,7 @@ using MusicTutor.Core.Models;
 using MusicTutor.Core.Services;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using MusicTutor.Services.Auth;
 
 namespace MusicTutor.Data.EFCore
 {
@@ -18,9 +19,15 @@ namespace MusicTutor.Data.EFCore
         public DbSet<Pupil> Pupils { get; set; }
         public DbSet<Instrument> Instruments { get; set; }
 
-        public MusicTutorDbContext(DbContextOptions<MusicTutorDbContext> options)
+        public Guid CurrentUserId => _userRepository.UserId;
+
+        private readonly IUserRepository _userRepository;
+
+        public MusicTutorDbContext(DbContextOptions<MusicTutorDbContext> options, IUserRepository userRepository)
             : base(options)
-        { }
+        {
+            _userRepository = userRepository;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +41,9 @@ namespace MusicTutor.Data.EFCore
         {
             base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<Instrument>().HasQueryFilter(i => i.MusicTutorUserId == CurrentUserId);
+
         }
     }
 }

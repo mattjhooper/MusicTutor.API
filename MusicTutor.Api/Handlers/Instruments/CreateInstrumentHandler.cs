@@ -10,10 +10,12 @@ using MapsterMapper;
 namespace MusicTutor.Api.EFCore.Handlers.Instruments
 {
     public record CreateInstrumentHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<CreateInstrument, InstrumentResponseDto>
-    {        
+    {
         public async Task<InstrumentResponseDto> Handle(CreateInstrument request, CancellationToken cancellationToken)
         {
             var instrument = new Instrument(request.Name);
+            instrument.AssignToMusicTutorUser(DbContext.CurrentUserId);
+
             await DbContext.Instruments.AddAsync(instrument, cancellationToken);
             await DbContext.SaveChangesAsync(cancellationToken);
 
@@ -21,4 +23,3 @@ namespace MusicTutor.Api.EFCore.Handlers.Instruments
         }
     }
 }
-    

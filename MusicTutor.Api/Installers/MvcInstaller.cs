@@ -61,6 +61,9 @@ namespace MusicTutor.Api.Installers
                                     .AddEntityFrameworkStores<MusicTutorDbContext>();
 
             services.AddScoped<IAuthService, AuthService>();
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<IUserRepository, UserRepository>();
         }
     }
 }

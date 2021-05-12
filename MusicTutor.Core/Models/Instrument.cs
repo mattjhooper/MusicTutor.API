@@ -4,11 +4,11 @@ using Ardalis.GuardClauses;
 
 namespace MusicTutor.Core.Models
 {
-    public class Instrument 
+    public class Instrument : IUserAssignable
     {
         public const int NameLength = 50;
 
-        private Instrument() {}
+        private Instrument() { }
 
         public Instrument(string name)
         {
@@ -16,11 +16,20 @@ namespace MusicTutor.Core.Models
             Name = name;
         }
         public Guid Id { get; private set; }
-        
+
         public string Name { get; private set; }
 
         private HashSet<Pupil> _pupils;
         public IEnumerable<Pupil> Pupils => _pupils;
+
+        public Guid MusicTutorUserId { get; private set; }
+
+        public MusicTutorUser MusicTutorUser { get; private set; }
+
+        public void AssignToMusicTutorUser(Guid musicTutorUserId)
+        {
+            MusicTutorUserId = musicTutorUserId;
+        }
 
         public static Instrument CreateInstrument(string name)
         {
@@ -32,6 +41,6 @@ namespace MusicTutor.Core.Models
 
             return instrument;
         }
-        
+
     }
 }

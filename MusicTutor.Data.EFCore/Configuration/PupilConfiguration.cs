@@ -12,21 +12,21 @@ namespace MusicTutor.Data.EFCore.Configuration
             builder
                 .Property(p => p.Name)
                 .IsRequired()
-                .HasMaxLength(Pupil.NameLength); 
+                .HasMaxLength(Pupil.NameLength);
 
             builder
                 .Property(p => p.AccountBalance)
-                .HasPrecision(Pupil.DefaultPrecision,Pupil.DefaultScale)
-                .IsRequired();     
+                .HasPrecision(Pupil.DefaultPrecision, Pupil.DefaultScale)
+                .IsRequired();
 
             builder
                 .Property(p => p.CurrentLessonRate)
-                .HasPrecision(Pupil.DefaultPrecision,Pupil.DefaultScale)
-                .IsRequired();         
+                .HasPrecision(Pupil.DefaultPrecision, Pupil.DefaultScale)
+                .IsRequired();
 
             builder
                 .Property(p => p.Timestamp)
-                .IsRowVersion(); 
+                .IsRowVersion();
 
             builder
                 .OwnsOne(
@@ -36,7 +36,12 @@ namespace MusicTutor.Data.EFCore.Configuration
                         c.Property(p => p.Name).IsRequired().HasMaxLength(Contact.NameLength);
                         c.Property(p => p.Email).HasMaxLength(Contact.EmailLength);
                         c.Property(p => p.PhoneNumber).HasMaxLength(Contact.PhoneNumberLength);
-                    });                 
+                    });
+
+            builder
+                .HasOne(p => p.MusicTutorUser)
+                .WithMany(m => m.Pupils)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

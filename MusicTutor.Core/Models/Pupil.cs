@@ -6,7 +6,7 @@ using MusicTutor.Core.Base;
 
 namespace MusicTutor.Core.Models
 {
-    public class Pupil : ModelBase
+    public class Pupil : ModelBase, IUserAssignable
     {
 
         public const int NameLength = 150;
