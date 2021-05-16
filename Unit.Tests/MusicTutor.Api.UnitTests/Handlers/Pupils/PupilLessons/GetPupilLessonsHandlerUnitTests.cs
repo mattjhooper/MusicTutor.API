@@ -26,10 +26,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupilLessons = new GetPupilLessons(_pupil.Id);
-            var req = new WithMusicTutorUserId<GetPupilLessons, IEnumerable<LessonResponseDto>>(_currentUser.Id, getPupilLessons);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(getPupilLessons, new CancellationToken());
 
             //Then    
             response.Count().Should().Be(1);
@@ -41,10 +40,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Given
             var guid = Guid.NewGuid();
             var getPupilLessons = new GetPupilLessons(guid);
-            var req = new WithMusicTutorUserId<GetPupilLessons, IEnumerable<LessonResponseDto>>(_currentUser.Id, getPupilLessons);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(getPupilLessons, new CancellationToken());
 
             //Then    
             response.Should().BeNull();

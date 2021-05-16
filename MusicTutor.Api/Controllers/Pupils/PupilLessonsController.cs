@@ -32,8 +32,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<LessonResponseDto>> GetSingleAsync([FromRoute] Guid pupilId, [FromRoute] Guid lessonId)
         {
-            var req = new WithMusicTutorUserId<GetPupilLessonById, LessonResponseDto>(UserId, new GetPupilLessonById(pupilId, lessonId));
-            var lesson = await mediator.Send(req);
+            var lesson = await mediator.Send(new GetPupilLessonById(pupilId, lessonId));
 
             if (lesson is null)
                 return NotFound();
@@ -50,8 +49,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<LessonResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
         {
-            var req = new WithMusicTutorUserId<GetPupilLessons, IEnumerable<LessonResponseDto>>(UserId, new GetPupilLessons(pupilId));
-            var lessons = await mediator.Send(req);
+            var lessons = await mediator.Send(new GetPupilLessons(pupilId));
 
             return Ok(lessons);
         }
@@ -75,8 +73,7 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var req = new WithMusicTutorUserId<CreatePupilLesson, LessonResponseDto>(UserId, item);
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(item);
 
                 if (result is null)
                     return NotFound();
@@ -107,9 +104,7 @@ namespace MusicTutor.Api.Controllers.Pupils
             try
             {
                 var deletePupilLesson = new DeletePupilLesson(pupilId, lessonId);
-                var req = new WithMusicTutorUserId<DeletePupilLesson, int>(UserId, deletePupilLesson);
-
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(deletePupilLesson);
 
                 if (result <= 0)
                     return NotFound();

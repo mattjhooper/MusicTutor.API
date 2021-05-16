@@ -12,6 +12,7 @@ using MusicTutor.Api.Contracts.Pupils;
 using Xunit.Abstractions;
 using Bogus;
 using MusicTutor.Api.Commands.Instruments;
+using MusicTutor.Api.Contracts.Lessons;
 
 namespace MusicTutor.IntegrationTests
 {
@@ -81,31 +82,30 @@ namespace MusicTutor.IntegrationTests
 
         }
 
-        private async Task<List<InstrumentResponseDto>> GetPupilInstrumentsAndValidate(string pupilInstrumentsURI)
+        [Fact(Skip = SkipReason)]
+        public async Task CanManipulatePupilLessons()
         {
-            _output.WriteLine($"Get Instruments for Pupil: {pupilInstrumentsURI}");
 
-            var response = await _client.GetAsync(pupilInstrumentsURI);
-            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            var pupil = await CreateFakePupilAndValidate();
+            pupil.AccountBalance.Should().Be(0);
 
-            var currentInstruments = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
-            return currentInstruments;
-        }
+            var pupilLessonsURI = $"{PupilsUri}/{pupil.Id}/Lessons";
 
-        private async Task DeletePupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
-        {
-            _output.WriteLine($"Remove Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+            _output.WriteLine($"Add Lesson to Pupil: {pupil.Id}");
+            var lesson = await AddPupilLessonAndValidate(pupil, pupilLessonsURI);
 
-            var deleteResponse = await _client.DeleteAsync($"{pupilInstrumentsURI}/{newInstrument.Id}");
-            deleteResponse.StatusCode.Should().Be(StatusCodes.Status204NoContent);
-        }
+            var retrievedPupil = await GetPupil(pupil.Id);
+            retrievedPupil.AccountBalance.Should().Be(-1 * lesson.Cost);
 
-        private async Task AddPupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
-        {
-            _output.WriteLine($"Add Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+            List<LessonResponseDto> pupilLessons = await GetPupilLessonsAndValidate(pupil, pupilLessonsURI);
 
-            var postResponse = await _client.PostAsJsonAsync<CreatePupilInstrumentLink>(pupilInstrumentsURI, new CreatePupilInstrumentLink(pupilResponse.Id, newInstrument.Id));
-            postResponse.StatusCode.Should().Be(StatusCodes.Status201Created);
+            pupilLessons.Count.Should().Be(1);
+
+            await DeletePupilLessonAndValidate(pupil, pupilLessonsURI, pupilLessons);
+
+            retrievedPupil = await GetPupil(pupil.Id);
+            retrievedPupil.AccountBalance.Should().Be(0);
+
         }
 
         private async Task<InstrumentResponseDto> GetInstrumentByName(string instrumentName)
@@ -170,6 +170,17 @@ namespace MusicTutor.IntegrationTests
             }
         }
 
+        private async Task<PupilResponseDto> GetPupil(Guid pupilId)
+        {
+            _output.WriteLine($"Retrieve Pupil: {pupilId}");
+
+            var response = await _client.GetAsync($"{PupilsUri}/{pupilId}");
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var retrievedPupil = await response.Content.ReadAsAsync<PupilResponseDto>();
+            return retrievedPupil;
+        }
+
         private async Task<PupilResponseDto> CreatePupilAndValidate(CreatePupil createPupil)
         {
             _output.WriteLine($"Create pupil");
@@ -221,6 +232,62 @@ namespace MusicTutor.IntegrationTests
             _output.WriteLine($"Delete pupil");
             var response = await _client.DeleteAsync($"{PupilsUri}/{pupilId}");
             response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+        }
+
+
+        private async Task<List<InstrumentResponseDto>> GetPupilInstrumentsAndValidate(string pupilInstrumentsURI)
+        {
+            _output.WriteLine($"Get Instruments for Pupil: {pupilInstrumentsURI}");
+
+            var response = await _client.GetAsync(pupilInstrumentsURI);
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var currentInstruments = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
+            return currentInstruments;
+        }
+
+        private async Task DeletePupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
+        {
+            _output.WriteLine($"Remove Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+
+            var deleteResponse = await _client.DeleteAsync($"{pupilInstrumentsURI}/{newInstrument.Id}");
+            deleteResponse.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+        }
+
+        private async Task AddPupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
+        {
+            _output.WriteLine($"Add Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+
+            var postResponse = await _client.PostAsJsonAsync<CreatePupilInstrumentLink>(pupilInstrumentsURI, new CreatePupilInstrumentLink(pupilResponse.Id, newInstrument.Id));
+            postResponse.StatusCode.Should().Be(StatusCodes.Status201Created);
+        }
+
+        private async Task<CreatePupilLesson> AddPupilLessonAndValidate(PupilResponseDto pupil, string pupilLessonsURI)
+        {
+            var fakeLesson = new CreatePupilLesson(pupil.Id, pupil.StartDate, 30, pupil.LessonRate, false);
+            var postResponse = await _client.PostAsJsonAsync<CreatePupilLesson>(pupilLessonsURI, fakeLesson);
+            postResponse.StatusCode.Should().Be(StatusCodes.Status201Created);
+            return fakeLesson;
+        }
+
+        private async Task DeletePupilLessonAndValidate(PupilResponseDto pupil, string pupilLessonsURI, List<LessonResponseDto> pupilLessons)
+        {
+            _output.WriteLine($"Delete Pupil Lesson: {pupil.Id}");
+
+            var deleteResponse = await _client.DeleteAsync($"{pupilLessonsURI}/{pupilLessons[0].Id}");
+            deleteResponse.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+        }
+
+        private async Task<List<LessonResponseDto>> GetPupilLessonsAndValidate(PupilResponseDto pupil, string pupilLessonsURI)
+        {
+            _output.WriteLine($"Retrieve Pupil Lessons: {pupil.Id}");
+
+            var getLessonsResponse = await _client.GetAsync(pupilLessonsURI);
+
+            getLessonsResponse.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var pupilLessons = await getLessonsResponse.Content.ReadAsAsync<List<LessonResponseDto>>();
+            return pupilLessons;
         }
 
 
