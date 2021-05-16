@@ -43,6 +43,7 @@ namespace MusicTutor.Data.EFCore
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             builder.Entity<Instrument>().HasQueryFilter(i => i.MusicTutorUserId == CurrentUserId);
+            builder.Entity<Pupil>().HasQueryFilter(p => p.MusicTutorUserId == CurrentUserId);
 
         }
     }

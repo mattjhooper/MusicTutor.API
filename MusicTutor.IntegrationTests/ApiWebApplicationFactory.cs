@@ -40,7 +40,6 @@ namespace MusicTutor.IntegrationTests
                             var db = scopedServices.GetRequiredService<MusicTutorDbContext>();
                             db.Database.EnsureDeleted();
                             db.Database.EnsureCreated();
-                            db.SeedDatabase(Directory.GetCurrentDirectory());
 
                             _databaseInitialized = true;
                         }

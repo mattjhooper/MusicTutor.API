@@ -17,10 +17,15 @@ namespace MusicTutor.Services.Auth
         {
             get
             {
-                ClaimsPrincipal principal = _httpContextAccessor.HttpContext.User as ClaimsPrincipal;
-                var userId = System.Guid.Parse(principal.Claims.FirstOrDefault(c => c.Type == "Id")?.Value);
+                ClaimsPrincipal principal = _httpContextAccessor?.HttpContext?.User as ClaimsPrincipal;
+                var userId = Guid.Empty;
 
-                return userId;
+                var parsed = System.Guid.TryParse(principal?.Claims?.FirstOrDefault(c => c.Type == "Id")?.Value, out userId);
+
+                if (parsed)
+                    return userId;
+
+                return Guid.Empty;
             }
         }
     }

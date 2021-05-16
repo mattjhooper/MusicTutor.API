@@ -11,6 +11,7 @@ using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Pupils;
 using Xunit.Abstractions;
 using Bogus;
+using MusicTutor.Api.Commands.Instruments;
 
 namespace MusicTutor.IntegrationTests
 {
@@ -21,7 +22,7 @@ namespace MusicTutor.IntegrationTests
         [Fact]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
-            var piano = await GetInstrument("Piano");
+            var piano = await CreateInstrument("Piano");
 
             var createPupilRequest = new CreatePupil("Pupil Name", 21M, DateTime.Today, 14, piano.Id, "Contact Name", "Contact Email", "Contact Phone Number");
             var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
@@ -43,7 +44,7 @@ namespace MusicTutor.IntegrationTests
 
             for (int x = 0; x < 100; x++)
             {
-                var instrument = await GetInstrument(faker.PickRandom(instrumentNames));
+                var instrument = await CreateInstrument(faker.PickRandom(instrumentNames));
                 var contact = new Bogus.Person();
                 var createPupilRequest = new CreatePupil(faker.Name.FullName(), faker.Finance.Amount(12, 20, 2), faker.Date.Recent(7).Date, faker.Random.ArrayElement<int>(new int[] { 7, 14 }), instrument.Id, contact.FullName, contact.Email, contact.Phone);
                 var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
@@ -52,27 +53,52 @@ namespace MusicTutor.IntegrationTests
             }
         }
 
-        private async Task<InstrumentResponseDto> GetInstrument(string instrumentName)
+        [Fact]
+        public async Task DifferentUsersCannotAccessPupils()
         {
-            _output.WriteLine($"Get {instrumentName}");
-            var response = await _client.GetAsync(InstrumentsUri);
-            response.StatusCode.Should().Be(StatusCodes.Status200OK);
 
-            var content = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
-            var instrument = content.Single(i => i.Name == instrumentName);
+            const string INSTRUMENT_NAME = "Cello";
+
+            var instrument = await CreateInstrument(INSTRUMENT_NAME);
+
+            var createPupilRequest = new CreatePupil("Pupil1", 21M, DateTime.Today, 14, instrument.Id, "Contact Name", "Contact Email", "Contact Phone Number");
+            var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
+
+            await GetPupilAndValidate(pupilResponse);
+
+            await RegisterNewUserAndSetBearerToken();
+
+            await GetPupilAndValidate(pupilResponse, StatusCodes.Status404NotFound);
+
+        }
+
+        private async Task<InstrumentResponseDto> CreateInstrument(string instrumentName)
+        {
+            _output.WriteLine($"Post {instrumentName}");
+            var createInstrument = new CreateInstrument(instrumentName);
+            var response = await _client.PostAsJsonAsync<CreateInstrument>(InstrumentsUri, createInstrument);
+            response.StatusCode.Should().Be(StatusCodes.Status201Created);
+
+            var instrument = await response.Content.ReadAsAsync<InstrumentResponseDto>();
+
+            instrument.Name.Should().Be(instrumentName);
+            var id = instrument.Id;
+            id.Should().NotBeEmpty();
 
             return instrument;
         }
 
-        private async Task GetPupilAndValidate(PupilResponseDto pupil)
+        private async Task GetPupilAndValidate(PupilResponseDto pupil, int expectedResultCode = StatusCodes.Status200OK)
         {
             _output.WriteLine($"Get pupil");
             var response = await _client.GetAsync($"{PupilsUri}/{pupil.Id}");
-            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+            response.StatusCode.Should().Be(expectedResultCode);
 
-            var retrievedPupil = await response.Content.ReadAsAsync<PupilResponseDto>();
-
-            retrievedPupil.Should().Be(pupil);
+            if (response.IsSuccessStatusCode)
+            {
+                var retrievedPupil = await response.Content.ReadAsAsync<PupilResponseDto>();
+                retrievedPupil.Should().Be(pupil);
+            }
         }
 
         private async Task<PupilResponseDto> CreatePupilAndValidate(CreatePupil createPupil)

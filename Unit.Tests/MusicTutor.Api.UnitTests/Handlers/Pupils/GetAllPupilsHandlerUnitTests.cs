@@ -24,10 +24,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var getPupils = new GetAllPupils();
-            var req = new WithMusicTutorUserId<GetAllPupils, IEnumerable<PupilResponseDto>>(_currentUser.Id, getPupils);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(getPupils, new CancellationToken());
 
             //Then    
             response.Count().Should().Be(1);

@@ -24,10 +24,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var deletePupil = new DeletePupil(_pupil.Id);
-            var req = new WithMusicTutorUserId<DeletePupil, int>(_currentUser.Id, deletePupil);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(deletePupil, new CancellationToken());
 
             //Then    
             _dbContext.Pupils.Received().Remove(Arg.Is<Pupil>(_pupil));
@@ -40,10 +39,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
             //Given
             var guid = Guid.NewGuid();
             var deletePupil = new DeletePupil(guid);
-            var req = new WithMusicTutorUserId<DeletePupil, int>(_currentUser.Id, deletePupil);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(deletePupil, new CancellationToken());
 
             //Then    
             // response.Should().Be(1);

@@ -27,10 +27,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         [Fact]
         public async Task CreatePupilHandler_AddsPupilAsync()
         {
-            //Given
-            var req = new WithMusicTutorUserId<CreatePupil, PupilResponseDto>(_currentUser.Id, _newPupil);
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(_newPupil, new CancellationToken());
 
             //Then    
             response.Name.Should().Be(_newPupil.Name);
@@ -43,10 +41,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var pupilUnknownInstrument = _newPupil with { DefaultInstrumentId = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<CreatePupil, PupilResponseDto>(_currentUser.Id, pupilUnknownInstrument);
 
             //When
-            Func<Task> act = async () => { await _handler.Handle(req, new CancellationToken()); };
+            Func<Task> act = async () => { await _handler.Handle(pupilUnknownInstrument, new CancellationToken()); };
             await act.Should().ThrowAsync<InvalidOperationException>();
 
             //Then    

@@ -7,12 +7,12 @@ using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record DeletePupilHandler(IMusicTutorDbContext DbContext) : IRequestHandler<WithMusicTutorUserId<DeletePupil, int>, int>
+    public record DeletePupilHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupil, int>
     {
-        public async Task<int> Handle(WithMusicTutorUserId<DeletePupil, int> requestWithUserId, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeletePupil request, CancellationToken cancellationToken)
         {
             int deletedCount = 0;
-            var Pupil = await DbContext.GetPupilForUserAsync(requestWithUserId.Request.Id, requestWithUserId.MusicTutorUserId);
+            var Pupil = await DbContext.GetPupilAsync(request.Id);
 
             if (Pupil is not null)
             {

@@ -8,9 +8,9 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
     public static class PupilExtensions
     {
-        public static async Task<Pupil> GetPupilForUserAsync(this IMusicTutorDbContext context, Guid pupilId, Guid musicTutorUserId)
+        public static async Task<Pupil> GetPupilAsync(this IMusicTutorDbContext context, Guid pupilId)
         {
-            return await context.Pupils.SingleOrDefaultAsync(p => p.Id == pupilId && p.MusicTutorUserId == musicTutorUserId);
+            return await context.Pupils.SingleOrDefaultAsync(p => p.Id == pupilId);
         }
 
         public static async Task<Pupil> GetPupilWithInstrumentsForUserAsync(this IMusicTutorDbContext context, Guid pupilId, Guid musicTutorUserId)

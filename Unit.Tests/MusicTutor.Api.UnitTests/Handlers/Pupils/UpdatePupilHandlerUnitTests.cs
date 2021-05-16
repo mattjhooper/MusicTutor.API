@@ -25,11 +25,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         [Fact]
         public async Task UpdatePupilHandler_UpdatesPupilAsync()
         {
-            //Given
-            var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(_currentUser.Id, _updatePupil);
-
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(_updatePupil, new CancellationToken());
 
             //Then    
             response.Name.Should().Be(_updatePupil.Name);
@@ -47,10 +44,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupil = _updatePupil with { Id = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(_currentUser.Id, unknownPupil);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(unknownPupil, new CancellationToken());
             response.Should().BeNull();
 
             //Then    

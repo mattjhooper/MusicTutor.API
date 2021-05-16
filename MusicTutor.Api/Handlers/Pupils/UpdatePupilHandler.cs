@@ -9,13 +9,12 @@ using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record UpdatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>, PupilResponseDto>
+    public record UpdatePupilHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<UpdatePupil, PupilResponseDto>
     {
-        public async Task<PupilResponseDto> Handle(WithMusicTutorUserId<UpdatePupil, PupilResponseDto> requestWithUserId, CancellationToken cancellationToken)
+        public async Task<PupilResponseDto> Handle(UpdatePupil updatePupil, CancellationToken cancellationToken)
         {
 
-            var updatePupil = requestWithUserId.Request;
-            var pupil = await DbContext.GetPupilForUserAsync(updatePupil.Id, requestWithUserId.MusicTutorUserId);
+            var pupil = await DbContext.GetPupilAsync(updatePupil.Id);
 
             if (pupil is null)
                 return null;

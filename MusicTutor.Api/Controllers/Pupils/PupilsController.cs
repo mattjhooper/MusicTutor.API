@@ -29,9 +29,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         {
             Console.WriteLine($"UserID: {UserId}");
 
-            var req = new WithMusicTutorUserId<GetAllPupils, IEnumerable<PupilResponseDto>>(UserId, new GetAllPupils());
-
-            var pupils = await mediator.Send(req);
+            var pupils = await mediator.Send(new GetAllPupils());
 
             return Ok(pupils);
         }
@@ -47,8 +45,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PupilResponseDto>> GetSingleAsync([FromRoute] Guid id)
         {
-            var req = new WithMusicTutorUserId<GetPupilById, PupilResponseDto>(UserId, new GetPupilById(id));
-            var pupil = await mediator.Send(req);
+            var pupil = await mediator.Send(new GetPupilById(id));
 
             if (pupil is null)
                 return NotFound();
@@ -71,14 +68,9 @@ namespace MusicTutor.Api.Controllers.Pupils
         [HttpPost]
         public async Task<ActionResult<PupilResponseDto>> PostAsync([FromBody] CreatePupil createPupil)
         {
-            //var result = new PupilResponseDto(Guid.NewGuid(), item.Name, item.LessonRate, item.StartDate, item.FrequencyInDays, 0);
-            //return CreatedAtRoute("GetSinglePupil", new { id = result.Id } , result);
-
             try
             {
-                var req = new WithMusicTutorUserId<CreatePupil, PupilResponseDto>(UserId, createPupil);
-
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(createPupil);
                 //NOTE: to get this to work you MUST set the name of the HttpGet, e.g. [HttpGet("{id}", Name= "GetSinglePupil")],
                 //on the Get you want to call, then then use the Name value in the Response.
                 //Otherwise you get a "No route matches the supplied values" error.
@@ -113,8 +105,7 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var req = new WithMusicTutorUserId<UpdatePupil, PupilResponseDto>(UserId, item);
-                var pupil = await mediator.Send(req);
+                var pupil = await mediator.Send(item);
 
                 if (pupil is null)
                     return NotFound();
@@ -141,8 +132,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteItemAsync([FromRoute] Guid id)
         {
-            var req = new WithMusicTutorUserId<DeletePupil, int>(UserId, new DeletePupil(id));
-            var deleteCount = await mediator.Send(req);
+            var deleteCount = await mediator.Send(new DeletePupil(id));
 
             if (deleteCount == 0)
                 return NotFound();

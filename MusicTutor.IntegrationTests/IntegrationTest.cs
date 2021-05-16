@@ -42,17 +42,11 @@ namespace MusicTutor.IntegrationTests
                   .AddJsonFile("appsettings.Integration.json")
                   .Build();
 
-            var token = GetTokenAsync().Result;
-            _output.WriteLine($"Token: {token}");
-            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            RegisterNewUserAndSetBearerToken().Wait();
 
-
-
-            //     _output.WriteLine("Checkpoint Reset");
-            //     _checkpoint.Reset(_configuration.GetConnectionString("Default")).Wait();
         }
 
-        protected async Task<string> GetTokenAsync()
+        protected async Task RegisterNewUserAndSetBearerToken()
         {
             var user = new Bogus.Person();
 
@@ -62,8 +56,8 @@ namespace MusicTutor.IntegrationTests
             var response = await _client.PostAsJsonAsync<RegisterUser>($"{AuthUri}/Register", registerUser);
 
             var registrationResponse = await response.Content.ReadAsAsync<RegistrationResponseDto>();
-
-            return registrationResponse.Token;
+            _output.WriteLine($"Token: {registrationResponse.Token}");
+            _client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", registrationResponse.Token);
         }
     }
 }

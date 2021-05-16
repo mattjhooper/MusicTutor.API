@@ -42,7 +42,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task GetManyAsync_ReturnsOkObjectResultAsync()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<GetAllPupils, IEnumerable<PupilResponseDto>>>()).Returns(new PupilResponseDto[] { _pupilDto });
+            _mediator.Send(Arg.Any<GetAllPupils>()).Returns(new PupilResponseDto[] { _pupilDto });
 
             // Act
             var response = await _controller.GetManyAsync();
@@ -60,7 +60,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task GetSingleAsync_ReturnsOkObjectResultAsync()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<GetPupilById, PupilResponseDto>>()).Returns(_pupilDto);
+            _mediator.Send(Arg.Any<GetPupilById>()).Returns(_pupilDto);
 
             // Act
             var response = await _controller.GetSingleAsync(_pupilDto.Id);
@@ -76,7 +76,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task GetSingleAsync_ReturnsNotFoundAsync()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<GetPupilById, PupilResponseDto>>()).Returns<PupilResponseDto>(x => (PupilResponseDto)null);
+            _mediator.Send(Arg.Any<GetPupilById>()).Returns<PupilResponseDto>(x => (PupilResponseDto)null);
 
             // Act
             var response = await _controller.GetSingleAsync(_pupilDto.Id);
@@ -92,7 +92,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task PostAsync_ReturnsActionResultPupilResponseDto()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<CreatePupil, PupilResponseDto>>()).Returns(_pupilDto);
+            _mediator.Send(Arg.Any<CreatePupil>()).Returns(_pupilDto);
 
             // Act
             var response = await _controller.PostAsync(_createPupil);
@@ -112,7 +112,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {
             // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<CreatePupil, PupilResponseDto>>()).Returns<PupilResponseDto>(x => { throw dbException; });
+            _mediator.Send(Arg.Any<CreatePupil>()).Returns<PupilResponseDto>(x => { throw dbException; });
 
             // Act
             var response = await _controller.PostAsync(_createPupil);
@@ -129,7 +129,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task PutSingleAsync_ReturnsOk()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>>()).Returns(_pupilDto);
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
 
             // Act
             var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
@@ -148,7 +148,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task PutSingleAsync_ReturnsBadRequestIfIdsDoNotMatch()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>>()).Returns(_pupilDto);
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns(_pupilDto);
 
             // Act
             var response = await _controller.PutSingleAsync(Guid.NewGuid(), _updatePupil);
@@ -166,7 +166,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {
             // Arrange
             var dbException = new DbUpdateException("A db error occurred", new InvalidOperationException("An invalid operation occurred"));
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>>()).Returns<PupilResponseDto>(x => { throw dbException; });
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw dbException; });
 
             // Act
             var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
@@ -184,7 +184,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {
             // Arrange
             var invalidOperationException = new InvalidOperationException("An invalid operation occurred");
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>>()).Returns<PupilResponseDto>(x => { throw invalidOperationException; });
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(x => { throw invalidOperationException; });
 
             // Act
             var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
@@ -202,7 +202,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         {
             // Arrange
             PupilResponseDto nullDto = null;
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<UpdatePupil, PupilResponseDto>>()).Returns<PupilResponseDto>(nullDto);
+            _mediator.Send(Arg.Any<UpdatePupil>()).Returns<PupilResponseDto>(nullDto);
 
             // Act
             var response = await _controller.PutSingleAsync(_updatePupil.Id, _updatePupil);
@@ -216,7 +216,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task DeleteItemAsync_ReturnsNoContentAsync()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<DeletePupil, int>>()).Returns<int>(1);
+            _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(1);
 
             // Act
             var response = await _controller.DeleteItemAsync(_pupilDto.Id);
@@ -229,7 +229,7 @@ namespace MusicTutor.Api.UnitTests.Controllers.Pupils
         public async Task DeleteItemAsync_ReturnsNotFoundAsync()
         {
             // Arrange
-            _mediator.Send(Arg.Any<WithMusicTutorUserId<DeletePupil, int>>()).Returns<int>(0);
+            _mediator.Send(Arg.Any<DeletePupil>()).Returns<int>(0);
 
             // Act
             var response = await _controller.DeleteItemAsync(_pupilDto.Id);
