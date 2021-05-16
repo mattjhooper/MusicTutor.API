@@ -17,7 +17,7 @@ namespace MusicTutor.IntegrationTests
 
         public InstrumentsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper) { }
 
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task ShouldBeAbleToAddInstrumentAndRemoveIt()
         {
 
@@ -36,7 +36,7 @@ namespace MusicTutor.IntegrationTests
 
         }
 
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task DifferentUsersCannotAccessInstruments()
         {
 

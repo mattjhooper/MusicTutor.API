@@ -16,6 +16,9 @@ namespace MusicTutor.IntegrationTests
 {
     public abstract class IntegrationTest : IClassFixture<ApiWebApplicationFactory>
     {
+        //protected const string SkipReason = "Do not run on CI";
+        //Comment out the following to run Integration Tests
+        protected const string SkipReason = "";
         protected const string InstrumentsUri = "/" + BaseApiController.Instruments;
         protected const string PupilsUri = "/" + BaseApiController.Pupils;
         protected const string AuthUri = "/" + BaseApiController.Auth;

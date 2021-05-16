@@ -12,6 +12,7 @@ namespace MusicTutor.IntegrationTests
       : base(fixture, testOutputHelper) { }
 
         [Theory]
+        //[Theory (Skip = SkipReason)]
         [InlineData("/Instruments")]
         [InlineData("/Pupils")]
         public async Task Smoketest_Should_ResultInOK(string endpoint)

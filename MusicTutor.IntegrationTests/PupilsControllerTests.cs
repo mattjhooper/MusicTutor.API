@@ -24,7 +24,7 @@ namespace MusicTutor.IntegrationTests
         {
             _faker = new Faker("en_GB");
         }
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
             var pupilResponse = await CreateFakePupilAndValidate();
@@ -37,8 +37,7 @@ namespace MusicTutor.IntegrationTests
             await DeletePupilAndValidate(pupilResponse.Id);
         }
 
-        [Fact(Skip = "Don't create too much data")]
-        //[Fact]
+        [Fact(Skip = SkipReason)]
         public async Task CanCreateLotsOfPupils()
         {
             for (int x = 0; x < 100; x++)
@@ -47,7 +46,7 @@ namespace MusicTutor.IntegrationTests
             }
         }
 
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task DifferentUsersCannotAccessPupils()
         {
 
@@ -59,7 +58,7 @@ namespace MusicTutor.IntegrationTests
 
         }
 
-        [Fact]
+        [Fact(Skip = SkipReason)]
         public async Task CanManipulatePupilInstruments()
         {
 
