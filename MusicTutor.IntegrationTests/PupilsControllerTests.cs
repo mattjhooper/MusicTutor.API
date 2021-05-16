@@ -18,14 +18,16 @@ namespace MusicTutor.IntegrationTests
     public class PupilsControllerTests : IntegrationTest
     {
 
-        public PupilsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper) { }
+        private readonly Faker _faker;
+
+        public PupilsControllerTests(ApiWebApplicationFactory fixture, ITestOutputHelper testOutputHelper) : base(fixture, testOutputHelper)
+        {
+            _faker = new Faker("en_GB");
+        }
         [Fact]
         public async Task PupilCanBeCreatedUpdatedAndDeleted()
         {
-            var piano = await CreateInstrument("Piano");
-
-            var createPupilRequest = new CreatePupil("Pupil Name", 21M, DateTime.Today, 14, piano.Id, "Contact Name", "Contact Email", "Contact Phone Number");
-            var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
+            var pupilResponse = await CreateFakePupilAndValidate();
 
             await GetPupilAndValidate(pupilResponse);
 
@@ -36,20 +38,12 @@ namespace MusicTutor.IntegrationTests
         }
 
         [Fact(Skip = "Don't create too much data")]
+        //[Fact]
         public async Task CanCreateLotsOfPupils()
         {
-            var instrumentNames = new[] { "Drums", "Flute", "Guitar", "Piano" };
-
-            var faker = new Faker("en_GB");
-
             for (int x = 0; x < 100; x++)
             {
-                var instrument = await CreateInstrument(faker.PickRandom(instrumentNames));
-                var contact = new Bogus.Person();
-                var createPupilRequest = new CreatePupil(faker.Name.FullName(), faker.Finance.Amount(12, 20, 2), faker.Date.Recent(7).Date, faker.Random.ArrayElement<int>(new int[] { 7, 14 }), instrument.Id, contact.FullName, contact.Email, contact.Phone);
-                var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
-
-                await GetPupilAndValidate(pupilResponse);
+                await CreateFakePupilAndValidate();
             }
         }
 
@@ -57,14 +51,7 @@ namespace MusicTutor.IntegrationTests
         public async Task DifferentUsersCannotAccessPupils()
         {
 
-            const string INSTRUMENT_NAME = "Cello";
-
-            var instrument = await CreateInstrument(INSTRUMENT_NAME);
-
-            var createPupilRequest = new CreatePupil("Pupil1", 21M, DateTime.Today, 14, instrument.Id, "Contact Name", "Contact Email", "Contact Phone Number");
-            var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
-
-            await GetPupilAndValidate(pupilResponse);
+            var pupilResponse = await CreateFakePupilAndValidate();
 
             await RegisterNewUserAndSetBearerToken();
 
@@ -72,8 +59,75 @@ namespace MusicTutor.IntegrationTests
 
         }
 
+        [Fact]
+        public async Task CanManipulatePupilInstruments()
+        {
+
+            var pupilResponse = await CreateFakePupilAndValidate();
+
+            var pupilInstrumentsURI = $"{PupilsUri}/{pupilResponse.Id}/Instruments";
+
+            List<InstrumentResponseDto> currentInstruments = await GetPupilInstrumentsAndValidate(pupilInstrumentsURI);
+
+            // Find an instrument the pupil does not already have a link to
+            InstrumentResponseDto newInstrument;
+            do
+            {
+                newInstrument = await GetFakeInstrument();
+            } while (currentInstruments.Any(i => i.Id == newInstrument.Id));
+
+            await AddPupilInstrumentAndValidate(pupilResponse, pupilInstrumentsURI, newInstrument);
+
+            await DeletePupilInstrumentAndValidate(pupilResponse, pupilInstrumentsURI, newInstrument);
+
+        }
+
+        private async Task<List<InstrumentResponseDto>> GetPupilInstrumentsAndValidate(string pupilInstrumentsURI)
+        {
+            _output.WriteLine($"Get Instruments for Pupil: {pupilInstrumentsURI}");
+
+            var response = await _client.GetAsync(pupilInstrumentsURI);
+            response.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var currentInstruments = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
+            return currentInstruments;
+        }
+
+        private async Task DeletePupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
+        {
+            _output.WriteLine($"Remove Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+
+            var deleteResponse = await _client.DeleteAsync($"{pupilInstrumentsURI}/{newInstrument.Id}");
+            deleteResponse.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+        }
+
+        private async Task AddPupilInstrumentAndValidate(PupilResponseDto pupilResponse, string pupilInstrumentsURI, InstrumentResponseDto newInstrument)
+        {
+            _output.WriteLine($"Add Instrument [{newInstrument.Name}] to Pupil: {pupilResponse.Id}");
+
+            var postResponse = await _client.PostAsJsonAsync<CreatePupilInstrumentLink>(pupilInstrumentsURI, new CreatePupilInstrumentLink(pupilResponse.Id, newInstrument.Id));
+            postResponse.StatusCode.Should().Be(StatusCodes.Status201Created);
+        }
+
+        private async Task<InstrumentResponseDto> GetInstrumentByName(string instrumentName)
+        {
+            _output.WriteLine($"Get {instrumentName}");
+            var response = await _client.GetAsync(InstrumentsUri);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsAsync<List<InstrumentResponseDto>>();
+                var instrument = content.FirstOrDefault(i => i.Name == instrumentName);
+
+                return instrument;
+            }
+
+            return null;
+        }
+
         private async Task<InstrumentResponseDto> CreateInstrument(string instrumentName)
         {
+
             _output.WriteLine($"Post {instrumentName}");
             var createInstrument = new CreateInstrument(instrumentName);
             var response = await _client.PostAsJsonAsync<CreateInstrument>(InstrumentsUri, createInstrument);
@@ -84,6 +138,22 @@ namespace MusicTutor.IntegrationTests
             instrument.Name.Should().Be(instrumentName);
             var id = instrument.Id;
             id.Should().NotBeEmpty();
+
+            return instrument;
+        }
+
+        private async Task<InstrumentResponseDto> GetFakeInstrument()
+        {
+            var instrumentNames = new[] { "Drums", "Flute", "Guitar", "Piano", "Cello", "Saxophone" };
+
+            var instrumentName = _faker.PickRandom(instrumentNames);
+
+            var instrument = await GetInstrumentByName(instrumentName);
+
+            if (instrument is null)
+            {
+                instrument = await CreateInstrument(instrumentName);
+            }
 
             return instrument;
         }
@@ -120,6 +190,16 @@ namespace MusicTutor.IntegrationTests
             return pupilResponse;
         }
 
+        private async Task<PupilResponseDto> CreateFakePupilAndValidate()
+        {
+            var instrument = await GetFakeInstrument();
+            var contact = new Bogus.Person();
+            var createPupilRequest = new CreatePupil(_faker.Name.FullName(), _faker.Finance.Amount(12, 20, 2), _faker.Date.Recent(7).Date, _faker.Random.ArrayElement<int>(new int[] { 7, 14 }), instrument.Id, contact.FullName, contact.Email, contact.Phone);
+            var pupilResponse = await CreatePupilAndValidate(createPupilRequest);
+
+            return pupilResponse;
+        }
+
         private async Task<PupilResponseDto> UpdatePupilAndValidate(UpdatePupil updatePupil)
         {
             _output.WriteLine($"Update pupil");
@@ -143,5 +223,7 @@ namespace MusicTutor.IntegrationTests
             var response = await _client.DeleteAsync($"{PupilsUri}/{pupilId}");
             response.StatusCode.Should().Be(StatusCodes.Status204NoContent);
         }
+
+
     }
 }

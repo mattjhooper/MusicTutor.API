@@ -15,7 +15,7 @@ namespace MusicTutor.Data.EFCore.Configuration
                 .HasMaxLength(Instrument.NameLength);
 
             builder
-                .HasIndex(i => i.Name)
+                .HasIndex(i => new { i.MusicTutorUserId, i.Name })
                 .IsUnique();
         }
     }

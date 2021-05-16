@@ -29,8 +29,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<InstrumentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
         {
-            var req = new WithMusicTutorUserId<GetPupilInstruments, IEnumerable<InstrumentResponseDto>>(UserId, new GetPupilInstruments(pupilId));
-            var instruments = await mediator.Send(req);
+            var instruments = await mediator.Send(new GetPupilInstruments(pupilId));
 
             if (instruments is null)
                 return NotFound();
@@ -57,8 +56,7 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var req = new WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto>(UserId, item);
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(item);
 
                 if (result is null)
                     return NotFound();
@@ -89,9 +87,7 @@ namespace MusicTutor.Api.Controllers.Pupils
             try
             {
                 var deletePupilInstrumentLink = new DeletePupilInstrumentLink(pupilId, instrumentId);
-                var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(UserId, deletePupilInstrumentLink);
-
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(deletePupilInstrumentLink);
 
                 if (result <= 0)
                     return NotFound();

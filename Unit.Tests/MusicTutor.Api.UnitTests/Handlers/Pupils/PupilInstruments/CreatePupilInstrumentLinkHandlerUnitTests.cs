@@ -30,10 +30,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         [Fact]
         public async Task CreatePupilInstrumentLinkHandler_AddsInstrumentLinkAsync()
         {
-            //Given
-            var req = new WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto>(_currentUser.Id, _createPupilInstrumentLink);
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(_createPupilInstrumentLink, new CancellationToken());
 
             //Then    
             response.Name.Should().Be(_newInstrument.Name);
@@ -45,10 +43,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupilLink = _createPupilInstrumentLink with { pupilId = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto>(_currentUser.Id, unknownPupilLink);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(unknownPupilLink, new CancellationToken());
             response.Should().BeNull();
 
             //Then    
@@ -60,10 +57,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownInstrumentLink = _createPupilInstrumentLink with { instrumentId = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<CreatePupilInstrumentLink, InstrumentResponseDto>(_currentUser.Id, unknownInstrumentLink);
 
             //When
-            Func<Task> act = async () => { await _handler.Handle(req, new CancellationToken()); };
+            Func<Task> act = async () => { await _handler.Handle(unknownInstrumentLink, new CancellationToken()); };
             await act.Should().ThrowAsync<InvalidOperationException>();
 
             //Then    

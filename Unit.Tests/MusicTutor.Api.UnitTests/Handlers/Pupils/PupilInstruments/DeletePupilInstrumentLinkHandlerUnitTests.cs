@@ -26,10 +26,8 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         [Fact]
         public async Task DeletePupilInstrumentLinkHandler_RemovesInstrumentLinkAsync()
         {
-            //Given
-            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, _deletePupilInstrumentLink);
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(_deletePupilInstrumentLink, new CancellationToken());
 
             //Then    
             response.Should().Be(1);
@@ -41,10 +39,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownPupilLink = _deletePupilInstrumentLink with { pupilId = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, unknownPupilLink);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(unknownPupilLink, new CancellationToken());
             response.Should().Be(-1);
 
             //Then    
@@ -56,10 +53,9 @@ namespace MusicTutor.Api.UnitTests.Handlers.Pupils
         {
             //Given
             var unknownInstrumentLink = _deletePupilInstrumentLink with { instrumentId = Guid.NewGuid() };
-            var req = new WithMusicTutorUserId<DeletePupilInstrumentLink, int>(_currentUser.Id, unknownInstrumentLink);
 
             //When
-            var response = await _handler.Handle(req, new CancellationToken());
+            var response = await _handler.Handle(unknownInstrumentLink, new CancellationToken());
             response.Should().Be(0);
 
             //Then    

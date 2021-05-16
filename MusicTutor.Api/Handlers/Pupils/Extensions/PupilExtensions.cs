@@ -13,9 +13,9 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
             return await context.Pupils.SingleOrDefaultAsync(p => p.Id == pupilId);
         }
 
-        public static async Task<Pupil> GetPupilWithInstrumentsForUserAsync(this IMusicTutorDbContext context, Guid pupilId, Guid musicTutorUserId)
+        public static async Task<Pupil> GetPupilWithInstrumentsAsync(this IMusicTutorDbContext context, Guid pupilId)
         {
-            return await context.Pupils.Include(p => p.Instruments).SingleOrDefaultAsync(p => p.Id == pupilId && p.MusicTutorUserId == musicTutorUserId);
+            return await context.Pupils.Include(p => p.Instruments).SingleOrDefaultAsync(p => p.Id == pupilId);
         }
 
         public static async Task<Pupil> GetPupilWithLessonsForUserAsync(this IMusicTutorDbContext context, Guid pupilId, Guid musicTutorUserId)
