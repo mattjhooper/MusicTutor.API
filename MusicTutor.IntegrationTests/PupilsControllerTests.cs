@@ -13,6 +13,8 @@ using Xunit.Abstractions;
 using Bogus;
 using MusicTutor.Api.Commands.Instruments;
 using MusicTutor.Api.Contracts.Lessons;
+using MusicTutor.Api.Contracts.Payments;
+using MusicTutor.Core.Models.Enums;
 
 namespace MusicTutor.IntegrationTests
 {
@@ -102,6 +104,32 @@ namespace MusicTutor.IntegrationTests
             pupilLessons.Count.Should().Be(1);
 
             await DeletePupilLessonAndValidate(pupil, pupilLessonsURI, pupilLessons);
+
+            retrievedPupil = await GetPupil(pupil.Id);
+            retrievedPupil.AccountBalance.Should().Be(0);
+
+        }
+
+        [Fact(Skip = SkipReason)]
+        public async Task CanManipulatePupilPayments()
+        {
+
+            var pupil = await CreateFakePupilAndValidate();
+            pupil.AccountBalance.Should().Be(0);
+
+            var pupilPaymentsURI = $"{PupilsUri}/{pupil.Id}/Payments";
+
+            _output.WriteLine($"Add Payment to Pupil: {pupil.Id}");
+            var payment = await AddPupilPaymentAndValidate(pupil, pupilPaymentsURI);
+
+            var retrievedPupil = await GetPupil(pupil.Id);
+            retrievedPupil.AccountBalance.Should().Be(payment.Amount);
+
+            List<PaymentResponseDto> pupilPayments = await GetPupilPaymentsAndValidate(pupil, pupilPaymentsURI);
+
+            pupilPayments.Count.Should().Be(1);
+
+            await DeletePupilPaymentAndValidate(pupil, pupilPaymentsURI, pupilPayments);
 
             retrievedPupil = await GetPupil(pupil.Id);
             retrievedPupil.AccountBalance.Should().Be(0);
@@ -288,6 +316,34 @@ namespace MusicTutor.IntegrationTests
 
             var pupilLessons = await getLessonsResponse.Content.ReadAsAsync<List<LessonResponseDto>>();
             return pupilLessons;
+        }
+
+        private async Task<CreatePupilPayment> AddPupilPaymentAndValidate(PupilResponseDto pupil, string pupilPaymentsURI)
+        {
+            var fakePayment = new CreatePupilPayment(pupil.Id, pupil.StartDate, pupil.LessonRate, PaymentType.Cash);
+            var postResponse = await _client.PostAsJsonAsync<CreatePupilPayment>(pupilPaymentsURI, fakePayment);
+            postResponse.StatusCode.Should().Be(StatusCodes.Status201Created);
+            return fakePayment;
+        }
+
+        private async Task DeletePupilPaymentAndValidate(PupilResponseDto pupil, string pupilPaymentsURI, List<PaymentResponseDto> pupilPayments)
+        {
+            _output.WriteLine($"Delete Pupil Payment: {pupil.Id}");
+
+            var deleteResponse = await _client.DeleteAsync($"{pupilPaymentsURI}/{pupilPayments[0].Id}");
+            deleteResponse.StatusCode.Should().Be(StatusCodes.Status204NoContent);
+        }
+
+        private async Task<List<PaymentResponseDto>> GetPupilPaymentsAndValidate(PupilResponseDto pupil, string pupilPaymentsURI)
+        {
+            _output.WriteLine($"Retrieve Pupil Payments: {pupil.Id}");
+
+            var getPaymentsResponse = await _client.GetAsync(pupilPaymentsURI);
+
+            getPaymentsResponse.StatusCode.Should().Be(StatusCodes.Status200OK);
+
+            var pupilPayments = await getPaymentsResponse.Content.ReadAsAsync<List<PaymentResponseDto>>();
+            return pupilPayments;
         }
 
 
