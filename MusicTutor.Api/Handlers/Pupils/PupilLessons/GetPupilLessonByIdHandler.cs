@@ -3,7 +3,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using MapsterMapper;
 using MediatR;
-using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.Contracts.Lessons;
 using MusicTutor.Api.Queries.Pupils;
 using MusicTutor.Core.Services;

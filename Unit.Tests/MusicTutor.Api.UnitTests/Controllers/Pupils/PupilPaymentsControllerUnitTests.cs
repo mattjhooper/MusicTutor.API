@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Api.Contracts.Payments;
 using MusicTutor.Api.Controllers.Pupils;

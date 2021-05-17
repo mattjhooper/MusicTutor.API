@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using MediatR;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Core.Services;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {

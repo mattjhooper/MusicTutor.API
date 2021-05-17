@@ -6,7 +6,6 @@ using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Core.Services;
 using MusicTutor.Api.Contracts.Lessons;
 using MusicTutor.Core.Models;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {

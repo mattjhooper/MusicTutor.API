@@ -5,10 +5,7 @@ using System.Threading;
 using FluentAssertions;
 using System.Linq;
 using System;
-using System.Collections.Generic;
 using MusicTutor.Api.Queries.Pupils;
-using MusicTutor.Api.Contracts.Instruments;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {

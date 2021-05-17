@@ -7,7 +7,6 @@ using FluentAssertions;
 using System.Linq;
 using System.Collections.Generic;
 using MusicTutor.Api.Contracts.Pupils;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {

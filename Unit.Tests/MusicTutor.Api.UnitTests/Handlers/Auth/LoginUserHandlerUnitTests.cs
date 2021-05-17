@@ -1,7 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Microsoft.AspNetCore.Identity;
 using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.EFCore.Handlers.Auth;
 using MusicTutor.Services.Auth;

@@ -8,8 +8,6 @@ using NSubstitute;
 using MusicTutor.Core.Models;
 using System.Linq;
 using System;
-using MusicTutor.Api.Contracts.Pupils;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {

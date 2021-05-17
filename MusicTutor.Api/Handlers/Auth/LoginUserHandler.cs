@@ -1,18 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.Contracts.Auth;
-using MusicTutor.Api.Settings;
 using MusicTutor.Services.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Auth

@@ -1,8 +1,5 @@
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 using MusicTutor.Api.Controllers.Auth;
-using MusicTutor.Api.Settings;
 using MusicTutor.Api.Commands.Auth;
 using NSubstitute;
 using Xunit;
@@ -10,7 +7,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using MusicTutor.Api.Contracts.Auth;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace MusicTutor.Api.UnitTests.Controllers.Auth

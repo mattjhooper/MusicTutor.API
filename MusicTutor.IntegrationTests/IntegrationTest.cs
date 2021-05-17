@@ -1,7 +1,5 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Bogus;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using MusicTutor.Api.Commands.Auth;
 using MusicTutor.Api.Contracts.Auth;

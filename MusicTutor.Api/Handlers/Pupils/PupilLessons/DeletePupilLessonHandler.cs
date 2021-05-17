@@ -4,7 +4,6 @@ using MediatR;
 using MusicTutor.Api.Commands.Pupils;
 using MusicTutor.Core.Services;
 using System.Linq;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {

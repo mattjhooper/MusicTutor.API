@@ -6,7 +6,6 @@ using System.Threading;
 using NSubstitute;
 using MusicTutor.Core.Models;
 using System;
-using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.UnitTests.Handlers.Pupils
 {
