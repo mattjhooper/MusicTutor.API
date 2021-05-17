@@ -10,16 +10,16 @@ using MusicTutor.Core.Services;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record GetPupilPaymentByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>, PaymentResponseDto>
+    public record GetPupilPaymentByIdHandler(IMusicTutorDbContext DbContext, IMapper Mapper) : IRequestHandler<GetPupilPaymentById, PaymentResponseDto>
     {
-        public async Task<PaymentResponseDto> Handle(WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto> request, CancellationToken cancellationToken)
+        public async Task<PaymentResponseDto> Handle(GetPupilPaymentById request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.GetPupilWithPaymentsForUserAsync(request.Request.PupilId, request.MusicTutorUserId);
+            var pupil = await DbContext.GetPupilWithPaymentsAsync(request.PupilId);
 
             if (pupil is null)
                 return null;
 
-            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.Request.PaymentId);
+            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.PaymentId);
 
             if (payment is null)
                 return null;

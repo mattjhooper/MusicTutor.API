@@ -8,16 +8,16 @@ using MusicTutor.Api.Commands.Auth;
 
 namespace MusicTutor.Api.EFCore.Handlers.Pupils
 {
-    public record DeletePupilPaymentHandler(IMusicTutorDbContext DbContext) : IRequestHandler<WithMusicTutorUserId<DeletePupilPayment, int>, int>
+    public record DeletePupilPaymentHandler(IMusicTutorDbContext DbContext) : IRequestHandler<DeletePupilPayment, int>
     {
-        public async Task<int> Handle(WithMusicTutorUserId<DeletePupilPayment, int> request, CancellationToken cancellationToken)
+        public async Task<int> Handle(DeletePupilPayment request, CancellationToken cancellationToken)
         {
-            var pupil = await DbContext.GetPupilWithPaymentsForUserAsync(request.Request.PupilId, request.MusicTutorUserId);
+            var pupil = await DbContext.GetPupilWithPaymentsAsync(request.PupilId);
 
             if (pupil is null)
                 return -1;
 
-            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.Request.PaymentId);
+            var payment = pupil.Payments.SingleOrDefault(l => l.Id == request.PaymentId);
 
             if (payment is null)
                 return 0;

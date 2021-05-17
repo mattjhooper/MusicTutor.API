@@ -32,8 +32,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<PaymentResponseDto>> GetSingleAsync([FromRoute] Guid pupilId, [FromRoute] Guid paymentId)
         {
-            var req = new WithMusicTutorUserId<GetPupilPaymentById, PaymentResponseDto>(UserId, new GetPupilPaymentById(pupilId, paymentId));
-            var payment = await mediator.Send(req);
+            var payment = await mediator.Send(new GetPupilPaymentById(pupilId, paymentId));
 
             if (payment is null)
                 return NotFound();
@@ -50,8 +49,7 @@ namespace MusicTutor.Api.Controllers.Pupils
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<PaymentResponseDto>>> GetManyAsync([FromRoute] Guid pupilId)
         {
-            var req = new WithMusicTutorUserId<GetPupilPayments, IEnumerable<PaymentResponseDto>>(UserId, new GetPupilPayments(pupilId));
-            var payments = await mediator.Send(req);
+            var payments = await mediator.Send(new GetPupilPayments(pupilId));
 
             return Ok(payments);
         }
@@ -75,8 +73,7 @@ namespace MusicTutor.Api.Controllers.Pupils
 
             try
             {
-                var req = new WithMusicTutorUserId<CreatePupilPayment, PaymentResponseDto>(UserId, item);
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(item);
 
                 if (result is null)
                     return NotFound();
@@ -107,9 +104,8 @@ namespace MusicTutor.Api.Controllers.Pupils
             try
             {
                 var deletePupilPayment = new DeletePupilPayment(pupilId, paymentId);
-                var req = new WithMusicTutorUserId<DeletePupilPayment, int>(UserId, deletePupilPayment);
 
-                var result = await mediator.Send(req);
+                var result = await mediator.Send(deletePupilPayment);
 
                 if (result <= 0)
                     return NotFound();
