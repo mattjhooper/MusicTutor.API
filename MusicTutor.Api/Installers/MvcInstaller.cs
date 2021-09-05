@@ -21,6 +21,16 @@ namespace MusicTutor.Api.Installers
     {
         public void InstallServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
+
             services.AddControllers();
 
             services.AddMvc().AddFluentValidation(mvcConfiguration => mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>())
@@ -64,6 +74,7 @@ namespace MusicTutor.Api.Installers
 
             services.AddHttpContextAccessor();
             services.AddTransient<IUserRepository, UserRepository>();
+            
         }
     }
 }

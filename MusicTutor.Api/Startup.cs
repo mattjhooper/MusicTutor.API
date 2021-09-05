@@ -43,6 +43,8 @@ namespace MusicTutor.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+
             var swaggerSettings = Configuration.GetSection(nameof(SwaggerSettings)).Get<SwaggerSettings>();
 
             app.UseSwagger();
@@ -65,6 +67,8 @@ namespace MusicTutor.Api
             });
 
             app.UseAuthentication();
+
+            
         }
     }
 }
