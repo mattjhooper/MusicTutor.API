@@ -8,3 +8,9 @@ https://ardalis.com/moving-from-controllers-and-actions-to-endpoints-with-mediat
 
 # Watch Command
 dotnet watch --project .\Unit.Tests\MusicTutor.Api.UnitTests test /p:CollectCoverage=true /p:CoverletOutputFormat=lcov /p:CoverletOutput=./lcov.info
+
+# Test Coverage
+dotnet test --collect:"XPlat Code Coverage"
+
+# Generate HTML report
+reportgenerator -reports:"C:\dev\MusicTutor.API\Unit.Tests\MusicTutor.Api.UnitTests\TestResults\e062ba8f-c202-4a0b-8df2-6b8e0f075f62\coverage.cobertura.xml" -targerdir:"coverageresults" -reporttypes:Html
