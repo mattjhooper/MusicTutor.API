@@ -10,16 +10,19 @@ namespace MusicTutor.Api.EFCore.Handlers.Pupils
     {
         public async Task<int> Handle(DeletePupil request, CancellationToken cancellationToken)
         {
-            int deletedCount = 0;
-            var Pupil = await DbContext.GetPupilAsync(request.Id);
+            var pupil = await DbContext.GetPupilAsync(request.Id);
+            return await DeletePupil(pupil, cancellationToken);         
+        }
 
-            if (Pupil is not null)
+        private async Task<int> DeletePupil(Core.Models.Pupil pupil, CancellationToken cancellationToken)
+        {
+            if (pupil is not null)
             {
-                DbContext.Pupils.Remove(Pupil);
-                deletedCount = await DbContext.SaveChangesAsync(cancellationToken);
+                DbContext.Pupils.Remove(pupil);
+                return await DbContext.SaveChangesAsync(cancellationToken);
             }
 
-            return deletedCount;
+            return 0;
         }
     }
 }
