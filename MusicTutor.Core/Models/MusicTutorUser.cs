@@ -7,6 +7,12 @@ using MusicTutor.Core.Models;
 
 public class MusicTutorUser : IdentityUser<Guid>
 {
-    private HashSet<Pupil> _pupils;
+    private readonly HashSet<Pupil> _pupils;
+
+    public MusicTutorUser()
+    {
+        _pupils = new HashSet<Pupil>();
+    }
+
     public IEnumerable<Pupil> Pupils => _pupils;
 }
