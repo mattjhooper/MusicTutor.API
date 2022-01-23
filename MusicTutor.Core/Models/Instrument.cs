@@ -14,6 +14,8 @@ namespace MusicTutor.Core.Models
         {
             Guard.Against.NullOrWhiteSpace(name, nameof(name));
             Name = name;
+
+            _pupils = new HashSet<Pupil>();
         }
         public Guid Id { get; private set; }
         
